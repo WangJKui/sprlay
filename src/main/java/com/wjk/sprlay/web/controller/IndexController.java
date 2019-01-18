@@ -32,4 +32,9 @@ public class IndexController {
 	public String index(ModelMap map) {
 		return "index";
 	}
+	
+	@RequestMapping("/test")
+	public String testMenu() {
+		return "views/test/menu";
+	}
 }

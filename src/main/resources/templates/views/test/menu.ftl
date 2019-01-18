@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="${request.contextPath}/layui/css/layui.css">
     <script type="text/javascript" src="${request.contextPath}/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="${request.contextPath}/layui/layui.js"></script>
-    <script type="text/javascript" src="${request.contextPath}/js/test/login.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/js/test/menu.js"></script>
 
 </head>
 <body>

@@ -10,11 +10,11 @@ layui.config({
 	navbar.render();
 	//下面的部分不是必须的
 	navbar.on('click(demo)', function(data) {
-		console.log(data.elem);
+		/*console.log(data.elem);
 		console.log(data.field.title);//标题
 		console.log(data.field.icon);//图标
 		console.log(data.field.href);//调转地址
-		layer.msg(data.field.href);
+		layer.msg(data.field.href);*/
 	});
 
 	//给选中的页签添加选中样式（解决刷新失效问题）

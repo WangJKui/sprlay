@@ -283,6 +283,7 @@ xblock{
     color: #333;
     cursor: pointer;
 }
+/*左侧菜单start bottom: 42px;*/
 .left-nav{
     position: absolute;
     top: 46px;
@@ -356,6 +357,7 @@ xblock{
     float: right;
     font-size: 16px;
 }
+/*左侧菜单end*/
 .x-slide_left {
     width: 17px;
     height: 61px;
@@ -366,6 +368,7 @@ xblock{
     cursor: pointer;
     z-index: 3;
 }
+/*bottom: 42px;*/
 .page-content{
     position: absolute;
     top: 46px;
@@ -375,11 +378,12 @@ xblock{
     overflow: hidden;
     z-index: 1;
 }
+/*bottom: 42px;*/
 .page-content-bg{
     position: absolute;
     top: 46px;
     right: 0;
-    bottom: 42px;
+    bottom: 0px;
     left: 221px;
     background: rgba(0,0,0,0.5); url() 0 0 no-repeat;
     overflow: hidden;

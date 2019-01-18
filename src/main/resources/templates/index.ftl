@@ -269,19 +269,19 @@
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-               <!--  <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe> -->
-                <#include "/views/main.ftl">
+<!--                <iframe src='/views/main.ftl' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+ -->                 <#include "/views/main.ftl"> 
             </div>
           </div>
         </div>
     </div>
-    <div class="page-content-bg"></div>
-    <!-- 右侧主体结束 -->
+     <div class="page-content-bg"></div>
+     <!-- 右侧主体结束 -->
     <!-- 中部结束 -->
     <!-- 底部开始 -->
-    <div class="footer">
+    <!-- <div class="footer"> bottom: 42px; 改为 bottom: 0px;
         <div class="copyright">Copyright ©2017 x-admin v2.3 All Rights Reserved</div>  
-    </div>
+    </div> -->
     <!-- 底部结束 -->
 </body>
 </html>

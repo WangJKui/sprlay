@@ -10,20 +10,26 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
 	
-	<link rel="stylesheet" href="${request.contextPath}/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="${request.contextPath}/css/public.css" media="all" />
+	<link rel="stylesheet" href="${request.contextPath}/css/error.css" media="all" />
 	<script type="text/javascript" src="${request.contextPath}/layui/layui.js"></script>
 
 </head>
-<body class="childrenBody">
-	<div class="noFind">
-		<div class="ufo">
-			<i class="seraph icon-test ufo_icon"></i>
-			<i class="layui-icon page_icon">&#xe638;</i>
-		</div>
-		<div class="page404">
-			<i class="layui-icon">&#xe61c;</i>
-			<p>抱歉，服务器出错了!</p>
+<body class="error">
+	<div class="layui-fluid">
+		<div class="layui-row">
+			<div class="layui-col-xs12">
+				<div class="layui-row">
+					<div class="layui-col-md4">&nbsp;</div>
+					<div class="layui-col-md4">
+						<div class="sprlay-exception">
+							<i class="layui-icon sprlay-exception-icon">&#xe64d;</i>
+							<h2 class="sprlay-exception-title">:>500 抱歉，服务器出错了.</h2>
+							<!-- <a href="javascript:history.back(-1);" class="layui-btn">返回上一页</a> -->
+						</div>
+					</div>
+					<div class="layui-col-md4">&nbsp;</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

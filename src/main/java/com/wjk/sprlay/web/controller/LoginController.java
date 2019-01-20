@@ -38,7 +38,7 @@ public class LoginController {
 	 */
 	@RequestMapping("/tologin")
 	public String toLogin() {
-		return "views/login";
+		return "views/login/login";
 	}
 	
 	/**
@@ -89,6 +89,6 @@ public class LoginController {
 		
 		subject.logout();
 		
-		return "login";
+		return "views/login/login";
 	}
 }

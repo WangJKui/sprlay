@@ -33,8 +33,21 @@ public class IndexController {
 		return "index";
 	}
 	
-	@RequestMapping("/test")
-	public String testMenu() {
-		return "views/test/menu";
+	@RequestMapping("/main")
+	public String toMain() {
+		return "views/main";
+	}
+	
+	@RequestMapping("/403")
+	public String to404() {
+		return "error/403";
+	}
+	@RequestMapping("/404")
+	public String to403() {
+		return "error/404";
+	}
+	@RequestMapping("/500")
+	public String to500() {
+		return "error/500";
 	}
 }

@@ -1,0 +1,28 @@
+@import url(../public.css);
+.sprlay-body{
+    margin-right: 20px;
+}
+.sprlay-so{
+    margin-bottom: 20px;
+}
+.sprlay-so input.layui-input{
+    width: 150px;
+}
+.sprlay-so .layui-form-label{
+    display: inline-block;
+}
+.sprlay-so input.layui-input,.sprlay-so input.layui-btn{
+    display: inline-block;
+}
+.sprlay-right{
+  float: right;
+}
+xblock{
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    line-height: 22px;
+    /* border-left: 5px solid #009688; */
+    border-radius: 0 2px 2px 0;
+    background-color: #f2f2f2;
+}

@@ -1,0 +1,15 @@
+@import url(public.css);
+
+.sprlay-exception{
+	text-align:center;
+}
+
+.sprlay-exception .sprlay-exception-icon{
+	color:#3d4a5d;
+	font-size:330px;
+}
+
+.sprlay-exception .sprlay-exception-title{
+	color:#3d4a5d;
+	line-height:40px;
+}

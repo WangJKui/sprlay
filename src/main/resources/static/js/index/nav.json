@@ -1,0 +1,62 @@
+[
+  {
+    "title": "用户列表",
+    "icon": "&#xe67a;",
+    "href": "/sprlay/user/list",
+    "id":"1001"
+  },
+  {
+    "title": "一级导航",
+    "icon": "&#xe678;",
+    "href": "2eqwe",
+    "id":"1002",
+    "children": [
+      {
+        "title": "二级导航",
+        "icon": "&#xe679;",
+        "href": "lala.html",
+         "id":"1003",
+        "children": [
+          {
+            "title": "三级导航",
+            "icon": "&#xe677;",
+            "href": "/sprlay/login/tologin",
+             "id":"1004"
+          },
+          {
+            "title": "三级导航",
+            "icon": "&#xe676;",
+            "href": "qweqwe",
+             "id":"1005"
+          }
+        ]
+      }
+    ]
+  },
+   {
+    "title": "error页面",
+    "icon": "&#xe678;",
+    "href": "2eqwe",
+    "id":"1002",
+    "children": [
+        {
+   		 "title": "403",
+   		 "icon": "&#xe702;",
+    	 "href": "/sprlay/403",
+     	 "id":"1006"
+ 		 },
+  		{
+  		  "title": "404",
+  		  "icon": "&#xe66a;",
+   		  "href": "/sprlay/404",
+   		  "id":"1007"
+		  },
+  		{
+  		  "title": "500",
+  		  "icon": "&#xe653;",
+   		 "href": "/sprlay/500",
+   		  "id":"1008"
+      }
+    ]
+    }
+]

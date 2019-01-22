@@ -76,7 +76,7 @@ layui.define(['element','jquery','layer'], function (exports) {
                     //是否有孙子节点
                     if (data[i].children[j].children !== undefined && data[i].children[j].children !== null && data[i].children[j].children.length > 0) {
                         ulHtml += '<dd>';
-                        ulHtml += '<a href="javascript:;" id = "'+data[i].children[j].id+'">&nbsp;&nbsp;&nbsp;&nbsp;' + data[i].children[j].title;
+                        ulHtml += '<a href="javascript:;" id = "'+data[i].children[j].id+'">' + data[i].children[j].title;
                         ulHtml += '<span class="layui-nav-more"></span>';
                         ulHtml += '</a>';
                         //三级菜单
@@ -84,7 +84,7 @@ layui.define(['element','jquery','layer'], function (exports) {
 	                        var grandsonNodes = data[i].children[j].children;
 	                        for (var k = 0; k < grandsonNodes.length; k++) {
 	                            ulHtml += '<dd>';
-	                            ulHtml += '<a href="javascript:;" data-url="'+ grandsonNodes[k].href +'" id = "'+grandsonNodes[k].id+'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + grandsonNodes[k].title + '</a>';
+	                            ulHtml += '<a href="javascript:;" data-url="'+ grandsonNodes[k].href +'" id = "'+grandsonNodes[k].id+'">' + grandsonNodes[k].title + '</a>';
 	                            ulHtml += '</dd>';
 	                        }
 	                    ulHtml += '</dl>';

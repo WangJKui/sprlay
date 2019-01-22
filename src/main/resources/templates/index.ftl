@@ -5,14 +5,13 @@
 	<title>sprlay主页</title>
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport"
-		content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
 	
-	<link rel="shortcut icon" href="${request.contextPath}/images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="${request.contextPath}/images/favicon.ico" />
+	<link rel="stylesheet" href="${request.contextPath}/css/index/index.css">
 	
 	<script type="text/javascript" src="${request.contextPath}/layui/layui.js"></script>
-	<link rel="stylesheet" href="${request.contextPath}/css/index/index.css">
     <script type="text/javascript" src="${request.contextPath}/js/index/index.js"></script>
 
 </head>
@@ -33,19 +32,19 @@
 				<li class="layui-nav-item"><a href="javascript:;">其它系统</a>
 					<dl class="layui-nav-child">
 						<dd>
-							<a href="">邮件管理</a>
+							<a href="javascript:;">邮件管理</a>
 						</dd>
 						<dd>
-							<a href="">消息管理</a>
+							<a href="javascript:;">消息管理</a>
 						</dd>
 						<dd>
-							<a href="">授权管理</a>
+							<a href="javascript:;">授权管理</a>
 						</dd>
 					</dl></li>
 			</ul>
-			<ul class="layui-nav layui-layout-right">
+			<ul class="layui-nav layui-layout-right" lay-filter="sprlay-nav-right">
 				<li class="layui-nav-item" sprlay-target="help">
-					<a href="javascript:;">
+					<a href="javascript:;" id="sprlay-help">
 						<i class="layui-icon">&#xe607;</i><span>帮助</span>
 					</a>
 				</li>
@@ -55,20 +54,20 @@
 					</a>
 					<dl class="layui-nav-child">
 						<dd>
-							<a href="javascript:;">
-								<i class="layui-icon">&#xe612;</i>
+							<a href="javascript:;" id="sprlay-user-form" data-url="${request.contextPath}/user/form">
+								<i class="layui-icon layui-icon-friends"></i>
 								<cite>基本资料</cite>
 							</a>
 						</dd>
 						<dd>
-							<a href="javascript:;">
-								<i class="layui-icon">&#xe614;</i>
-								<cite>安全设置</cite>
+							<a href="javascript:;" id="sprlay-user-password" data-url="${request.contextPath}/user/password">
+								<i class="layui-icon layui-icon-set-fill"></i>
+								<cite>修改密码</cite>
 							</a>
 						</dd>
 						<dd>
 							<a href="${request.contextPath}/login/logout">
-								<i class="layui-icon">&#x1006;</i>
+								<i class="layui-icon layui-icon-close"></i>
 								<cite>注销</cite>
 							</a>
 						</dd>
@@ -91,7 +90,7 @@
 				</ul>
 				<div class="layui-tab-content">
 					<div class="layui-tab-item layui-show">
-					<iframe data-id="'+id+'" frameborder="0" src="${request.contextPath}/main"  class="sprlay-iframe"></iframe>
+					<iframe data-id="sprlay-iframe-main" frameborder="0" src="${request.contextPath}/main"  class="sprlay-iframe"></iframe>
 						<!-- 滚动条<#include "/views/main.ftl"> -->
 					</div>
 				</div>

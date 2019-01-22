@@ -5,10 +5,10 @@
 	<title>sprlay管理后台登录</title>
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
    
-    <link rel="shortcut icon" href="${request.contextPath}/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="${request.contextPath}/images/favicon.ico" />
 	<link rel="stylesheet" href="${request.contextPath}/css/login/login.css">
     
     <script type="text/javascript" src="${request.contextPath}/layui/layui.js"></script>

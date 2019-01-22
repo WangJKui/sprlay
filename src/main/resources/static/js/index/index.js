@@ -22,32 +22,49 @@ layui.use(['navbar','form','element','layer','jquery'], function() {
 	//点击菜单
 	element.on('nav(sprlay-nav)', function(elem){
   	   
-  	    var title = $(elem).text();
-  	    var url = $(elem).attr("data-url");
-  	    var id = $(elem).attr("id");
-  	  
-  	  	//如果不存在子级
-  	    if($(this).siblings().length == 0){
-  	    	//所有tab
-  	    	for (var i = 0; i <$('.layui-tab-title li').length; i++) {
-  	    		if($('.layui-tab-title li').eq(i).attr('lay-id')==id){
-  	    			navbar.tabChange(id);
-  	    			return;
-  	    		}
-  	    	};
-  	  		
-  	  		navbar.tabAdd(title,id,url);
-  	  	}
+		addOrChangeTab(elem);
     });
 	
 	//隐藏左侧导航
 	$(".sprlay-flexible").click(function(){
 		
-		$("#sprlay-app-flexible").toggleClass("layui-icon-shrink-right");
+		$("#sprlay-app-flexible").toggleClass("layui-icon-shrink-right").toggleClass("layui-icon-spread-left");
 
-		$("#sprlay-app-flexible").toggleClass("layui-icon-spread-left");
-
-//		$(".layui-side").hide();
 	})
 	
+	//点击水平菜单 sprlay-nav-right
+	element.on('nav(sprlay-nav-right)', function(elem){
+		var id = $(elem).attr("id");
+		//帮助
+  	    if("sprlay-help" == id){
+  	    	layer.open({
+  	    		title: '帮助',
+  	    		content: '联系方式'
+  	    	});     
+  	  	} 
+  	    else {
+  	    	addOrChangeTab(elem);
+  	    }
+    });  
+	
+	//添加或者定位到tab
+	function addOrChangeTab(elem) {
+		var title = $(elem).text();
+		var url = $(elem).attr("data-url");
+		var id = $(elem).attr("id");
+//		console.log($(elem));
+//		console.log($(elem).siblings());
+
+		 if($(elem).siblings().length == 0){
+		    	//所有tab
+			 for (var i = 0; i <$('.layui-tab-title li').length; i++) {
+				 if($('.layui-tab-title li').eq(i).attr('lay-id')==id){
+					 navbar.tabChange(id);
+					 return;
+				 }
+			 };
+		  		
+			 navbar.tabAdd(title,id,url);
+		 }
+	}
 });

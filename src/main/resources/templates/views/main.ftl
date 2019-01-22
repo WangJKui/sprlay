@@ -5,7 +5,7 @@
         <title>我的桌面</title>
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
+ 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
        
         <link rel="stylesheet" href="${request.contextPath}/css/index/main.css">
         

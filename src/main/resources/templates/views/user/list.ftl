@@ -20,6 +20,8 @@
 
 	<script type="text/html" id="toolbarUserList">
  		 <div class="layui-btn-container">
+ 			 <button class="layui-btn layui-btn-sm" lay-event="add">新增</a>
+
    			 <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
   			 <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
   			 <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
@@ -35,29 +37,47 @@
 	</script>
 
 	<script>
+	
+		var ctx = "${request.contextPath}";
+	
 		layui.use('table', function() {
 			var table = layui.table;
 
 			table.render({
 				elem : '#sprlay-user-list',
-				url : '/sprlay/js/user/user.json',
+				url : ctx+'/user/all',
+				method : "post",
+				parseData: function(res){ //res 即为原始返回的数据
+				    return {
+				      "code": res.code, //解析接口状态
+				      "msg": res.msg, //解析提示文本
+				      "count": res.data.total, //解析数据长度
+				      "data": res.data.list //解析数据列表
+				    };
+				},
 				toolbar : '#toolbarUserList',
 				title : '用户数据表',
 				cols : [ [ {
 					type : 'checkbox',
 					fixed : 'left'
 				}, {
-					field : 'id',
-					title : 'ID',
-					width : 80,
+					field : 'username',
+					title : '账号',
+					width : 120,
 					fixed : 'left',
 					unresize : true,
 					sort : true
 				}, {
-					field : 'username',
-					title : '用户名',
+					field : 'nickname',
+					title : '姓名',
 					width : 120,
 					//edit : 'text'
+				}, {
+					field : 'sex',
+					title : '性别',
+					width : 80,
+					//edit : 'text',
+					sort : true
 				}, {
 					field : 'email',
 					title : '邮箱',
@@ -67,34 +87,12 @@
 						return '<em>' + res.email + '</em>'
 					}
 				}, {
-					field : 'sex',
-					title : '性别',
-					width : 80,
-					//edit : 'text',
+					field : 'phone',
+					title : '电话',
+					width : 120,
 					sort : true
-				}, {
-					field : 'city',
-					title : '城市',
-					width : 100
-				}, {
-					field : 'sign',
-					title : '签名'
-				}, {
-					field : 'experience',
-					title : '积分',
-					width : 80,
-					sort : true
-				}, {
-					field : 'ip',
-					title : 'IP',
-					width : 120
-				}, {
-					field : 'logins',
-					title : '登入次数',
-					width : 100,
-					sort : true
-				}, {
-					field : 'joinTime',
+				},   {
+					field : 'createTime',
 					title : '加入时间',
 					width : 120
 				}, {
@@ -122,6 +120,14 @@
 					break;
 				case 'delete':
 					layer.msg("删除："+data.length);
+					break;
+				case 'add':
+					layer.open({
+						type: 2,
+						title:"新增用户信息",
+						content: '/sprlay/user/form', //这里content是一个普通的String
+						area: ['600px', '400px']
+						});
 					break;
 				}
 				;

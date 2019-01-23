@@ -32,6 +32,7 @@ public class SprLayInterceptor implements HandlerInterceptor{
 		logger.debug("getServerPort："+request.getServerPort());
 		logger.debug("getContextPath："+request.getContextPath());
 		logger.debug("getServletPath："+request.getServletPath());
+		//page=1&limit=10 get请求显示
 		logger.debug("getQueryString："+request.getQueryString());
 
 		request.setAttribute("startTime", System.currentTimeMillis());

@@ -5,7 +5,7 @@
 	<title>sprlay主页</title>
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
 	
 	<link rel="icon" href="${request.contextPath}/images/favicon.ico" />

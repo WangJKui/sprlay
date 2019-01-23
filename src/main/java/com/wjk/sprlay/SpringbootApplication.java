@@ -1,4 +1,5 @@
 package com.wjk.sprlay;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date:   2019年1月18日 上午9:09:05   
  *
  */
+@MapperScan("com.wjk.sprlay.web.mapper")
 @SpringBootApplication
 public class SpringbootApplication {
 

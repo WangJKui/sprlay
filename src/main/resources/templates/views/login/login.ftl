@@ -17,7 +17,7 @@
 		//session过期后登录页面嵌套在框架中问题的解决方案
 		if (top != window)  
 	      top.location.href = window.location.href;  
-	  </script>
+	</script>
 </head>
 <body class="login-bg">
     

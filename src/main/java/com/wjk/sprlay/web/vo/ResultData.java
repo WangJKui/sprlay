@@ -17,26 +17,34 @@ public class ResultData implements Serializable{
 	 */
 	private static final long serialVersionUID = 4562369066030846486L;
 	
-	private String code = "0";
+	private Integer code = 0;
 	private String msg = "成功";
 	private Object data;
 	
 	public ResultData() {
 	}
+	
 	public ResultData(Object data) {
 		super();
 		this.data = data;
 	}
-	public ResultData(String code, String msg, Object data) {
+	
+	public ResultData(Integer code, String msg) {
 		super();
 		this.code = code;
 		this.msg = msg;
+	}
+	
+	public ResultData(Integer code, String msg, Object data) {
+		this(code,msg);
 		this.data = data;
 	}
-	public String getCode() {
+	
+	
+	public Integer getCode() {
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(Integer code) {
 		this.code = code;
 	}
 	public String getMsg() {

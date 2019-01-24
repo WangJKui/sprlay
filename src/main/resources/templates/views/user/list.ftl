@@ -42,7 +42,6 @@
 	
 		layui.use('table', function() {
 			var table = layui.table;
-
 			table.render({
 				elem : '#sprlay-user-list',
 				url : ctx+'/user/all',
@@ -103,7 +102,6 @@
 				} ] ],
 				page : true
 			});
-
 			//头工具栏事件
 			table.on('toolbar(sprlay-user-list-filter)', function(obj) {
 				var checkStatus = table.checkStatus(obj.config.id);
@@ -125,14 +123,13 @@
 					layer.open({
 						type: 2,
 						title:"新增用户信息",
-						content: '/sprlay/user/form', //这里content是一个普通的String
-						area: ['600px', '400px']
+						content: ctx+'/user/form/add', //这里content是一个普通的String
+						area: ['500px', '430px']
 						});
 					break;
 				}
 				;
 			});
-
 			//监听行工具事件
 			table.on('tool(sprlay-user-list-filter)', function(obj) {
 				var data = obj.data;
@@ -146,26 +143,16 @@
 						layer.close(index);
 					});
 				} else if (obj.event === 'edit') {
-					/* layer.prompt({
-						formType : 2,
-						value : data.email
-					}, function(value, index) {
-						obj.update({
-							email : value
-						});
-						layer.close(index);
-					}); */
 					layer.open({
 						type: 2,
 						title:"编辑用户信息",
-						content: '/sprlay/user/form', //这里content是一个普通的String
-						area: ['600px', '400px']
+						content: ctx+'/user/form/edit', //这里content是一个普通的String
+						area: ['500px', '430px']
 						});
 				}
 			});
 			
 			
-
 		});
 	</script>
 

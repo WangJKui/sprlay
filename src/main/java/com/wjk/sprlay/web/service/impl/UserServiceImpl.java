@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wjk.sprlay.web.mapper.UserMapper;
 import com.wjk.sprlay.web.model.User;
+import com.wjk.sprlay.web.service.OtherService;
 import com.wjk.sprlay.web.service.UserService;
 
 /**
@@ -19,12 +21,12 @@ import com.wjk.sprlay.web.service.UserService;
  * @date:   2019年1月23日 下午3:34:20   
  *
  */
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
-
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
 		return userMapper.deleteByPrimaryKey(id);
@@ -37,6 +39,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int insertSelective(User user) {
+		//初始化密码为123456
+		user.setPassword("123456");
 		return userMapper.insertSelective(user);
 	}
 
@@ -58,7 +62,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 
 	 * <p>Title: qureyUserByPage</p>   
-	 * <p>Description: </p>   
+	 * <p>Description: 分页查询用户数据</p>   
 	 * @param pageNum
 	 * @param pageSize
 	 * @return   

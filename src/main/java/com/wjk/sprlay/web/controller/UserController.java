@@ -4,8 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,11 +54,33 @@ public class UserController {
 	 * @return: String      
 	 * @throws
 	 */
-	@RequestMapping("/form")
-	public String toUserForm() {
+	@RequestMapping("/form/{type}")
+	public String toUserForm(@PathVariable(value = "type") String type) {
 		return "views/user/form";
 	}
-
+	
+	/**
+	 * 其实 @RequestBody接收的是一个Json对象的字符串，而不是一个Json对象。
+	 * 然而在ajax请求往往传的都是Json对象，后来发现用 JSON.stringify(data)的方式就能将对象变成字符串。
+	 * 同时ajax请求的时候也要指定dataType: "json",contentType:"application/json" 
+	 * 这样就可以轻易的将一个对象或者List传到Java端，使用@RequestBody即可绑定对象或者List.
+	 * @Title: addUser   
+	 * @Description: 添加用户   
+	 * @param: @param type
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
+	@ResponseBody
+	@PostMapping("/add")
+	public ResultData addUser(@RequestBody User user) {
+		
+		logger.debug(user.toString());
+	
+		userService.insertSelective(user);
+		
+		return new ResultData();
+	}
 
 	/**
 	 * 
@@ -84,7 +107,7 @@ public class UserController {
 	 */
 	@ResponseBody
 	@PostMapping("/all")
-	public Object qureyUserByPage(
+	public ResultData qureyUserByPage(
 			@RequestParam(name = "page", required = false, defaultValue = "1")
 			int pageNum,
 			@RequestParam(name = "limit", required = false, defaultValue = "10")

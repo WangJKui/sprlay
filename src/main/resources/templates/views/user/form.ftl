@@ -120,19 +120,22 @@
 		          contentType: "application/json; charset=utf-8",
 		          success:function(res){//res为相应体,function为回调函数
 		            if(res.code==0){
-		              layer.alert('保存信息成功',{icon:1});
-		              var index = parent.layer.getFrameIndex(window.name);  
-					  setTimeout(function(){
+		            	layer.msg("保存信息成功");
+		              //	layer.alert('保存信息成功',{icon:1});
+		             	var index = parent.layer.getFrameIndex(window.name);  
+					 	setTimeout(function(){
 						  parent.layer.close(index);//关闭弹出层
 						  parent.location.reload();//更新父级页面（提示：如果需要跳转到其它页面见下文）
-				      }, 1000);
+			    	    }, 1000);
 
 		            }else{
-		              layer.alert(data.msg,{icon: 5});
+		            	layer.msg(res.msg);
+		             // layer.alert(data.msg,{icon: 5});
 		            }
 		          },
 		          error:function(){
-		            layer.alert('操作失败！！！',{icon:5});
+		        	  layer.msg("操作失败");
+		            //layer.alert('操作失败！！！',{icon:5});
 		          }
 		        });
 		    return false;

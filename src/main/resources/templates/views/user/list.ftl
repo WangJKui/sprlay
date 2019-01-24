@@ -98,7 +98,7 @@
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barUserList',
-					width : 150
+					width : 180
 				} ] ],
 				page : true
 			});

@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wjk.sprlay.util.SprUtil;
 import com.wjk.sprlay.web.mapper.UserMapper;
 import com.wjk.sprlay.web.model.User;
-import com.wjk.sprlay.web.service.OtherService;
 import com.wjk.sprlay.web.service.UserService;
 
 /**
@@ -41,6 +41,8 @@ public class UserServiceImpl implements UserService {
 	public int insertSelective(User user) {
 		//初始化密码为123456
 		user.setPassword("123456");
+		//设置当前时间
+		user.setCreatetime(SprUtil.getDateTimeString());
 		return userMapper.insertSelective(user);
 	}
 
@@ -62,16 +64,16 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 
 	 * <p>Title: qureyUserByPage</p>   
-	 * <p>Description: 分页查询用户数据</p>   
+	 * <p>Description: 分页列表显示用户信息(模糊查询)</p>   
 	 * @param pageNum
 	 * @param pageSize
 	 * @return   
 	 * @see com.wjk.sprlay.web.service.UserService#qureyUserByPage(int, int)
 	 */
 	@Override
-	public PageInfo<User> qureyUserByPage(int pageNum, int pageSize) {
+	public PageInfo<User> qureyUserByPage(int pageNum, int pageSize, User user) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<User> list = userMapper.selectAllUser();
+		List<User> list = userMapper.selectAllUser(user);
 		PageInfo<User> result = new PageInfo<User>(list);
 		return result;
 	}

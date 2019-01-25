@@ -21,14 +21,14 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">账号</label>
 			<div class="layui-input-block">
-				<input type="text" name="username" lay-verify="username"
+				<input type="text" name="username" required lay-verify="username"
 					placeholder="请输入账号" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">姓名</label>
 			<div class="layui-input-block">
-				<input type="text" name="nickname" lay-verify="nickname"
+				<input type="text" name="nickname" required lay-verify="nickname"
 					placeholder="请输入姓名" autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -71,9 +71,6 @@
 
 		  form.verify({
 			  username: function(value, item){ //value：表单的值、item：表单的DOM对象
-				if(!value){
-				  return '必填项不能为空';
-				}
 				if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
 			      return '账号不能有特殊字符';
 			    }
@@ -89,9 +86,6 @@
 			  },
 			  
 			  nickname: function(value, item){ //value：表单的值、item：表单的DOM对象
-				if(!value){
-				   return '必填项不能为空';
-				}
 				if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
 			      return '姓名不能有特殊字符';
 			    }
@@ -139,6 +133,16 @@
 		          }
 		        });
 		    return false;
+		  });
+		  
+		  //表单初始赋值
+		  form.val('userform', {
+		    "username": "贤心", // "name": "value"
+		    "nickname": "123456",
+		    "headimg": "123456",
+		    "email": "123456", 
+		    "phone": "123456", 
+		    "sex": "女"
 		  });
 		});
 </script>

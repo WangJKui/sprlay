@@ -84,6 +84,49 @@ public class UserController {
 
 	/**
 	 * 
+	 * @Title: updateUser   
+	 * @Description: 修改用户信息   
+	 * @param: @param user
+	 * @param: @return      
+	 * @return: ResultData      
+	 * @throws
+	 */
+	@ResponseBody
+	@PostMapping("/update")
+	public ResultData updateUser(@RequestBody User user) {
+		
+		logger.debug(user.toString());
+	
+		userService.updateByPrimaryKeySelective(user);
+		
+		ResultData r = new ResultData();
+		
+		logger.debug(r.toString());
+
+		return r;
+	}
+	/**
+	 * 
+	 * @Title: deleteUser   
+	 * @Description: 根据id删除用户
+	 * @param: @param id
+	 * @param: @return      
+	 * @return: ResultData      
+	 * @throws
+	 */
+	@ResponseBody
+	@PostMapping("/delete/{id}")
+	public ResultData deleteUser(@PathVariable("id") Integer id) {
+		
+		logger.debug(id.toString());
+	
+		userService.deleteByPrimaryKey(id);
+		
+		return new ResultData();
+	}
+	
+	/**
+	 * 
 	 * @Title: toUserPassword   
 	 * @Description: 修改密码
 	 * @param: @return      
@@ -98,7 +141,7 @@ public class UserController {
 	/**
 	 * 
 	 * @Title: qureyUserByPage   
-	 * @Description: 分页列表显示用户信息    
+	 * @Description: 分页列表显示用户信息   (模糊查询) 
 	 * @param: @param pageNum
 	 * @param: @param pageSize
 	 * @param: @return      
@@ -111,9 +154,9 @@ public class UserController {
 			@RequestParam(name = "page", required = false, defaultValue = "1")
 			int pageNum,
 			@RequestParam(name = "limit", required = false, defaultValue = "10")
-			int pageSize){
+			int pageSize,User user){
 		
-		PageInfo<User> page = userService.qureyUserByPage(pageNum,pageSize);
+		PageInfo<User> page = userService.qureyUserByPage(pageNum,pageSize,user);
 		
 		return new ResultData(page);
 	}

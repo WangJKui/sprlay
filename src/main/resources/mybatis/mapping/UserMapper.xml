@@ -141,9 +141,17 @@
   
   
   <!-- sql -->
-  <select id="selectAllUser" resultType="com.wjk.sprlay.web.model.User">
+  <select id="selectAllUser" resultType="com.wjk.sprlay.web.model.User" parameterType="com.wjk.sprlay.web.model.User">
       SELECT
         <include refid="Base_Column_List"/>
       FROM user
+      <where>
+      	<if test="username != null">
+      		AND username like concat(concat("%",#{username}),"%")
+      	</if>
+      	<if test="nickname != null">
+      		AND nickname like concat(concat("%",#{nickname}),"%")
+      	</if>
+      </where>
   </select>
 </mapper>

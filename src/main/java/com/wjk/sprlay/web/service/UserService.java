@@ -17,6 +17,17 @@ public interface UserService {
 
     int updateByPrimaryKey(User user);
     
-    PageInfo<User> qureyUserByPage(int pageNum, int pageSize);
+    /**
+     * 
+     * @Title: qureyUserByPage   
+     * @Description: 分页列表显示用户信息(模糊查询)  
+     * @param: @param pageNum
+     * @param: @param pageSize
+     * @param: @param user
+     * @param: @return      
+     * @return: PageInfo<User>      
+     * @throws
+     */
+    PageInfo<User> qureyUserByPage(int pageNum, int pageSize, User user);
 
 }

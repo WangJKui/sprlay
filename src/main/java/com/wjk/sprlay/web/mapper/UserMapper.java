@@ -17,5 +17,14 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-	List<User> selectAllUser();
+    /**
+     * 
+     * @Title: selectAllUser   
+     * @Description: 分页列表显示用户信息(模糊查询)
+     * @param: @param user
+     * @param: @return      
+     * @return: List<User>      
+     * @throws
+     */
+	List<User> selectAllUser(User user);
 }

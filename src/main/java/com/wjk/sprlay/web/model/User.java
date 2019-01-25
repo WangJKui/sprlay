@@ -105,4 +105,13 @@ public class User implements Serializable{
     public void setCreatetime(String createtime) {
         this.createtime = createtime == null ? null : createtime.trim();
     }
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", headimg=" + headimg
+				+ ", nickname=" + nickname + ", email=" + email + ", phone=" + phone + ", sex=" + sex + ", createtime="
+				+ createtime + "]";
+	}
+    
+    
 }

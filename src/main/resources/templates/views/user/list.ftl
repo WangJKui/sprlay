@@ -16,8 +16,6 @@
   </head>
 
 <body>
-<div class="my-btn-box">
-</div>
 	<div class="userSearchTable">
 		账号：
 		<div class="layui-inline">
@@ -27,7 +25,8 @@
 		<div class="layui-inline">
 			<input class="layui-input" name="s_nickname" id="s_nickname_id" autocomplete="off">
 		</div>
-		<button class="layui-btn" data-type="reload">查询</button>
+		<button class="layui-btn search-reload" data-type="reload">查询</button>
+		<button class="layui-btn layui-btn-primary search-reset" data-type="reset">重置</button>
 	</div>
 	<table class="layui-hide" id="sprlay-user-list" lay-filter="sprlay-user-list-filter"></table>
 
@@ -48,12 +47,13 @@
 		var ctx = "${request.contextPath}";
 		//add or update
 		var type = ""
-		layui.use(['table', 'form', 'layer'], function() {
+		layui.use(['table', 'form', 'layer','util'], function() {
 			
 			var table = layui.table,
 			$ = layui.jquery,
 			form = layui.form,
-			layer = layui.layer;
+			layer = layui.layer,
+			util = layui.util;;
 			table.render({
 				id: 'userTableID',
 				elem : '#sprlay-user-list',
@@ -134,12 +134,23 @@
 						layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
 							id:"userAdd", 
 							type: 1,
-		                    title: "新增用户信息",
-		                    area: ['470px', '400px'],
+		                    title: "新增用户",
+		                    area: ['auto', '310px'],
 		                    content: $("#userAddOrUpdate")//引用的弹出层的页面层的方式加载修改界面表单
 		                });
 		                //动态向表传递赋值可以参看文章进行修改界面的更新前数据的显示，当然也是异步请求的要数据的修改数据的获取
 		                type = "add";
+		                //重置表单
+		              //  $("#userFrom").reset();不起作用
+		                document.getElementById("userFrom").reset();
+		                //显示按钮
+		                $("#user-from-submit-reset .layui-btn-submit").show();
+		                //加入时间
+		                var createtime = util.toDateString(new Date());
+		 			    form.val("user-form-filter", {
+		 				    "createtime":createtime
+		 				});
+						$("#userFrom input").attr("disabled",false);
 					break;
 				}
 			});
@@ -152,10 +163,14 @@
 						id:"userDetail",
 	                    type: 1,
 	                    title: "用户信息",
-	                    area: ['470px', '400px'],
+	                    area: ['auto', '310px'],
 	                    content: $("#userAddOrUpdate")//引用的弹出层的页面层的方式加载修改界面表单
 	                });
 					setFormValue(data);
+					 //隐藏按钮
+					$("#user-from-submit-reset .layui-btn-submit").hide();
+					 //不允许编辑　　$("#id").attr("disabled","disabled");
+					$("#userFrom input").attr("disabled",true);
 				}
 				else if (obj.event === 'del') {
 					layer.confirm('真的删除行么', function (index) {
@@ -182,14 +197,17 @@
 						layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
 							id:"userEdit",
 		                    type: 1,
-		                    title: "修改用户信息",
-		                    area: ['470px', '400px'],
+		                    title: "编辑用户",
+		                    area: ['auto', '310px'],
 		                    content: $("#userAddOrUpdate"),//引用的弹出层的页面层的方式加载修改界面表单
 		                   // btn: ['确定','取消'],//按钮
 		                });
 		                //动态向表传递赋值可以参看文章进行修改界面的更新前数据的显示，当然也是异步请求的要数据的修改数据的获取
 		                type = "update";
 		                setFormValue(data);
+		                //显示按钮
+		                $("#user-from-submit-reset .layui-btn-submit").show();
+						$("#userFrom input").attr("disabled",false);
 				}
 			});
 			
@@ -221,14 +239,14 @@
 			
 		   //初始化表单值
 		   function setFormValue(data){
-			   
 			   form.val("user-form-filter", {
 				   "id":data == null?null:data.id ,
 				   "username":data == null?null:data.username ,
 				   "nickname":data.nickname,	 
 				   "email":data.email,	
 				   "phone": data.phone,	
-				   "sex":  data.sex
+				   "sex":  data.sex,
+				   "createtime":data.createtime
 				});
 			};
 			
@@ -247,11 +265,57 @@
 				      });
 				    }
 				  };
-				  
-			$('.userSearchTable .layui-btn').on('click', function(){
+		   
+		    //列表查询按钮   
+			$('.userSearchTable .search-reload').on('click', function(){
 				  var type = $(this).data('type');
 				  active[type] ? active[type].call(this) : '';
 			});
+			
+			//列表重置按钮 
+			$('.userSearchTable .search-reset').on('click', function(){
+				$("#s_username_id").val("");
+				$("#s_nickname_id").val("");
+			});
+			//表单保存
+			/* $('#user-from-submit-reset .user-close').on('click', function(){
+				var index = layer.open();
+				layer.close(index); //此时你只需要把获得的index，轻轻地赋予layer.close即可
+			}); */
+			//表单验证
+			 form.verify({
+				  username: function(value, item){ //value：表单的值、item：表单的DOM对象
+					if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+				      return '账号不能有特殊字符';
+				    }
+				    if(/(^\_)|(\__)|(\_+$)/.test(value)){
+				      return '账号首尾不能出现下划线\'_\'';
+				    }
+				    if(/^[0-9]*$/.test(value)){
+				      return '账号不能全为数字';
+				    }
+				    if(value.length<3 || value.length>26){
+					   return '账号位数范围{3,26}';
+					}  
+				  },
+				  
+				  nickname: function(value, item){ //value：表单的值、item：表单的DOM对象
+					if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+				      return '姓名不能有特殊字符';
+				    }
+				    if(/(^\_)|(\__)|(\_+$)/.test(value)){
+				      return '姓名首尾不能出现下划线\'_\'';
+				    }
+				    if(/^[0-9]*$/.test(value)){
+				      return '姓名不能全为数字';
+				    }
+				    if(value.length<2 || value.length>26){
+						return '姓名位数范围{2,26}';
+					}  
+				  }
+				  
+				}); 
+			  
 		});
 	</script>
 
@@ -259,8 +323,17 @@
 <!-- 这里是弹出层的表单信息 -->
 <!-- 表单的id用于表单的选择，style是在本页隐藏，只有点击编辑才会弹出 -->
 <div class="layui-row" id="userAddOrUpdate" style="display:none;">
-    <div class="layui-col-md10">
-       	<form class="layui-form" style="width: 360px;margin-top:20px" lay-filter="user-form-filter">
+    <form class="layui-form" style="width: 680px;margin-top:10px" lay-filter="user-form-filter" id="userFrom">
+		<!-- <div class="layui-form-item" id="user-from-submit-reset">
+				<div class="layui-input-block">
+					<button class="layui-btn layui-btn-submit" lay-submit lay-filter="userform">保存</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+		</div> -->
+		<div class="userFormBtn" style="margin-left:20px;margin-bottom:20px;" id="user-from-submit-reset">
+			<button class="layui-btn layui-btn-sm layui-btn-submit" data-type="save" lay-submit lay-filter="userform">保存</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary user-close" data-type="close">关闭</button>
+		</div>
 		<div class="layui-form-item" style="display:none;">
 			<label class="layui-form-label">ID</label>
 			<div class="layui-input-block">
@@ -268,49 +341,54 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">账号</label>
-			<div class="layui-input-block">
-				<input type="text" name="username" required lay-verify="username"
-					placeholder="请输入账号" autocomplete="off" class="layui-input">
+			 <div class="layui-inline">
+				<label class="layui-form-label">账号</label>
+				<div class="layui-input-inline">
+					<input type="text" name="username" required lay-verify="username"
+						placeholder="请输入账号" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			 <div class="layui-inline">
+				<label class="layui-form-label">姓名</label>
+				<div class="layui-input-inline">
+					<input type="text" name="nickname" required lay-verify="nickname"
+						placeholder="请输入姓名" autocomplete="off" class="layui-input">
+				</div>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">姓名</label>
-			<div class="layui-input-block">
-				<input type="text" name="nickname" required lay-verify="nickname"
-					placeholder="请输入姓名" autocomplete="off" class="layui-input">
+			 <div class="layui-inline">
+				<label class="layui-form-label">电话</label>
+				<div class="layui-input-inline">
+					<input type="phone" name="phone" lay-verify="required|phone"
+						placeholder="请输入电话" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			 <div class="layui-inline">
+				<label class="layui-form-label">邮箱</label>
+				<div class="layui-input-inline">
+					<input type="email" name="email" lay-verify="required|email"
+						placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+				</div>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">电话</label>
-			<div class="layui-input-block">
-				<input type="phone" name="phone" lay-verify="required|phone"
-					placeholder="请输入电话" autocomplete="off" class="layui-input">
+			 <div class="layui-inline">
+				<label class="layui-form-label">性别</label>
+				<div class="layui-input-inline">
+					<input type="radio" name="sex" value="男" title="男" checked> 
+					<input type="radio" name="sex" value="女" title="女" >
+				</div>
+			</div>
+			 <div class="layui-inline">
+				<label class="layui-form-label">加入时间</label>
+				<div class="layui-input-inline">
+					<input type="datetime" name="createtime" readonly="readonly" autocomplete="off" class="layui-input">
+				</div>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">邮箱</label>
-			<div class="layui-input-block">
-				<input type="email" name="email" lay-verify="required|email"
-					placeholder="请输入邮箱" autocomplete="off" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">性别</label>
-			<div class="layui-input-block">
-				<input type="radio" name="sex" value="男" title="男" checked> 
-				<input type="radio" name="sex" value="女" title="女" >
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button class="layui-btn layui-btn-submit" lay-submit lay-filter="userform">保存</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-			</div>
-		</div>
-	</form>
+		</form>
     </div>
-</div>
 </body>
 
 </html>

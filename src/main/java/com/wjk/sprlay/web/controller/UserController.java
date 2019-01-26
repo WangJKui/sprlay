@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.wjk.sprlay.util.SprUtil;
 import com.wjk.sprlay.web.model.User;
 import com.wjk.sprlay.web.service.UserService;
 import com.wjk.sprlay.web.vo.ResultData;
@@ -54,9 +56,24 @@ public class UserController {
 	 * @return: String      
 	 * @throws
 	 */
-	@RequestMapping("/form/{type}")
-	public String toUserForm(@PathVariable(value = "type") String type) {
-		return "views/user/form";
+	@RequestMapping("/form/{type}/{id}")
+	public ModelAndView toUserForm(@PathVariable(value = "type") String type,@PathVariable(value = "id") Integer id) {
+		
+		User user = userService.selectByPrimaryKey(id);
+		
+		ModelAndView mv = new ModelAndView();
+		if("add".equals(type)) {
+			user = new User();
+			user.setCreatetime(SprUtil.getDateTimeString());
+			user.setSex("男");
+		}
+		mv.addObject("user", user);
+		//update,detail,add
+		mv.addObject("type", type);
+		
+		mv.setViewName("views/user/form");
+		
+		return mv;
 	}
 	
 	/**

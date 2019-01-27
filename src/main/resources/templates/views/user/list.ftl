@@ -46,14 +46,12 @@
 	
 		var ctx = "${request.contextPath}";
 		//add or update
-		var type = ""
-		layui.use(['table', 'form', 'layer','util'], function() {
+		var type = "";
+		layui.use(['table', 'layer','jquery'], function() {
 			
 			var table = layui.table,
 			$ = layui.jquery,
-			form = layui.form,
-			layer = layui.layer,
-			util = layui.util;;
+			layer = layui.layer;
 			table.render({
 				id: 'userTableID',
 				elem : '#sprlay-user-list',
@@ -75,7 +73,8 @@
 				}, {
 					field : 'id',
 					title : 'ID',
-					hide:true
+					fixed : 'left',
+					//hide:true
 				}, {
 					field : 'username',
 					title : '账号',
@@ -115,7 +114,7 @@
 					width : 180,
 					sort : true
 				}, {
-					//fixed : 'right',
+					fixed : 'right',
 					title : '操作',
 					toolbar : '#barUserList',
 					width : 180
@@ -132,7 +131,7 @@
 							id:"userAdd", 
 							type: 2,
 		                    title: "新增用户",
-		                    area: ['680px', '300px'],
+		                    area: ['700px', '300px'],
 		                    content: ctx+'/user/form/add/0'//id=0
 		                });
 					break;
@@ -146,7 +145,7 @@
 						id:"userDetail",
 	                    type: 2,
 	                    title: "用户信息",
-	                    area: ['680px', '250px'],
+	                    area: ['700px', '250px'],
 	                    content: ctx+'/user/form/detail/'+data.id
 	                });
 				}
@@ -172,7 +171,7 @@
 							id:"userEdit",
 		                    type: 2,
 		                    title: "编辑用户",
-		                    area: ['680px', '300px'],
+		                    area: ['700px', '300px'],
 		                    content: ctx+'/user/form/update/'+data.id
 		                });
 				}

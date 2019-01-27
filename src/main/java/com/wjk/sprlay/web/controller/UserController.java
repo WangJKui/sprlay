@@ -1,5 +1,7 @@
 package com.wjk.sprlay.web.controller;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,17 +146,32 @@ public class UserController {
 	
 	/**
 	 * 
-	 * @Title: toUserPassword   
+	 * @Title: toPassword   
+	 * @Description: 修改密码弹框
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
+	@RequestMapping("/topassword")
+	public String toPassword() {
+		return "views/user/password";
+	}
+	/**
+	 * 
+	 * @Title: updatePassword   
 	 * @Description: 修改密码
 	 * @param: @return      
 	 * @return: String      
 	 * @throws
 	 */
-	@RequestMapping("/password")
-	public String toUserPassword() {
-		return "views/user/password";
-	}
+	@ResponseBody
+	@RequestMapping("/uppassword")
+	public ResultData updatePassword(@RequestBody Map<String, String> map) {
+		
+		logger.debug("旧密码："+map.get("oldPassword")+"新密码："+map.get("password")+"确认新密码："+map.get("rePassword"));
+		return new ResultData();
 
+	}
 	/**
 	 * 
 	 * @Title: qureyUserByPage   

@@ -10,7 +10,9 @@
 	
 	<link rel="icon" href="${request.contextPath}/images/favicon.ico" />
 	<link rel="stylesheet" href="${request.contextPath}/css/index/index.css">
-	
+	<script type="text/javascript">
+		var ctx = "${request.contextPath}";
+	</script>
 	<script type="text/javascript" src="${request.contextPath}/layui/layui.js"></script>
     <script type="text/javascript" src="${request.contextPath}/js/index/index.js"></script>
 
@@ -60,7 +62,7 @@
 							</a>
 						</dd>
 						<dd>
-							<a href="javascript:;" id="sprlay-user-password" data-url="${request.contextPath}/user/password">
+							<a href="javascript:;" id="sprlay-user-password">
 								<i class="layui-icon layui-icon-set-fill"></i>
 								<cite>修改密码</cite>
 							</a>

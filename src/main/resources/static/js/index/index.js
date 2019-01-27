@@ -41,7 +41,17 @@ layui.use(['navbar','form','element','layer','jquery'], function() {
   	    		title: '帮助',
   	    		content: '联系方式'
   	    	});     
-  	  	} 
+  	  	} else if("sprlay-user-password" == id){
+  	  		//修改密码弹框 ${request.contextPath}/user/password"
+  	  		//sprlay-user-password
+  	  		layer.open({
+	  			id:"userPassword",
+	              type: 2,
+	              title: "修改密码",
+	              area: ['500px', '320px'],
+	              content: ctx+'/user/topassword',
+	          });		
+  	  	}
   	    else {
   	    	addOrChangeTab(elem);
   	    }
@@ -67,4 +77,6 @@ layui.use(['navbar','form','element','layer','jquery'], function() {
 			 navbar.tabAdd(title,id,url);
 		 }
 	}
+	
+	
 });

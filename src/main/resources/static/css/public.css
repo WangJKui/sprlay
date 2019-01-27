@@ -15,3 +15,7 @@ body{
     width: 100%;
     min-height: 100%;
 }
+
+.user-password-100 .layui-form-label{
+	 width: 100px;
+}

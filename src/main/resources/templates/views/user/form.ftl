@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	<form class="layui-form" style="width: 680px;padding-top:10px" lay-filter="user-form-filter">
+	<form class="layui-form" style="width: 700px;padding-top:10px" lay-filter="user-form-filter">
 		<div class="layui-form-item" style="display:none;">
 			<label class="layui-form-label">ID</label>
 			<div class="layui-input-block">
@@ -71,10 +71,16 @@
 			</div>
 		</div>
 
-		<div class="layui-form-item" <#if (((type)!'') == 'detail')> style="display:none;" </#if>>
+		<div class="layui-form-item" 
+			<#if (((type)!'') == 'detail')> 
+				style="display:none;" 
+			<#else>
+			style="float: right;margin-right: 30px;" 
+			</#if>
+		>
 			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit lay-filter="userform">保存</button>
-				<button type="button" class="layui-btn layui-btn-primary" id="userClose">关闭</button>
+				<button class="layui-btn layui-btn-sm" lay-submit lay-filter="userform">保存</button>
+				<button type="button" class="layui-btn layui-btn-primary layui-btn-sm" id="userClose">关闭</button>
 			</div>
 		</div>
 	</form>

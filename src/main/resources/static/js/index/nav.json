@@ -1,4 +1,10 @@
 [
+ {
+    "title": "菜单列表",
+    "icon": "&#xe67a;",
+    "href": "/sprlay/menu/list",
+    "id":"0001"
+  },
   {
     "title": "用户列表",
     "icon": "&#xe67a;",

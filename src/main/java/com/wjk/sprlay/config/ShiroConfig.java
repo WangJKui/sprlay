@@ -3,6 +3,7 @@ package com.wjk.sprlay.config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.wjk.sprlay.shiro.SprLayRealm;
+import com.wjk.sprlay.util.SprUtil;
 
 
 /**
@@ -32,7 +34,12 @@ public class ShiroConfig {
 	 */
 	@Bean
 	public Realm realm() {
-		return new SprLayRealm();
+		SprLayRealm sprLayRealm = new SprLayRealm();
+		// 配置 加密 （在加密后，不配置的话会导致登陆密码失败）
+		sprLayRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+		
+		return sprLayRealm;
+
 	}
 
 	@Bean
@@ -86,4 +93,16 @@ public class ShiroConfig {
         securityManager.setRealm(realm());
         return securityManager;
     }*/
+
+	@Bean
+	public HashedCredentialsMatcher hashedCredentialsMatcher(){
+		HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+		// 使用md5 算法进行加密
+		hashedCredentialsMatcher.setHashAlgorithmName(SprUtil.algorithmName);
+		// 设置散列次数： 意为加密几次
+		hashedCredentialsMatcher.setHashIterations(SprUtil.hashIterations);
+
+		return hashedCredentialsMatcher;
+	}
+
 }

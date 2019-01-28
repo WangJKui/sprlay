@@ -78,4 +78,18 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	/**
+	 * 
+	 * <p>Title: selectByUserName</p>   
+	 * <p>Description: 根据账号查询用户信息</p>   
+	 * @param username
+	 * @return   
+	 * @see com.wjk.sprlay.web.service.UserService#selectByUserName(java.lang.String)
+	 */
+	@Override
+	public User selectByUserName(String username) {
+		
+		return userMapper.selectByUserName(username);
+	}
+
 }

@@ -3,6 +3,9 @@ package com.wjk.sprlay.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
+
 public class SprUtil {
 
 	// 日期和时间格式 =========================================================
@@ -15,6 +18,8 @@ public class SprUtil {
 	/** 默认时间格式 */
 	public static final String FORMAT_TIME = "HH:mm:ss";
 
+	public static final String algorithmName = "MD5"; //指定散列算法为MD5,还有别的算法如：SHA256、SHA1、SHA512
+	public static final int hashIterations = 2; //散列迭代次数 md5(md5(pwd)): new Md5Hash(pwd, salt, 2).toString()
 
 
 	/**
@@ -132,4 +137,45 @@ public class SprUtil {
 		return getDateTimeString(new Date(System.currentTimeMillis()), format);
 	}
 
+	/**
+	 * 
+	 * @Title: encodePassword   
+	 * @Description: 加密：输入明文得到密文   
+	 * @param: @param pwd	明文
+	 * @param: @param salt	盐
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
+	public static String encodePassword(String pwd, String salt) {
+
+		String newPassword = new SimpleHash(algorithmName,pwd,ByteSource.Util.bytes(salt),hashIterations).toHex();
+
+		return newPassword;
+	}
+
+	/**
+	 * 
+	 * @Title: verifyPassword   
+	 * @Description: 验证密码
+	 * @param: @param targetPassword
+	 * @param: @param pwd
+	 * @param: @param salt
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
+	public boolean verifyPassword(String targetPassword, String pwd, String salt){
+		String newPassword = encodePassword(targetPassword, salt);
+		if(newPassword.equals(pwd)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public static void main(String[] args) {
+		String s = encodePassword("123456", "admin"+"1");
+		System.out.println(s);
+	}
 }

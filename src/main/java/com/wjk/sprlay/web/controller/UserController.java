@@ -2,6 +2,8 @@ package com.wjk.sprlay.web.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,9 +168,14 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping("/uppassword")
-	public ResultData updatePassword(@RequestBody Map<String, String> map) {
-		
+	public ResultData updatePassword(HttpServletRequest request,@RequestBody Map<String, String> map) {
+//		request.getSession()
 		logger.debug("旧密码："+map.get("oldPassword")+"新密码："+map.get("password")+"确认新密码："+map.get("rePassword"));
+		
+		//session获取用户信息
+		
+//		String mp = SprUtil.encodePassword(pwd, salt)
+		
 		return new ResultData();
 
 	}

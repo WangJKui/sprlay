@@ -9,10 +9,13 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wjk.sprlay.web.model.User;
+import com.wjk.sprlay.web.vo.ResultData;
 
 /**
  * 
@@ -40,7 +43,7 @@ public class LoginController {
 	public String toLogin() {
 		return "views/login/login";
 	}
-	
+
 	/**
 	 * @Title: login   
 	 * @Description: 登录操作 
@@ -48,8 +51,9 @@ public class LoginController {
 	 * @return: String      
 	 * @throws
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
-	public String login(User user) {
+	public Object login(@RequestBody User user) {
 
 		logger.debug(user.toString());;
 
@@ -60,20 +64,24 @@ public class LoginController {
 		try {
 			subject.login(token);
 		} catch (UnknownAccountException e) {
-			logger.error("用户名或密码错误");
-			e.printStackTrace();
+			logger.error(e.getMessage());
+			return new ResultData(1,"用户名或密码错误!");
 		} catch (IncorrectCredentialsException e) {
-			logger.error("用户名或密码错误");
-			e.printStackTrace();
+			logger.error(e.getMessage());	
+			return new ResultData(1,"用户名或密码错误!");
 		} catch (AuthenticationException e) {
 			//其他错误，比如锁定，如果想单独处理请单独catch处理
 			logger.error("其他错误");
-			e.printStackTrace();
+			logger.error(e.getMessage());
+			return new ResultData(1,"其他错误!，请重新登录");
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+			return new ResultData(1,"系统错误!，请重新登录");
 		}
-		return "redirect:/index";
+		return new ResultData();
 	}
 
-	
+
 	/**
 	 * 
 	 * @Title: logout   
@@ -84,11 +92,11 @@ public class LoginController {
 	 */
 	@RequestMapping("/logout")
 	public String logout() {
-		
+
 		Subject subject = SecurityUtils.getSubject();
-		
+
 		subject.logout();
-		
+
 		return "views/login/login";
 	}
 }

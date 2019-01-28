@@ -11,8 +11,13 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.wjk.sprlay.web.model.User;
+import com.wjk.sprlay.web.service.UserService;
 
 /**
  * 
@@ -26,6 +31,9 @@ public class SprLayRealm extends AuthorizingRealm {
 
 	private static Logger logger = LoggerFactory.getLogger(SprLayRealm.class); 
 
+	@Autowired
+	private UserService userService;
+	
 	/**
 	 * 授权查询, 进行鉴权但缓存中无用户的授权信息时调用
 	 * @see 经测试:本例中该方法的调用时机为需授权资源被访问时 
@@ -86,16 +94,23 @@ public class SprLayRealm extends AuthorizingRealm {
 		String username = (String)token.getPrincipal();  				//得到用户名
 		String password = new String((char[])token.getCredentials()); 	//得到密码
 
+		User user = userService.selectByUserName(username);
+		
 //		UsernamePasswordToken token11 = (UsernamePasswordToken)token;  
 
 		logger.debug("当前登录认证者："+username+",密码："+password);
-		
-		if(null != username && null != password){
-			return new SimpleAuthenticationInfo(username, password, getName());
+
+		if(user!=null && null != user.getUsername() && null != user.getPassword()){
+			
+			logger.debug("数据库账号密码："+user.getUsername()+",密码："+user.getPassword());
+
+			//加盐
+			ByteSource credentialsSalt = ByteSource.Util.bytes(user.getUsername()+user.getId());
+			
+			return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(),credentialsSalt, getName());
 		}else{
 			return null;
 		}
-		
 		
 	}
 

@@ -30,4 +30,14 @@ public interface UserService {
      */
     PageInfo<User> qureyUserByPage(int pageNum, int pageSize, User user);
 
+    /**
+     * 
+     * @Title: selectByUserName   
+     * @Description: 根据账号查询用信息  
+     * @param: @param username
+     * @param: @return      
+     * @return: User      
+     * @throws
+     */
+    User selectByUserName(String username);
 }

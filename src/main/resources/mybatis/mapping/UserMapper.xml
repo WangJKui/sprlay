@@ -99,9 +99,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.wjk.sprlay.web.model.User">
     update user
     <set>
-      <if test="username != null">
+     <!--  <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
-      </if>
+      </if> -->
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
@@ -128,7 +128,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wjk.sprlay.web.model.User">
     update user
-    set username = #{username,jdbcType=VARCHAR},
+    set <!-- username = #{username,jdbcType=VARCHAR}, -->
       password = #{password,jdbcType=VARCHAR},
       headImg = #{headimg,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
@@ -154,4 +154,11 @@
       	</if>
       </where>
   </select>
+  
+   <select id="selectByUserName" parameterType="string" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where username = #{username,jdbcType=VARCHAR}
+   </select>
 </mapper>

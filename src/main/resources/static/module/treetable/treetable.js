@@ -87,7 +87,9 @@ layui.define(['layer', 'table'], function (exports) {
 
             param.done = function (res, curr, count) {
                 $(param.elem).next().addClass('treeTable');
-                $('.treeTable .layui-table-page').css('display', 'none');
+                //$('.treeTable .layui-table-page').css('display', 'none');
+                $('.treeTable .layui-table-page #layui-table-page1').css('display', 'none');
+
                 $(param.elem).next().attr('treeLinkage', param.treeLinkage);
                 // 绑定事件换成对body绑定
                 /*$('.treeTable .treeTable-icon').click(function () {

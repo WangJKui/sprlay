@@ -11,11 +11,46 @@
  Target Server Version : 80014
  File Encoding         : 65001
 
- Date: 28/01/2019 10:27:27
+ Date: 29/01/2019 15:48:05
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pid` int(11) NOT NULL COMMENT '父id（顶级：0）',
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `uri` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路径',
+  `icon` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `permission` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限标识',
+  `type` int(1) NULL DEFAULT NULL COMMENT '类型（1:目录，2：菜单，3：按钮）',
+  `status` int(1) NULL DEFAULT 1 COMMENT '状态（0：禁止，1：正常）',
+  `orderno` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `ctime` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建时间',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES (1, 0, '水平导航', NULL, NULL, NULL, 1, 1, 1, NULL, NULL);
+INSERT INTO `menu` VALUES (2, 0, '垂直导航', NULL, NULL, NULL, 1, 1, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (3, 1, '控制台', NULL, NULL, NULL, 1, 1, 3, NULL, NULL);
+INSERT INTO `menu` VALUES (4, 1, '商品管理', NULL, NULL, NULL, 1, 1, 1, NULL, NULL);
+INSERT INTO `menu` VALUES (5, 2, '系统管理', NULL, NULL, NULL, 1, 1, 5, NULL, NULL);
+INSERT INTO `menu` VALUES (6, 5, '用户管理', NULL, NULL, NULL, 2, 1, 6, NULL, NULL);
+INSERT INTO `menu` VALUES (7, 5, '角色管理', NULL, NULL, NULL, 2, 1, 7, NULL, NULL);
+INSERT INTO `menu` VALUES (8, 5, '资源管理', NULL, NULL, NULL, 2, 1, 8, NULL, NULL);
+INSERT INTO `menu` VALUES (9, 6, '查询用户', NULL, NULL, NULL, 3, 1, 9, NULL, NULL);
+INSERT INTO `menu` VALUES (10, 6, '添加用户', NULL, NULL, NULL, 3, 1, 10, NULL, NULL);
+INSERT INTO `menu` VALUES (11, 6, '编辑用户', NULL, NULL, NULL, 3, 1, 11, NULL, NULL);
+INSERT INTO `menu` VALUES (12, 6, '删除用户', NULL, NULL, NULL, 3, 1, 12, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for user

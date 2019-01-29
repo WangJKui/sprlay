@@ -67,6 +67,7 @@
 				},
 				toolbar : '#toolbarUserList',
 				title : '用户数据表',
+				height: 380,//滚动条
 				cols : [ [ {
 					type : 'checkbox',
 					fixed : 'left'
@@ -114,7 +115,7 @@
 					width : 180,
 					sort : true
 				}, {
-					fixed : 'right',
+					//fixed : 'right',
 					title : '操作',
 					toolbar : '#barUserList',
 					width : 180
@@ -167,13 +168,13 @@
 	                    });
 	                });
 				} else if (obj.event === 'edit') {
-						layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-							id:"userEdit",
-		                    type: 2,
-		                    title: "编辑用户",
-		                    area: ['700px', '300px'],
-		                    content: ctx+'/user/form/update/'+data.id
-		                });
+					layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+						id:"userEdit",
+	                    type: 2,
+	                    title: "编辑用户",
+	                    area: ['700px', '300px'],
+	                    content: ctx+'/user/form/update/'+data.id
+	                });	
 				}
 			});
 		   

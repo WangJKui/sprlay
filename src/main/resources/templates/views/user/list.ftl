@@ -55,7 +55,7 @@
 			table.render({
 				id: 'userTableID',
 				elem : '#sprlay-user-list',
-				url : ctx+'/user/all',
+				url : ctx+'/user/load',
 				method : "post",
 				parseData: function(res){ //res 即为原始返回的数据
 				    return {
@@ -68,58 +68,22 @@
 				toolbar : '#toolbarUserList',
 				title : '用户数据表',
 				height: 380,//滚动条
-				cols : [ [ {
-					type : 'checkbox',
-					fixed : 'left'
-				}, {
-					field : 'id',
-					title : 'ID',
-					fixed : 'left',
-					//hide:true
-				}, {
-					field : 'username',
-					title : '账号',
-					width : 120,
-					fixed : 'left',
-					unresize : true,
-					sort : true
-				}, {
-					field : 'nickname',
-					title : '姓名',
-					width : 120,
-					//edit : 'text'
-					sort : true
-				}, {
-					field : 'sex',
-					title : '性别',
-					width : 80,
-					//edit : 'text',
-					sort : true
-				},  {
-					field : 'phone',
-					title : '电话',
-					width : 120,
-					sort : true
-				}, {
-					field : 'email',
-					title : '邮箱',
-					width : 180,
-					//edit : 'text',
+				cols : [ [ 
+					{type : 'checkbox',fixed : 'left'},
+					{field : 'id',title : 'ID',fixed : 'left',/* hide:true */},
+					{field : 'username',title : '账号',width : 120,fixed : 'left',unresize : true,sort : true},
+					{field : 'nickname',title : '姓名',width : 120,/* edit : 'text' */sort : true},
+					{field : 'sex',title : '性别',width : 80,sort : true}, 
+				 	{field : 'phone',title : '电话',width : 120,sort : true},
+				 	{field : 'email',title : '邮箱',width : 180,
 					/* templet : function(res) {
 						return '<em>' + res.email + '</em>'
 					} */
-					sort : true
-				},  {
-					field : 'createtime',
-					title : '加入时间',
-					width : 180,
-					sort : true
-				}, {
-					//fixed : 'right',
-					title : '操作',
-					toolbar : '#barUserList',
-					width : 180
-				} ] ],
+				 		sort : true
+					},  
+					{field : 'ctime',title : '创建时间',width : 180,sort : true}, 
+					{/* //fixed : 'right', */title : '操作',toolbar : '#barUserList',width : 180}
+				 ] ],
 				page : true
 			});
 			//头工具栏事件

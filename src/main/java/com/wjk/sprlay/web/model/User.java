@@ -22,7 +22,7 @@ public class User implements Serializable{
 
     private String password;
 
-    private String headimg;
+    private String avatar;
 
     private String nickname;
 
@@ -32,9 +32,20 @@ public class User implements Serializable{
 
     private String sex;
 
-    private String createtime;
+    private String ctime;
 
-    public Integer getId() {
+    /*状态（0：锁定，1：正常）*/
+    private Integer status;
+
+    public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -58,12 +69,12 @@ public class User implements Serializable{
         this.password = password == null ? null : password.trim();
     }
 
-    public String getHeadimg() {
-        return headimg;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setHeadimg(String headimg) {
-        this.headimg = headimg == null ? null : headimg.trim();
+    public void setAvatar(String avatar) {
+        this.avatar = avatar == null ? null : avatar.trim();
     }
 
     public String getNickname() {
@@ -98,20 +109,19 @@ public class User implements Serializable{
         this.sex = sex == null ? null : sex.trim();
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getCtime() {
+        return ctime;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
+    public void setCtime(String ctime) {
+        this.ctime = ctime == null ? null : ctime.trim();
     }
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", headimg=" + headimg
-				+ ", nickname=" + nickname + ", email=" + email + ", phone=" + phone + ", sex=" + sex + ", createtime="
-				+ createtime + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", avatar=" + avatar
+				+ ", nickname=" + nickname + ", email=" + email + ", phone=" + phone + ", sex=" + sex + ", ctime="
+				+ ctime + ", status=" + status + "]";
 	}
-    
     
 }

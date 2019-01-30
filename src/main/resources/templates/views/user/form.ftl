@@ -63,9 +63,9 @@
 				</div>
 			</div>
 			 <div class="layui-inline">
-				<label class="layui-form-label">加入时间</label>
+				<label class="layui-form-label">创建时间</label>
 				<div class="layui-input-inline">
-					<input type="datetime" name="createtime" value="${(user.createtime)!''}" readonly="readonly" 
+					<input type="datetime" name="ctime" value="${(user.ctime)!''}" readonly="readonly" 
 					autocomplete="off" class="layui-input" <#if (((type)!"") == "detail")> disabled </#if>>
 				</div>
 			</div>

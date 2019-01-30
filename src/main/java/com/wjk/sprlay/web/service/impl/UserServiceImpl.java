@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		//初始化密码为123456
 		user.setPassword("123456");
 		//设置当前时间
-		user.setCreatetime(SprUtil.getDateTimeString());
+		user.setCtime(SprUtil.getDateTimeString());
 		return userMapper.insertSelective(user);
 	}
 

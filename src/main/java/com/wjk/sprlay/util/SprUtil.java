@@ -773,7 +773,18 @@ public class SprUtil {
 
 	//===================================================
 	public static void main(String[] args) {
-		String s = encodePassword("123456", "admin"+"1");
-		System.out.println(s);
+		System.out.println(encodePassword("123456", "admin"+"1"));
+		
+		System.out.println(SprUtil.getWeek());
+		
+		System.out.println(SprUtil.getDateString());
+		
+		System.out.println(SprUtil.getDateTimeString());
+		
+		System.out.println(SprUtil.getCurrentTime());
+
+		System.out.println(SprUtil.getUUID32());
+		
+		logger.info("response data was wrote: \r\n{}", "wjk");
 	}
 }

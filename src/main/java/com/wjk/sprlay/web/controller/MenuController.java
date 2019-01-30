@@ -42,7 +42,7 @@ public class MenuController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/all")
+	@GetMapping("/load")
 	public ResultData findAllMenu() {
 		
 		List<Menu> list = menuService.findAllMenu();

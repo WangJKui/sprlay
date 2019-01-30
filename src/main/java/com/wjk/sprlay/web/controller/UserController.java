@@ -68,7 +68,7 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		if("add".equals(type)) {
 			user = new User();
-			user.setCreatetime(SprUtil.getDateTimeString());
+			user.setCtime(SprUtil.getDateTimeString());
 			user.setSex("男");
 		}
 		mv.addObject("user", user);
@@ -190,7 +190,7 @@ public class UserController {
 	 * @throws
 	 */
 	@ResponseBody
-	@PostMapping("/all")
+	@PostMapping("/load")
 	public ResultData qureyUserByPage(
 			@RequestParam(name = "page", required = false, defaultValue = "1")
 			int pageNum,

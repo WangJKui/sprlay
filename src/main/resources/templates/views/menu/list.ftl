@@ -61,7 +61,7 @@
 	            treeIdName: 'id',
 	            treePidName: 'pid',
 	            elem: '#menu-table',
-	            url: ctx+'/menu/all',
+	            url: ctx+'/menu/load',
 	            //method : "post",
 	            page: false,
 	            cols: [[
@@ -72,7 +72,7 @@
 	                {field: 'uri', title: '路径',align: 'center'},
 	                {field: 'icon', align: 'center', title: '图标'},
 	                {field: 'order', title:'序号', width:80, align: 'center'},
-	                {field:'status', title:'是否禁用', width:110, templet: '#checkboxTpl', unresize: true},
+	                {field:'status', title:'是否禁用', width:110, templet: '#checkboxTpl', unresize: true,align: 'center'},
 	                {
 	                    field: 'type', width: 80, align: 'center', templet: function (d) {
 	                    	//1:目录，2：菜单，3：按钮
@@ -113,9 +113,13 @@
 					}
 					layer.msg(JSON.stringify(data));
 					break;
-				case 'xadd':
+				case 'xadd'://下级新增 判断是否为按钮d.type == 3
 					if(data.length != 1){
 						layer.msg("只能选择一条数据！");
+						return;
+					}
+					if(data[0].type == 3){
+						layer.msg("按钮不能新增下级！");
 						return;
 					}
 					layer.msg(JSON.stringify(data));

@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	
-	<link rel="stylesheet" href="${request.contextPath}/css/menu/list.css">
+	<link rel="stylesheet" href="${request.contextPath}/css/public.css">
 	
 	<script type="text/javascript" src="${request.contextPath}/layui/layui.js"></script>
 
@@ -87,7 +87,7 @@
 	                    }, title: '类型'
 	                },
 	                //{field: 'ctime', title:'创建时间', width:110, align: 'center'},
-	                {templet: '#menu-state', width: 180, align: 'center', title: '操作'}
+	                {templet: '#menu-state', width: 160, align: 'center', title: '操作'}
 	            ]],
 	            done: function () {
 	                layer.closeAll('loading');

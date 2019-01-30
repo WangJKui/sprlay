@@ -8,7 +8,7 @@
 	<meta http-equiv="sprlay-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	
-	<link rel="stylesheet" href="${request.contextPath}/css/user/list.css">
+	<link rel="stylesheet" href="${request.contextPath}/css/public.css">
 	
 	<script type="text/javascript" src="${request.contextPath}/layui/layui.js"></script>
 

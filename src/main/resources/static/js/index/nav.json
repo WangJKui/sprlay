@@ -1,12 +1,18 @@
 [
  {
-    "title": "菜单列表",
+    "title": "角色管理",
+    "icon": "&#xe67a;",
+    "href": "/sprlay/role/list",
+    "id":"0000"
+  },
+ {
+    "title": "资源管理",
     "icon": "&#xe67a;",
     "href": "/sprlay/menu/list",
     "id":"0001"
   },
   {
-    "title": "用户列表",
+    "title": "用户管理",
     "icon": "&#xe67a;",
     "href": "/sprlay/user/list",
     "id":"1001"

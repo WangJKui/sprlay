@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="UTF-8">
-    <title>用户列表</title>
+    <title>角色管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="sprlay-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,34 +16,36 @@
 
 <body>
 	<!-- 查询栏 -->
-	<div class="userSearchTable">
-		账号：
+	<div class="roleSearchTable">
+		名称：
 		<div class="layui-inline">
-			<input class="layui-input" name="s_username" id="s_username_id" autocomplete="off">
+			<input class="layui-input" name="s_name" id="s_name_id" autocomplete="off">
 		</div>
-		姓名：
+		编码：
 		<div class="layui-inline">
-			<input class="layui-input" name="s_nickname" id="s_nickname_id" autocomplete="off">
+			<input class="layui-input" name="s_code" id="s_code_id" autocomplete="off">
 		</div>
 		<button class="layui-btn search-reload" data-type="reload">查询</button>
 		<button class="layui-btn layui-btn-primary search-reset" data-type="reset">重置</button>
 	</div>
-	<table class="layui-hide" id="sprlay-user-list" lay-filter="sprlay-user-list-filter"></table>
+	<table class="layui-hide" id="sprlay-role-list" lay-filter="sprlay-role-list-filter"></table>
+
 	<!-- 工具栏 -->
-	<script type="text/html" id="toolbarUserList">
+	<script type="text/html" id="toolbarRoleList">
  		 <div class="layui-btn-container">
  			 <button class="layui-btn layui-btn-sm" lay-event="add">新增</a>
   		 </div>
 	</script>
+
 	<!-- 操作列 -->
-	<script type="text/html" id="barUserList">
+	<script type="text/html" id="barRoleList">
  		 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">查看</a>
  		 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
  		 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
 	<!-- 禁用 -->
 	<script type="text/html" id="checkboxTpl">
- 		 <input type="checkbox" name="status" value="{{d.status}}" title="禁用" lay-filter="userStatus" {{ d.status == 0 ? 'checked' : '' }}>
+ 		 <input type="checkbox" name="status" value="{{d.status}}" title="禁用" lay-filter="roleStatus" {{ d.status == 0 ? 'checked' : '' }}>
 	</script>
 	<script>
 	
@@ -57,9 +59,9 @@
 				layer = layui.layer,
 				form = layui.form;
 			table.render({
-				id: 'userTableID',
-				elem : '#sprlay-user-list',
-				url : ctx+'/user/load',
+				id: 'roleTableID',
+				elem : '#sprlay-role-list',
+				url : ctx+'/role/load',
 				method : "post",
 				parseData: function(res){ //res 即为原始返回的数据
 				    return {
@@ -69,62 +71,60 @@
 				      "data": res.data.list //解析数据列表
 				    };
 				},
-				toolbar : '#toolbarUserList',
-				title : '用户数据表',
+				toolbar : '#toolbarRoleList',
+				title : '角色数据表',
 				height: 380,//滚动条
 				cols : [ [ 
 					{type : 'checkbox',fixed : 'left'},
-					{field : 'id',title : 'ID',fixed : 'left'},
-					{field : 'username',title : '账号',fixed : 'left',unresize : true,sort : true},
-					{field : 'nickname',title : '姓名',sort : true},
-					{field : 'sex',title : '性别',width : 80,sort : true}, 
-				 	{field : 'phone',title : '电话',sort : true},
-				 	{field : 'email',title : '邮箱',sort : true},  
+					{field : 'id',title : 'ID',width : 120,fixed : 'left'},
+					{field : 'name',title : '名称',fixed : 'left',unresize : true,sort : true},
+					{field : 'code',title : '编码',sort : true},
+					{field : 'remark',title : '描述',sort : true}, 
 					{field : 'ctime',title : '创建时间',sort : true}, 
 	                {field : 'status', title:'是否禁用',  templet: '#checkboxTpl', unresize: true,align: 'center'},
-					{fixed : 'right', title : '操作',toolbar : '#barUserList',width : 160,align: 'center'}
+					{fixed : 'right', title : '操作',toolbar : '#barRoleList',width : 160,align: 'center'}
 				 ] ],
 				page : true
 			});
 			//头工具栏事件
-			table.on('toolbar(sprlay-user-list-filter)', function(obj) {
+			table.on('toolbar(sprlay-role-list-filter)', function(obj) {
 				var checkStatus = table.checkStatus(obj.config.id);
 				var data = checkStatus.data;
 				switch (obj.event) {
 				case 'add':
 						layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-							id:"userAdd", 
+							id:"roleAdd", 
 							type: 2,
-		                    title: "新增用户",
+		                    title: "新增角色",
 		                    area: ['700px', '300px'],
-		                    content: ctx+'/user/form/add/0'//id=0
+		                    content: ctx+'/role/form/add/0'//id=0
 		                });
 					break;
 				}
 			});
 			//监听行工具事件
-			table.on('tool(sprlay-user-list-filter)', function(obj) {
+			table.on('tool(sprlay-role-list-filter)', function(obj) {
 				var data = obj.data;
 				if (obj.event === 'detail') {
 					layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-						id:"userDetail",
+						id:"roleDetail",
 	                    type: 2,
-	                    title: "用户信息",
+	                    title: "角色详情",
 	                    area: ['700px', '250px'],
-	                    content: ctx+'/user/form/detail/'+data.id
+	                    content: ctx+'/role/form/detail/'+data.id
 	                });
 				}
 				else if (obj.event === 'del') {
 					layer.confirm('真的删除行么', function (index) {
 	                    $.ajax({
-	                        url: ctx+'/user/delete/'+data.id,
+	                        url: ctx+'/role/delete/'+data.id,
 	                        type: "POST",
 	                        async :false,
 	                        success: function (res) {
 	                            if (res.code == 0) {
 	                            	 layer.msg("删除成功", {icon: 6});
 	                                //刷新list,重载
-	                               	 table.reload("userTableID");
+	                               	 table.reload("roleTableID");
 	                            } else {
 	                                layer.msg("删除失败", {icon: 5});
 	                            }
@@ -133,44 +133,43 @@
 	                });
 				} else if (obj.event === 'edit') {
 					layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-						id:"userEdit",
+						id:"roleEdit",
 	                    type: 2,
-	                    title: "编辑用户",
+	                    title: "编辑角色",
 	                    area: ['700px', '300px'],
-	                    content: ctx+'/user/form/update/'+data.id
+	                    content: ctx+'/role/form/update/'+data.id
 	                });	
 				}
 			});
 		   
 		   var active = {
 				   reload: function(){
-				       var username = $('#s_username_id');
-				       var nickname = $('#s_nickname_id');
+				       var name = $('#s_name_id');
+				       var code = $('#s_code_id');
 				       
 				      //执行重载
-				       table.reload('userTableID', {
+				       table.reload('roleTableID', {
 				            page: {
 				           		curr: 1 //重新从第 1 页开始
 				            },
-				      		where: {username: username.val(),nickname: nickname.val()}
+				      		where: {name: name.val(),code: code.val()}
 				      });
 				    }
 				  };
 		   
 		    //列表查询按钮   
-			$('.userSearchTable .search-reload').on('click', function(){
+			$('.roleSearchTable .search-reload').on('click', function(){
 				  var type = $(this).data('type');
 				  active[type] ? active[type].call(this) : '';
 			});
 			
 			//列表重置按钮 
-			$('.userSearchTable .search-reset').on('click', function(){
-				$("#s_username_id").val("");
-				$("#s_nickname_id").val("");
+			$('.roleSearchTable .search-reset').on('click', function(){
+				$("#s_name_id").val("");
+				$("#s_code_id").val("");
 			});
-			 
 			//监听禁用操作
-			 form.on('checkbox(userStatus)', function(obj){//1 status：true
+			 form.on('checkbox(roleStatus)', function(obj){//1 status：true
 			    layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
 			});
 		});

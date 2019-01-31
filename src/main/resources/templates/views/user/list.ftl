@@ -43,7 +43,7 @@
 	</script>
 	<!-- 禁用 -->
 	<script type="text/html" id="checkboxTpl">
- 		 <input type="checkbox" name="status" value="{{d.status}}" title="禁用" lay-filter="userStatus" {{ d.status == 0 ? 'checked' : '' }}>
+ 		 <input type="checkbox" name="status" id="{{d.id}}" value="{{d.status}}" title="禁用" lay-filter="userStatus" {{ d.status == 0 ? 'checked' : '' }}>
 	</script>
 	<script>
 	
@@ -170,8 +170,34 @@
 			});
 			 
 			//监听禁用操作
-			 form.on('checkbox(userStatus)', function(obj){//1 status：true
-			    layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+			 form.on('checkbox(userStatus)', function(data){
+			 	var checked = data.elem.checked;
+			 	var id = $(data.elem).attr("id");
+			 	var status = 1;
+			 	if(checked){
+			 		status = 0;
+			 	}else{
+			 		status = 1;
+			 	}
+			 	$.ajax({
+			         url:ctx+"/user/update",
+			         type:'post',//method请求方式，get或者post
+			         dataType:'json',//预期服务器返回的数据类型
+			         data:JSON.stringify({"id":id,"status":status}),//表格数据序列化
+			         contentType: "application/json; charset=utf-8",
+			         success:function(res){//res为相应体,function为回调函数
+			            if(res.code==0){
+			            	layer.msg("修改成功",{icon: 6});
+			            	 //刷新list,重载
+                          	 table.reload("userTableID");
+			            }else{
+			            	layer.msg(res.msg, {icon: 5});
+			            }
+			          },
+			          error:function(){
+			        	  layer.msg("操作失败", {icon: 5});
+			          }
+			      });
 			});
 		});
 	</script>

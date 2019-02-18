@@ -55,7 +55,7 @@
 	        layer.load(2);
 	        treetable.render({
 	        	toolbar : '#toolbarMenuList',
-	        	height: 430,//滚动条
+	        	height: 440,//滚动条
 	            treeColIndex: 1,
 	            treeSpid: 0,
 	            treeIdName: 'id',

@@ -19,3 +19,6 @@ body{
 .user-password-100 .layui-form-label{
 	 width: 100px;
 }
+.layui-table-view{
+	margin: 10px 0 0 0;
+}

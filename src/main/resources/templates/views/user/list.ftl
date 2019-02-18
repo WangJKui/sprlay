@@ -71,7 +71,7 @@
 				},
 				toolbar : '#toolbarUserList',
 				title : '用户数据表',
-				height: 380,//滚动条
+				height: 390,//滚动条
 				cols : [ [ 
 					{type : 'checkbox',fixed : 'left'},
 					{field : 'id',title : 'ID',fixed : 'left'},

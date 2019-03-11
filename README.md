@@ -7,3 +7,6 @@ mybatis
 pagehelper
 freemarker
 layui
+
+尚未实现单点登录
+https://www.cnblogs.com/suiyueqiannian/p/9359597.html

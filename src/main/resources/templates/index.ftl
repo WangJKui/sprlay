@@ -52,7 +52,7 @@
 				</li>
 				<li class="layui-nav-item">
 					<a href="javascript:;"> 
-						<img src="http://t.cn/RCzsdCq" class="layui-nav-img"> 阁主
+						<img src="${request.contextPath}/images/favicon.ico" class="layui-nav-img"> 阁主
 					</a>
 					<dl class="layui-nav-child">
 						<dd>

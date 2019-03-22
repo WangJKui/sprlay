@@ -21,7 +21,10 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 
 public class SprUtil {
-
+	//
+	private SprUtil() {
+	}
+	
 	// 日期和时间格式 =========================================================
 	/** 完整日期时间格式 */
 	public static final String FORMAT_DATETIME_EXT = "yyyy-MM-dd HH:mm:ss.SSS";

@@ -3,12 +3,10 @@ package com.wjk.sprlay.web.model;
 import java.io.Serializable;
 
 /**
- * 
- * @ClassName:  User   
- * @Description:用户实体
- * @author: WangJKui
- * @date:   2019年1月23日 下午3:29:32   
- *
+ * @ClassName  User   
+ * @Description 用户实体
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:44:48   
  */
 public class User implements Serializable{
     /**   

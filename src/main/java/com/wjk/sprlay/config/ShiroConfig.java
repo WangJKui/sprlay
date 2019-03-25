@@ -15,11 +15,10 @@ import com.wjk.sprlay.util.SprUtil;
 
 
 /**
- * 
- * @ClassName:  ShiroConfig   
- * @Description: Shiro配置
- * @author: WangJKui
- * @date:   2019年1月16日 下午3:36:22   
+ * @ClassName  ShiroConfig   
+ * @Description Shiro配置
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:46:29   
  */
 @Configuration
 public class ShiroConfig {

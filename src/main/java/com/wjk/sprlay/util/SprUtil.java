@@ -20,6 +20,12 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 
+/**
+ * @ClassName  SprUtil   
+ * @Description 自定义工具类
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:47:13   
+ */
 public class SprUtil {
 	//
 	private SprUtil() {

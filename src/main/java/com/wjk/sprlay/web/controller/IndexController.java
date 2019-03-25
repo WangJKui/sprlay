@@ -26,7 +26,6 @@ public class IndexController {
 	 * 				未改变，可以刷新重新登录
 	 * @param: @return      
 	 * @return: String      
-	 * @throws
 	 */
 	@RequestMapping("/index")
 	public String index(ModelMap map) {

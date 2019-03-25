@@ -15,10 +15,10 @@ import com.wjk.sprlay.web.vo.ResultData;
 
 /**
  * 
- * @ClassName:  MenuController   
- * @Description:资源权限
- * @author: WangJKui
- * @date:   2019年1月28日 下午3:15:08   
+ * @ClassName  MenuController   
+ * @Description 资源权限  
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:41:46   
  *
  */
 @Controller
@@ -30,17 +30,23 @@ public class MenuController {
 
 	/**
 	 * 
-	 * @Title: toList   
-	 * @Description: list页面 
-	 * @param: @return      
-	 * @return: String      
-	 * @throws
+	 * @Title toList   
+	 * @Description list页面 
+	 * @param @return      
+	 * @return String
 	 */
 	@RequestMapping("/list")
 	public String toList() {
 		return "views/menu/list";
 	}
 	
+	/**
+	 * 
+	 * @Title findAllMenu   
+	 * @Description TODO(这里用一句话描述这个方法的作用)   
+	 * @param @return      
+	 * @return ResultData
+	 */
 	@ResponseBody
 	@GetMapping("/load")
 	public ResultData findAllMenu() {

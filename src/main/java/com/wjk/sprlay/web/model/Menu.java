@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 
- * @ClassName:  Menu   
- * @Description:资源权限实体 
- * @author: WangJKui
- * @date:   2019年1月29日 下午2:31:39   
- *
+ * @ClassName  Menu   
+ * @Description 资源权限实体 
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:44:29   
  */
 public class Menu implements Serializable{
     /**   

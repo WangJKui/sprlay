@@ -2,7 +2,6 @@ package com.wjk.sprlay.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.wjk.sprlay.web.model.Role;
-import com.wjk.sprlay.web.model.User;
 import com.wjk.sprlay.web.service.RoleService;
 import com.wjk.sprlay.web.vo.ResultData;
 
@@ -18,10 +16,10 @@ import com.wjk.sprlay.web.vo.ResultData;
 
 /**
  * 
- * @ClassName:  RoleController   
- * @Description:角色 
- * @author: WangJKui
- * @date:   2019年1月30日 上午10:40:32   
+ * @ClassName  RoleController   
+ * @Description 角色 
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:42:18   
  *
  */
 @Controller
@@ -33,11 +31,10 @@ public class RoleController {
 
 	/**
 	 * 
-	 * @Title: toList   
-	 * @Description: list页面 
-	 * @param: @return      
-	 * @return: String      
-	 * @throws
+	 * @Title toList   
+	 * @Description list页面  
+	 * @param @return      
+	 * @return String
 	 */
 	@RequestMapping("/list")
 	public String toList() {
@@ -46,11 +43,13 @@ public class RoleController {
 	
 	/**
 	 * 
-	 * @Title: qureyRoleByPage   
-	 * @Description: 根据查询条件分页查询数据
-	 * @param: @return      
-	 * @return: ResultData      
-	 * @throws
+	 * @Title qureyRoleByPage   
+	 * @Description 根据查询条件分页查询数据 
+	 * @param @param pageNum
+	 * @param @param pageSize
+	 * @param @param role
+	 * @param @return      
+	 * @return ResultData
 	 */
 	@ResponseBody
 	@PostMapping("/load")

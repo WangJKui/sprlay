@@ -37,7 +37,6 @@ public class LoginController {
 	 * @Description: 登录页   
 	 * @param: @return      
 	 * @return: String      
-	 * @throws
 	 */
 	@RequestMapping("/tologin")
 	public String toLogin() {
@@ -49,7 +48,6 @@ public class LoginController {
 	 * @Description: 登录操作 
 	 * @param: @return      
 	 * @return: String      
-	 * @throws
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
@@ -88,7 +86,6 @@ public class LoginController {
 	 * @Description: 登出
 	 * @param: @return      
 	 * @return: String      
-	 * @throws
 	 */
 	@RequestMapping("/logout")
 	public String logout() {

@@ -14,12 +14,10 @@ import com.wjk.sprlay.web.model.User;
 import com.wjk.sprlay.web.service.UserService;
 
 /**
- * 
- * @ClassName:  UserServiceImpl   
- * @Description:TODO(这里用一句话描述这个类的作用)   
- * @author: WangJKui
- * @date:   2019年1月23日 下午3:34:20   
- *
+ * @ClassName  UserServiceImpl   
+ * @Description 用户
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:45:39   
  */
 @Transactional
 @Service

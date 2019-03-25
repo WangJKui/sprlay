@@ -8,13 +8,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.wjk.sprlay.interceptor.SprLayInterceptor;
 
+
 /**
- * 
- * @ClassName:  SprWebMvcConfigurer   
- * @Description:TODO(这里用一句话描述这个类的作用)   
- * @author: WangJKui
- * @date:   2019年1月18日 上午9:07:38   
- *
+ * @ClassName  SprLayWebMvcConfigurer   
+ * @Description TODO(这里用一句话描述这个类的作用)   
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:46:48   
  */
 @Configuration
 public class SprLayWebMvcConfigurer implements WebMvcConfigurer{

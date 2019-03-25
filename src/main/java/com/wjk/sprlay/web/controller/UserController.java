@@ -24,10 +24,10 @@ import com.wjk.sprlay.web.vo.ResultData;
 
 /**
  * 
- * @ClassName:  UserController   
- * @Description:用户管理
- * @author: WangJKui
- * @date:   2019年1月21日 下午5:11:14   
+ * @ClassName  UserController   
+ * @Description 用户管理
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:42:49   
  *
  */
 @Controller
@@ -41,11 +41,10 @@ public class UserController {
 
 	/**
 	 * 
-	 * @Title: toUserList   
-	 * @Description: 用户列表
-	 * @param: @return      
-	 * @return: String      
-	 * @throws
+	 * @Title toUserList   
+	 * @Description 用户列表   
+	 * @param @return      
+	 * @return String
 	 */
 	@RequestMapping("/list")
 	public String toUserList() {
@@ -54,11 +53,12 @@ public class UserController {
 
 	/**
 	 * 
-	 * @Title: toUserForm   
-	 * @Description: 用户详情   以及  基本资料
-	 * @param: @return      
-	 * @return: String      
-	 * @throws
+	 * @Title toUserForm   
+	 * @Description 用户详情   以及  基本资料
+	 * @param @param type
+	 * @param @param id
+	 * @param @return      
+	 * @return ModelAndView
 	 */
 	@RequestMapping("/form/{type}/{id}")
 	public ModelAndView toUserForm(@PathVariable(value = "type") String type,@PathVariable(value = "id") Integer id) {
@@ -85,12 +85,11 @@ public class UserController {
 	 * 然而在ajax请求往往传的都是Json对象，后来发现用 JSON.stringify(data)的方式就能将对象变成字符串。
 	 * 同时ajax请求的时候也要指定dataType: "json",contentType:"application/json" 
 	 * 这样就可以轻易的将一个对象或者List传到Java端，使用@RequestBody即可绑定对象或者List.
-	 * @Title: addUser   
-	 * @Description: 添加用户   
-	 * @param: @param type
-	 * @param: @return      
-	 * @return: String      
-	 * @throws
+	 * @Title addUser   
+	 * @Description 添加用户 
+	 * @param @param user
+	 * @param @return      
+	 * @return ResultData
 	 */
 	@ResponseBody
 	@PostMapping("/add")
@@ -105,12 +104,11 @@ public class UserController {
 
 	/**
 	 * 
-	 * @Title: updateUser   
-	 * @Description: 修改用户信息   
-	 * @param: @param user
-	 * @param: @return      
-	 * @return: ResultData      
-	 * @throws
+	 * @Title updateUser   
+	 * @Description 修改用户信息   
+	 * @param @param user
+	 * @param @return      
+	 * @return ResultData
 	 */
 	@ResponseBody
 	@PostMapping("/update")
@@ -126,14 +124,13 @@ public class UserController {
 
 		return r;
 	}
+	
 	/**
-	 * 
-	 * @Title: deleteUser   
-	 * @Description: 根据id删除用户
-	 * @param: @param id
-	 * @param: @return      
-	 * @return: ResultData      
-	 * @throws
+	 * @Title deleteUser   
+	 * @Description 根据id删除用户  
+	 * @param @param id
+	 * @param @return      
+	 * @return ResultData
 	 */
 	@ResponseBody
 	@PostMapping("/delete/{id}")
@@ -147,24 +144,23 @@ public class UserController {
 	}
 	
 	/**
-	 * 
-	 * @Title: toPassword   
-	 * @Description: 修改密码弹框
-	 * @param: @return      
-	 * @return: String      
-	 * @throws
+	 * @Title toPassword   
+	 * @Description 修改密码弹框
+	 * @param @return      
+	 * @return String
 	 */
 	@RequestMapping("/topassword")
 	public String toPassword() {
 		return "views/user/password";
 	}
+	
 	/**
-	 * 
-	 * @Title: updatePassword   
-	 * @Description: 修改密码
-	 * @param: @return      
-	 * @return: String      
-	 * @throws
+	 * @Title updatePassword   
+	 * @Description 修改密码 
+	 * @param @param request
+	 * @param @param map
+	 * @param @return      
+	 * @return ResultData
 	 */
 	@ResponseBody
 	@RequestMapping("/uppassword")
@@ -179,15 +175,15 @@ public class UserController {
 		return new ResultData();
 
 	}
+	
 	/**
-	 * 
-	 * @Title: qureyUserByPage   
-	 * @Description: 分页列表显示用户信息   (模糊查询) 
-	 * @param: @param pageNum
-	 * @param: @param pageSize
-	 * @param: @return      
-	 * @return: Object      
-	 * @throws
+	 * @Title qureyUserByPage   
+	 * @Description 分页列表显示用户信息   (模糊查询) 
+	 * @param @param pageNum
+	 * @param @param pageSize
+	 * @param @param user
+	 * @param @return      
+	 * @return ResultData
 	 */
 	@ResponseBody
 	@PostMapping("/load")

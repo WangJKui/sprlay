@@ -13,12 +13,10 @@ import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.service.RoleService;
 
 /**
- * 
- * @ClassName:  RoleServiceImpl   
- * @Description:角色   
- * @author: WangJKui
- * @date:   2019年1月30日 上午10:42:10   
- *
+ * @ClassName  RoleServiceImpl   
+ * @Description 角色   
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:45:28   
  */
 @Transactional
 @Service

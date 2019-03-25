@@ -11,12 +11,10 @@ import com.wjk.sprlay.web.model.Menu;
 import com.wjk.sprlay.web.service.MenuService;
 
 /**
- * 
- * @ClassName:  MenuServiceImpl   
- * @Description:资源权限  
- * @author: WangJKui
- * @date:   2019年1月29日 下午3:03:13   
- *
+ * @ClassName  MenuServiceImpl   
+ * @Description 资源权限  
+ * @author WangJKui
+ * @date   2019年3月22日 下午2:45:10   
  */
 @Transactional
 @Service

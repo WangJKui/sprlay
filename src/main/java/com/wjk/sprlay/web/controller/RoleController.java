@@ -61,7 +61,7 @@ public class RoleController {
 	
 		PageInfo<Role> page = roleService.qureyRoleByPage(pageNum,pageSize,role);
 		
-		return new ResultData(page);
+		return ResultData.ok(page);
 	}
 	
 }

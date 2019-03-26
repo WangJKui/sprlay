@@ -77,6 +77,11 @@ public class UserController {
 		
 		mv.setViewName("views/user/form");
 		
+		if (logger.isInfoEnabled()) {
+			
+			logger.info("response data was wrote: \r\n{}" , mv.toString());
+		}
+		
 		return mv;
 	}
 	
@@ -99,7 +104,7 @@ public class UserController {
 	
 		userService.insertSelective(user);
 		
-		return new ResultData();
+		return ResultData.ok();
 	}
 
 	/**
@@ -117,12 +122,8 @@ public class UserController {
 		logger.debug(user.toString());
 	
 		userService.updateByPrimaryKeySelective(user);
-		
-		ResultData r = new ResultData();
-		
-		logger.debug(r.toString());
 
-		return r;
+		return ResultData.ok();
 	}
 	
 	/**
@@ -140,7 +141,7 @@ public class UserController {
 	
 		userService.deleteByPrimaryKey(id);
 		
-		return new ResultData();
+		return ResultData.ok();
 	}
 	
 	/**
@@ -172,7 +173,7 @@ public class UserController {
 		
 //		String mp = SprUtil.encodePassword(pwd, salt)
 		
-		return new ResultData();
+		return ResultData.ok();
 
 	}
 	
@@ -195,6 +196,6 @@ public class UserController {
 		
 		PageInfo<User> page = userService.qureyUserByPage(pageNum,pageSize,user);
 		
-		return new ResultData(page);
+		return ResultData.ok(page);
 	}
 }

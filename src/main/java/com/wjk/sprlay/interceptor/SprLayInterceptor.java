@@ -45,6 +45,7 @@ public class SprLayInterceptor implements HandlerInterceptor{
 
 		Long start = (Long) request.getAttribute("startTime");
 		logger.debug("耗时:"+(System.currentTimeMillis() - start));
+		
 	}
 
 	@Override

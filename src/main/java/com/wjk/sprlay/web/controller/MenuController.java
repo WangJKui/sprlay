@@ -53,7 +53,7 @@ public class MenuController {
 		
 		List<Menu> list = menuService.findAllMenu();
 		
-		return new ResultData(list);
+		return ResultData.ok(list);
 	}
 	
 }

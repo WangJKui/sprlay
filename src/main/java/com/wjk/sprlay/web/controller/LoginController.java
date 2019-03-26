@@ -63,20 +63,20 @@ public class LoginController {
 			subject.login(token);
 		} catch (UnknownAccountException e) {
 			logger.error(e.getMessage());
-			return new ResultData(1,"用户名或密码错误!");
+			return ResultData.error(1,"用户名或密码错误!");
 		} catch (IncorrectCredentialsException e) {
 			logger.error(e.getMessage());	
-			return new ResultData(1,"用户名或密码错误!");
+			return ResultData.error(1,"用户名或密码错误!");
 		} catch (AuthenticationException e) {
 			//其他错误，比如锁定，如果想单独处理请单独catch处理
 			logger.error("其他错误");
 			logger.error(e.getMessage());
-			return new ResultData(1,"其他错误!，请重新登录");
+			return ResultData.error(1,"其他错误!，请重新登录");
 		}catch (Exception e) {
 			logger.error(e.getMessage());
-			return new ResultData(1,"系统错误!，请重新登录");
+			return ResultData.error(1,"系统错误!，请重新登录");
 		}
-		return new ResultData();
+		return ResultData.ok();
 	}
 
 

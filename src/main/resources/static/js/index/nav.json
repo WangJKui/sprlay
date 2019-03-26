@@ -17,6 +17,17 @@
     "href": "/sprlay/user/list",
     "id":"1001"
   },
+   {
+    "title": "测试树列表",
+    "icon": "&#xe67a;",
+    "href": "/sprlay/test/treetable",
+    "id":"100111"
+  },{
+    "title": "测试树列表treegrid",
+    "icon": "&#xe67a;",
+    "href": "/sprlay/test/treegrid",
+    "id":"100122"
+  },
   {
     "title": "一级导航",
     "icon": "&#xe678;",

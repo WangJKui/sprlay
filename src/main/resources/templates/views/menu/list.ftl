@@ -13,7 +13,7 @@
 
 </head>
 <body>
-	<table id="menu-table" class="layui-table" lay-filter="menu-table-filter" style="margin-top: -10px"></table>
+	<table id="menu-table" class="layui-table" lay-filter="menu-table-filter" style="margin-top: -11px"></table>
 	
 	<script type="text/html" id="toolbarMenuList">
  		 <div class="layui-btn-container">
@@ -50,12 +50,12 @@
 	        var table = layui.table;
 	        var treetable = layui.treetable;
 	        var form = layui.form;
-
+	       
 	        // 渲染表格
 	        layer.load(2);
 	        treetable.render({
 	        	toolbar : '#toolbarMenuList',
-	        	height: 440,//滚动条
+	        	height: 460,//滚动条
 	            treeColIndex: 1,
 	            treeSpid: 0,
 	            treeIdName: 'id',
@@ -94,7 +94,6 @@
 	            }
 	        });
 	
-	        
 	    	//头工具栏事件
 			table.on('toolbar(menu-table-filter)', function(obj) {
 				var checkStatus = table.checkStatus(obj.config.id);

@@ -73,7 +73,7 @@
 				},
 				toolbar : '#toolbarRoleList',
 				title : '角色数据表',
-				height: 390,//滚动条
+				height: 410,//滚动条
 				cols : [ [ 
 					{type : 'checkbox',fixed : 'left'},
 					{field : 'id',title : 'ID',width : 120,fixed : 'left'},

@@ -67,7 +67,9 @@ layui.define(['element','jquery','layer'], function (exports) {
         for (var i = 0; i < data.length; i++) {
             ulHtml += '<li class="layui-nav-item">';
             if (data[i].children !== undefined && data[i].children !== null && data[i].children.length > 0) {
-                ulHtml += '<a href="javascript:;" id = "'+data[i].id+'">'+ data[i].title;
+                ulHtml += '<a href="javascript:;" id = "'+data[i].id+'">';
+                ulHtml += '<i class="layui-icon '+data[i].icon+'" style="font-size: 18px;margin-right:10px;"></i>';
+                ulHtml += '<cite>'+ data[i].title+'</cite>';
                 ulHtml += '<span class="layui-nav-more"></span>';
                 ulHtml += '</a>';
                 ulHtml += '<dl class="layui-nav-child">';
@@ -76,7 +78,9 @@ layui.define(['element','jquery','layer'], function (exports) {
                     //是否有孙子节点
                     if (data[i].children[j].children !== undefined && data[i].children[j].children !== null && data[i].children[j].children.length > 0) {
                         ulHtml += '<dd>';
-                        ulHtml += '<a href="javascript:;" id = "'+data[i].children[j].id+'">' + data[i].children[j].title;
+                        ulHtml += '<a href="javascript:;" id = "'+data[i].children[j].id+'">';
+                        ulHtml += '<i class="layui-icon '+data[i].children[j].icon+'" style="font-size: 18px;margin-right:10px;"></i>';
+                        ulHtml += '<cite>'+ data[i].children[j].title +'</cite>';
                         ulHtml += '<span class="layui-nav-more"></span>';
                         ulHtml += '</a>';
                         //三级菜单
@@ -84,21 +88,27 @@ layui.define(['element','jquery','layer'], function (exports) {
 	                        var grandsonNodes = data[i].children[j].children;
 	                        for (var k = 0; k < grandsonNodes.length; k++) {
 	                            ulHtml += '<dd>';
-	                            ulHtml += '<a href="javascript:;" data-url="'+ grandsonNodes[k].href +'" id = "'+grandsonNodes[k].id+'">' + grandsonNodes[k].title + '</a>';
-	                            ulHtml += '</dd>';
+	                            ulHtml += '<a href="javascript:;" data-url="'+ grandsonNodes[k].href +'" id = "'+grandsonNodes[k].id+'">' ;
+	                            ulHtml += '<i class="layui-icon '+grandsonNodes[k].icon+'" style="font-size: 18px;margin-right:10px;"></i>';
+	                            ulHtml += '<cite>'+ grandsonNodes[k].title +'</cite>';
+	                            ulHtml += '</a></dd>';
 	                        }
 	                    ulHtml += '</dl>';
 	                    ulHtml += '</dd>';
                     }else{
                     	ulHtml += '<dd>';
-                        ulHtml += '<a href="javascript:;" data-url="'+data[i].children[j].href+'" id = "'+data[i].children[j].id+'">' + data[i].children[j].title;
+                        ulHtml += '<a href="javascript:;" data-url="'+data[i].children[j].href+'" id = "'+data[i].children[j].id+'">' ;
+                        ulHtml += '<i class="layui-icon '+data[i].children[j].icon+'" style="font-size: 18px;margin-right:10px;"></i>';
+                        ulHtml += '<cite>'+ data[i].children[j].title +'</cite>';
                         ulHtml += '</a>';
                         ulHtml += '</dd>';
                     }
                 }
                 ulHtml += '</dl>';
             } else {
-                ulHtml += '<a href="javascript:;" data-url="'+data[i].href+'" id = "'+data[i].id+'">'+ data[i].title+'</a>';
+                ulHtml += '<a href="javascript:;" data-url="'+data[i].href+'" id = "'+data[i].id+'">';
+                ulHtml += '<i class="layui-icon '+data[i].icon+'" style="font-size: 18px;margin-right:10px;"></i>';
+                ulHtml += '<cite>'+ data[i].title +'</cite></a>';
             }
             ulHtml += '</li>';
         }

@@ -99,8 +99,6 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/add")
 	public ResultData addUser(@RequestBody User user) {
-		
-		logger.debug(user.toString());
 	
 		userService.insertSelective(user);
 		
@@ -136,8 +134,6 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/delete/{id}")
 	public ResultData deleteUser(@PathVariable("id") Integer id) {
-		
-		logger.debug(id.toString());
 	
 		userService.deleteByPrimaryKey(id);
 		

@@ -28,7 +28,7 @@
              			 <i class="layui-icon layui-icon-shrink-right" id="sprlay-app-flexible"></i>
             		</a>
 				</li>
-				<li class="layui-nav-item layui-this" ><a href="javascript:;">控制台</a></li>
+				<li class="layui-nav-item layui-layout-left-tree layui-this" ><a href="javascript:;">控制台</a></li>
 				<li class="layui-nav-item"><a href="javascript:;">商品管理</a></li>
 				<li class="layui-nav-item"><a href="javascript:;">用户</a></li>
 				<li class="layui-nav-item"><a href="javascript:;">其它系统</a>

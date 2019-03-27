@@ -1,54 +1,54 @@
 [
  {
     "title": "角色管理",
-    "icon": "&#xe67a;",
+    "icon": "layui-icon-login-wechat",
     "href": "/sprlay/role/list",
     "id":"0000"
   },
  {
     "title": "资源管理",
-    "icon": "&#xe67a;",
+    "icon": "layui-icon-login-wechat",
     "href": "/sprlay/menu/list",
     "id":"0001"
   },
   {
     "title": "用户管理",
-    "icon": "&#xe67a;",
+    "icon": "layui-icon-login-wechat",
     "href": "/sprlay/user/list",
     "id":"1001"
   },
    {
     "title": "测试树列表",
-    "icon": "&#xe67a;",
+    "icon": "layui-icon-login-wechat",
     "href": "/sprlay/test/treetable",
     "id":"100111"
   },{
     "title": "测试树列表treegrid",
-    "icon": "&#xe67a;",
+    "icon": "layui-icon-login-wechat",
     "href": "/sprlay/test/treegrid",
     "id":"100122"
   },
   {
     "title": "一级导航",
-    "icon": "&#xe678;",
+    "icon": "layui-icon-login-wechat",
     "href": "2eqwe",
     "id":"1002",
     "children": [
       {
         "title": "二级导航",
-        "icon": "&#xe679;",
+        "icon": "layui-icon-login-wechat",
         "href": "lala.html",
          "id":"1003",
         "children": [
           {
             "title": "三级导航",
-            "icon": "&#xe677;",
+            "icon": "layui-icon-login-wechat",
             "href": "/sprlay/login/tologin",
              "id":"1004"
           },
           {
             "title": "三级导航",
-            "icon": "&#xe676;",
+            "icon": "layui-icon-login-wechat",
             "href": "qweqwe",
              "id":"1005"
           }
@@ -58,25 +58,25 @@
   },
    {
     "title": "error页面",
-    "icon": "&#xe678;",
+    "icon": "layui-icon-login-wechat",
     "href": "2eqwe",
     "id":"1002",
     "children": [
         {
    		 "title": "403",
-   		 "icon": "&#xe702;",
+   		 "icon": "layui-icon-login-wechat",
     	 "href": "/sprlay/403",
      	 "id":"1006"
  		 },
   		{
   		  "title": "404",
-  		  "icon": "&#xe66a;",
+  		  "icon": "layui-icon-login-wechat",
    		  "href": "/sprlay/404",
    		  "id":"1007"
 		  },
   		{
   		  "title": "500",
-  		  "icon": "&#xe653;",
+  		  "icon": "layui-icon-login-wechat",
    		 "href": "/sprlay/500",
    		  "id":"1008"
       }

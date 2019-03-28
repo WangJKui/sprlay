@@ -11,7 +11,7 @@
  Target Server Version : 80014
  File Encoding         : 65001
 
- Date: 30/01/2019 16:20:30
+ Date: 28/03/2019 15:21:24
 */
 
 SET NAMES utf8mb4;
@@ -33,24 +33,26 @@ CREATE TABLE `menu`  (
   `orderno` int(11) NULL DEFAULT NULL COMMENT '排序',
   `ctime` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建时间',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  `innercode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '层级码 如：-0-1-',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `t_s_o`(`type`, `status`, `orderno`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES (1, 0, '水平导航', NULL, NULL, NULL, 1, 1, 1, NULL, NULL);
-INSERT INTO `menu` VALUES (2, 0, '垂直导航', NULL, NULL, NULL, 1, 1, 2, NULL, NULL);
-INSERT INTO `menu` VALUES (3, 1, '控制台', NULL, NULL, NULL, 1, 1, 3, NULL, NULL);
-INSERT INTO `menu` VALUES (4, 1, '商品管理', NULL, NULL, NULL, 1, 1, 1, NULL, NULL);
-INSERT INTO `menu` VALUES (5, 2, '系统管理', NULL, NULL, NULL, 1, 1, 5, NULL, NULL);
-INSERT INTO `menu` VALUES (6, 5, '用户管理', NULL, NULL, NULL, 2, 1, 6, NULL, NULL);
-INSERT INTO `menu` VALUES (7, 5, '角色管理', NULL, NULL, NULL, 2, 1, 7, NULL, NULL);
-INSERT INTO `menu` VALUES (8, 5, '资源管理', NULL, NULL, NULL, 2, 1, 8, NULL, NULL);
-INSERT INTO `menu` VALUES (9, 6, '查询用户', NULL, NULL, NULL, 3, 1, 9, NULL, NULL);
-INSERT INTO `menu` VALUES (10, 6, '添加用户', NULL, NULL, NULL, 3, 1, 10, NULL, NULL);
-INSERT INTO `menu` VALUES (11, 6, '编辑用户', NULL, NULL, NULL, 3, 1, 11, NULL, NULL);
-INSERT INTO `menu` VALUES (12, 6, '删除用户', NULL, NULL, NULL, 3, 1, 12, NULL, NULL);
+INSERT INTO `menu` VALUES (1, 0, '水平导航', NULL, NULL, NULL, 1, 1, 1, NULL, NULL, '-0-1-');
+INSERT INTO `menu` VALUES (2, 0, '垂直导航', NULL, NULL, NULL, 1, 1, 2, NULL, NULL, '-0-2-');
+INSERT INTO `menu` VALUES (3, 1, '控制台', NULL, NULL, NULL, 1, 1, 3, NULL, NULL, '-0-1-3-');
+INSERT INTO `menu` VALUES (4, 1, '商品管理', NULL, NULL, NULL, 1, 1, 1, NULL, NULL, '-0-1-4-');
+INSERT INTO `menu` VALUES (5, 2, '系统管理', NULL, NULL, NULL, 1, 1, 5, NULL, NULL, '-0-2-5-');
+INSERT INTO `menu` VALUES (6, 5, '用户管理', NULL, NULL, NULL, 2, 1, 6, NULL, NULL, '-0-2-5-6-');
+INSERT INTO `menu` VALUES (7, 5, '角色管理', NULL, NULL, NULL, 2, 1, 7, NULL, NULL, '-0-2-5-7-');
+INSERT INTO `menu` VALUES (8, 5, '资源管理', NULL, NULL, NULL, 2, 1, 8, NULL, NULL, '-0-2-5-8-');
+INSERT INTO `menu` VALUES (9, 6, '查询用户', NULL, NULL, NULL, 3, 1, 9, NULL, NULL, '-0-2-5-6-9-');
+INSERT INTO `menu` VALUES (10, 6, '添加用户', NULL, NULL, NULL, 3, 1, 10, NULL, NULL, '-0-2-5-6-10-');
+INSERT INTO `menu` VALUES (11, 6, '编辑用户', NULL, NULL, NULL, 3, 1, 11, NULL, NULL, '-0-2-5-6-11-');
+INSERT INTO `menu` VALUES (12, 6, '删除用户', NULL, NULL, NULL, 3, 1, 12, NULL, NULL, '-0-2-5-6-12-');
 
 -- ----------------------------
 -- Table structure for role
@@ -64,7 +66,7 @@ CREATE TABLE `role`  (
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `ctime` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -73,6 +75,18 @@ INSERT INTO `role` VALUES (1, '超级管理员', 'superadmin', 1, '最高级', '
 INSERT INTO `role` VALUES (2, '管理员', 'admin', 1, '高级', '2019-01-25 14:01:42');
 INSERT INTO `role` VALUES (3, '系统管理员', 'system', 1, '系统级', '2019-01-25 14:01:42');
 INSERT INTO `role` VALUES (4, '开发者', 'developer', 1, '开发人员', '2019-01-25 14:01:42');
+INSERT INTO `role` VALUES (6, '普通员工', 'normal', 1, '员工', '2019-03-27 11:03:46');
+
+-- ----------------------------
+-- Table structure for role_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `role_menu`;
+CREATE TABLE `role_menu`  (
+  `id` int(11) NOT NULL,
+  `roleid` int(11) NOT NULL,
+  `menuid` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user
@@ -142,5 +156,29 @@ INSERT INTO `user` VALUES (69, '69', '123456', NULL, '13717611141', '453091806@q
 INSERT INTO `user` VALUES (70, '70', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:13:43', 1);
 INSERT INTO `user` VALUES (71, '71', '123456', NULL, '453091806@qq.om', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:14:18', 1);
 INSERT INTO `user` VALUES (72, '72', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 15:37:14', 1);
+
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role`  (
+  `id` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `roleid` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Procedure structure for pr_menu
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `pr_menu`;
+delimiter ;;
+CREATE PROCEDURE `pr_menu`(IN ids INT)
+BEGIN
+	SELECT * FROM menu WHERE id = ids;
+
+END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;

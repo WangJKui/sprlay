@@ -126,9 +126,12 @@
 	                                //刷新list,重载
 	                               	 table.reload("userTableID");
 	                            } else {
-	                                layer.msg("删除失败", {icon: 5});
+	                            	 layer.msg(res.msg, {icon: 5});
 	                            }
-	                        }
+	                        },
+	                        error:function(){
+		  				      	layer.msg("操作失败", {icon: 5});
+		  			        }
 	                    });
 	                });
 				} else if (obj.event === 'edit') {
@@ -188,8 +191,6 @@
 			         success:function(res){//res为相应体,function为回调函数
 			            if(res.code==0){
 			            	layer.msg("修改成功",{icon: 6});
-			            	 //刷新list,重载
-                          	 table.reload("userTableID");
 			            }else{
 			            	layer.msg(res.msg, {icon: 5});
 			            }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
-import com.wjk.sprlay.util.SprUtil;
 import com.wjk.sprlay.web.model.User;
 import com.wjk.sprlay.web.service.UserService;
 import com.wjk.sprlay.web.vo.ResultData;
@@ -63,24 +62,7 @@ public class UserController {
 	@RequestMapping("/form/{type}/{id}")
 	public ModelAndView toUserForm(@PathVariable(value = "type") String type,@PathVariable(value = "id") Integer id) {
 		
-		User user = userService.selectByPrimaryKey(id);
-		
-		ModelAndView mv = new ModelAndView();
-		if("add".equals(type)) {
-			user = new User();
-			user.setCtime(SprUtil.getDateTimeString());
-			user.setSex("男");
-		}
-		mv.addObject("user", user);
-		//update,detail,add
-		mv.addObject("type", type);
-		
-		mv.setViewName("views/user/form");
-		
-		if (logger.isInfoEnabled()) {
-			
-			logger.info("response data was wrote: \r\n{}" , mv.toString());
-		}
+		ModelAndView mv = userService.toMenuFormByType(id,type);
 		
 		return mv;
 	}
@@ -116,8 +98,6 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/update")
 	public ResultData updateUser(@RequestBody User user) {
-		
-		logger.debug(user.toString());
 	
 		userService.updateByPrimaryKeySelective(user);
 

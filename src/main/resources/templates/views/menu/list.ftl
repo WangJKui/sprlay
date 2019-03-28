@@ -21,6 +21,7 @@
  			 <button class="layui-btn layui-btn-sm" lay-event="xadd">下级新增</a>
  			 <button class="layui-btn layui-btn-sm" lay-event="expand">全部展开</a>
  			 <button class="layui-btn layui-btn-sm" lay-event="fold">全部折叠</a>
+ 			 <button class="layui-btn layui-btn-sm" lay-event="reload">刷新</a>
   		 </div>
 	</script>
 	
@@ -34,7 +35,7 @@
 
  	<!-- 禁用 -->
 	<script type="text/html" id="checkboxTpl">
- 		 <input type="checkbox" name="status" value="{{d.status}}" title="禁用" lay-filter="menuStatusDemo" {{ d.status == 0 ? 'checked' : '' }}>
+ 		 <input type="checkbox" name="status" id="{{d.id}}" value="{{d.status}}" title="禁用" lay-filter="menuStatusDemo" {{ d.status == 0 ? 'checked' : '' }}>
 	</script>
 
 	<script>
@@ -54,6 +55,7 @@
 	        // 渲染表格
 	        layer.load(2);
 	        treetable.render({
+	        	id: 'menuTableID',
 	        	toolbar : '#toolbarMenuList',
 	        	height: 460,//滚动条
 	            treeColIndex: 1,
@@ -71,7 +73,7 @@
 	                {field: 'permission', title: '权限值',align: 'center'},
 	                {field: 'uri', title: '路径',align: 'center'},
 	                {field: 'icon', align: 'center', title: '图标'},
-	                {field: 'order', title:'序号', width:80, align: 'center'},
+	                {field: 'orderno', title:'序号', width:80, align: 'center'},
 	                {field:'status', title:'是否禁用', width:110, templet: '#checkboxTpl', unresize: true,align: 'center'},
 	                {
 	                    field: 'type', width: 80, align: 'center', templet: function (d) {
@@ -99,29 +101,48 @@
 				var checkStatus = table.checkStatus(obj.config.id);
 				var data = checkStatus.data;
 				switch (obj.event) {
+				case 'reload':
+					location.reload();
+					break;
 				case 'expand':
 					treetable.expandAll('#menu-table');
 					break;
 				case 'fold':
 					treetable.foldAll('#menu-table');
 					break;
-				case 'tadd':
-					if(data.length != 1){
+				case 'tadd'://同级新增 判断是否为按钮d.type == 3
+					if(data.length < 1){
+						layer.msg("请选择一条数据！");
+						return;
+					}
+					if(data.length > 1){
 						layer.msg("只能选择一条数据！");
 						return;
 					}
-					layer.msg(JSON.stringify(data));
+					layer.open({
+						id:"menuAddTJ",
+	                    type: 2,
+	                    title: "新增资源",
+	                    area: ['700px', '350px'],
+	                    content: ctx+'/menu/form/add/'+data[0].pid
+	                });
 					break;
 				case 'xadd'://下级新增 判断是否为按钮d.type == 3
-					if(data.length != 1){
+					if(data.length < 1){
+						layer.msg("请选择一条数据！");
+						return;
+					}
+					if(data.length > 1){
 						layer.msg("只能选择一条数据！");
 						return;
 					}
-					if(data[0].type == 3){
-						layer.msg("按钮不能新增下级！");
-						return;
-					}
-					layer.msg(JSON.stringify(data));
+					layer.open({
+						id:"menuAddXJ",
+	                    type: 2,
+	                    title: "新增资源",
+	                    area: ['700px', '350px'],
+	                    content: ctx+'/menu/form/add/'+data[0].id
+	                });
 					break;
 				}
 			});
@@ -130,49 +151,73 @@
 			table.on('tool(menu-table-filter)', function(obj) {
 				var data = obj.data;
 				if (obj.event === 'detail') {
-					/* layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-						id:"userDetail",
+					layer.open({
+						id:"menuDetail",
 	                    type: 2,
-	                    title: "用户信息",
-	                    area: ['700px', '250px'],
-	                    content: ctx+'/user/form/detail/'+data.id
-	                }); */
-					layer.msg("详情", {icon: 5});
+	                    title: "资源信息",
+	                    area: ['700px', '300px'],
+	                    content: ctx+'/menu/form/detail/'+data.id
+	                });
 				}
 				else if (obj.event === 'del') {
-					layer.confirm('真的删除行么', function (index) {
-	                   /*  $.ajax({
-	                        url: ctx+'/user/delete/'+data.id,
+					layer.confirm('真的删除该资源以及其子资源吗？', function (index) {
+	                   $.ajax({
+	                        url: ctx+'/menu/delete/'+data.id,
 	                        type: "POST",
 	                        async :false,
 	                        success: function (res) {
 	                            if (res.code == 0) {
-	                            	 layer.msg("删除成功", {icon: 6});
+	                            	 layer.msg("成功删除"+res.data+"条数据", {icon: 6});
 	                                //刷新list,重载
-	                               	 table.reload("userTableID");
+	                            	 location.reload();
 	                            } else {
-	                                layer.msg("删除失败", {icon: 5});
+	                                layer.msg(res.msg, {icon: 5});
 	                            }
-	                        }
-	                    }); */
-						layer.msg("删除", {icon: 5});
+	                        },
+	  				     	 error:function(){
+					      	   layer.msg("删除失败", {icon: 5});
+				         	 }
+	                    });
 	                });
 				} else if (obj.event === 'edit') {
-					/* layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-						id:"userEdit",
+					layer.open({
+						id:"menuEdit",
 	                    type: 2,
-	                    title: "编辑用户",
-	                    area: ['700px', '300px'],
-	                    content: ctx+'/user/form/update/'+data.id
-	                });	 */	
-					layer.msg("编辑"); 
+	                    title: "编辑资源",
+	                    area: ['700px', '350px'],
+	                    content: ctx+'/menu/form/update/'+data.id
+	                });
 				}
 			});
 		   
 	    	
 			//监听禁用操作
-			 form.on('checkbox(menuStatusDemo)', function(obj){
-			    layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+			 form.on('checkbox(menuStatusDemo)', function(data){
+				 var checked = data.elem.checked;
+				 var id = $(data.elem).attr("id");
+				 var status = 1;
+				 if(checked){
+				 	status = 0;
+				 }else{
+				 	status = 1;
+				 }
+				 $.ajax({
+				     url:ctx+"/menu/update",
+				     type:'post',//method请求方式，get或者post
+				     dataType:'json',//预期服务器返回的数据类型
+				     data:JSON.stringify({"id":id,"status":status}),//表格数据序列化
+				     contentType: "application/json; charset=utf-8",
+				     success:function(res){//res为相应体,function为回调函数
+				         if(res.code==0){
+				            layer.msg("修改成功",{icon: 6});
+				          }else{
+				           	layer.msg(res.msg, {icon: 5});
+				           }
+				      },
+				      error:function(){
+				      	  layer.msg("操作失败", {icon: 5});
+			          }
+			     });
 			});
 	    });
 

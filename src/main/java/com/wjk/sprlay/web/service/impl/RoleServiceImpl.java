@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wjk.sprlay.util.SprUtil;
 import com.wjk.sprlay.web.mapper.RoleMapper;
 import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.service.RoleService;
@@ -75,6 +77,34 @@ public class RoleServiceImpl implements RoleService {
 		PageInfo<Role> result = new PageInfo<Role>(list);
 		
 		return result;
+	}
+
+	/**
+	 * <p>Title toMenuFormByType</p>   
+	 * <p>Description form表单页面 根据不同类型，不同的结果</p>   
+	 * @param id
+	 * @param type update,detail,add
+	 * @return   
+	 * @see com.wjk.sprlay.web.service.RoleService#toMenuFormByType(java.lang.Integer, java.lang.String)
+	 */
+	@Override
+	public ModelAndView toMenuFormByType(Integer id, String type) {
+
+		Role role = selectByPrimaryKey(id);
+		
+		ModelAndView mv = new ModelAndView();
+		if("add".equals(type)) {
+			role = new Role();
+			role.setCtime(SprUtil.getDateTimeString());
+		}
+		mv.addObject("role", role);
+		//update,detail,add
+		mv.addObject("type", type);
+		
+		mv.setViewName("views/role/form");
+		
+		return mv;
+		
 	}
 	
 }

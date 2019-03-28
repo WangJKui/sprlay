@@ -90,6 +90,12 @@ layui.define(['layer', 'table'], function (exports) {
                 //$('.treeTable .layui-table-page').css('display', 'none');
                // $(".treeTable .layui-table-page ").remove();
                 //$('.treeTable .layui-table-page #layui-table-page1').css('display', 'none');
+                //移除 page
+                $(".treeTable .layui-laypage-prev").remove();
+                $(".treeTable .layui-laypage-curr").remove();
+                $(".treeTable .layui-laypage-next").remove();
+                $(".treeTable .layui-laypage-skip").remove();
+                $(".treeTable .layui-laypage-limits").remove();
                 
                 $(param.elem).next().attr('treeLinkage', param.treeLinkage);
                 // 绑定事件换成对body绑定

@@ -1,5 +1,7 @@
 package com.wjk.sprlay.web.service;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.github.pagehelper.PageInfo;
 import com.wjk.sprlay.web.model.Role;
 
@@ -28,4 +30,14 @@ public interface RoleService {
 	 * @throws
 	 */
 	PageInfo<Role> qureyRoleByPage(int pageNum, int pageSize, Role role);
+
+	/**
+	 * @Title toMenuFormByType   
+	 * @Description form表单页面 根据不同类型，不同的结果
+	 * @param id
+	 * @param type update,detail,add
+	 * @return      
+	 * ModelAndView
+	 */
+	ModelAndView toMenuFormByType(Integer id, String type);
 }

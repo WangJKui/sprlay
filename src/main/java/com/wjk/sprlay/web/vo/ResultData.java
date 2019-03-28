@@ -5,6 +5,8 @@ import java.io.Serializable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 
  * @ClassName:  resultData   
@@ -30,7 +32,6 @@ public class ResultData implements Serializable{
 	 * 成功
 	 * @Title ok   
 	 * @Description TODO(这里用一句话描述这个方法的作用)   
-	 * @param @return      
 	 * @return ResultData
 	 */
 	public static ResultData ok() {
@@ -38,7 +39,7 @@ public class ResultData implements Serializable{
 		ResultData ok = new ResultData();
 		
 		if (log.isInfoEnabled()) {
-			log.info("response data was wrote: \r\n{}", ok.toString());
+			log.info("response data was wrote: \r\n{}", JSON.toJSONString(ok, true));
 		}
 		
 		return ok;
@@ -49,8 +50,7 @@ public class ResultData implements Serializable{
 	 * 成功
 	 * @Title ok   
 	 * @Description TODO(这里用一句话描述这个方法的作用)   
-	 * @param @param data
-	 * @param @return      
+	 * @param  data
 	 * @return ResultData
 	 */
 	public static ResultData ok(Object data) {
@@ -58,7 +58,7 @@ public class ResultData implements Serializable{
 		ResultData ok = new ResultData(data);
 		
 		if (log.isInfoEnabled()) {
-			log.info("response data was wrote: \r\n{}", ok.toString());
+			log.info("response data was wrote: \r\n{}", JSON.toJSONString(ok, true));
 		}
 		
 		return ok;
@@ -68,9 +68,8 @@ public class ResultData implements Serializable{
 	 * 失败
 	 * @Title error   
 	 * @Description TODO(这里用一句话描述这个方法的作用)   
-	 * @param @param code
-	 * @param @param msg
-	 * @param @return      
+	 * @param code
+	 * @param msg
 	 * @return ResultData
 	 */
 	public static ResultData error(Integer code, String msg) {
@@ -78,7 +77,7 @@ public class ResultData implements Serializable{
 		ResultData error = new ResultData(code,msg);
 		
 		if (log.isInfoEnabled()) {
-			log.info("response data was wrote: \r\n{}", error.toString());
+			log.info("response data was wrote: \r\n{}", JSON.toJSONString(error, true));
 		}
 		return error;
 	}

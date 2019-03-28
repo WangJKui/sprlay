@@ -38,7 +38,9 @@ public class Menu implements Serializable{
     private String ctime;
 
     private String remark;
-    
+    /*层级码*/
+    private String innercode;
+
     private List<Menu> child;
     
     public List<Menu> getChild() {
@@ -137,12 +139,20 @@ public class Menu implements Serializable{
         this.remark = remark == null ? null : remark.trim();
     }
 
+	public String getInnercode() {
+		return innercode;
+	}
+
+	public void setInnercode(String innercode) {
+		this.innercode = innercode;
+	}
+
 	@Override
 	public String toString() {
 		return "Menu [id=" + id + ", pid=" + pid + ", name=" + name + ", uri=" + uri + ", icon=" + icon
 				+ ", permission=" + permission + ", type=" + type + ", status=" + status + ", orderno=" + orderno
-				+ ", ctime=" + ctime + ", remark=" + remark + ", child=" + child + "]";
+				+ ", ctime=" + ctime + ", remark=" + remark + ", innercode=" + innercode + ", child=" + child + "]";
 	}
-    
+
     
 }

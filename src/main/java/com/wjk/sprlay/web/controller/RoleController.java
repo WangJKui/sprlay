@@ -1,7 +1,5 @@
 package com.wjk.sprlay.web.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
-import com.wjk.sprlay.util.SprUtil;
 import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.service.RoleService;
 import com.wjk.sprlay.web.vo.ResultData;
@@ -32,8 +29,6 @@ import com.wjk.sprlay.web.vo.ResultData;
 @RequestMapping("/role")
 public class RoleController {
 	
-	private static Logger log = LoggerFactory.getLogger(RoleController.class); 
-
 	@Autowired
 	private RoleService roleService;
 
@@ -78,23 +73,7 @@ public class RoleController {
 	@RequestMapping("/form/{type}/{id}")
 	public ModelAndView toRoleForm(@PathVariable(value = "type") String type,@PathVariable(value = "id") Integer id) {
 		
-		Role role = roleService.selectByPrimaryKey(id);
-		
-		ModelAndView mv = new ModelAndView();
-		if("add".equals(type)) {
-			role = new Role();
-			role.setCtime(SprUtil.getDateTimeString());
-		}
-		mv.addObject("role", role);
-		//update,detail,add
-		mv.addObject("type", type);
-		
-		mv.setViewName("views/role/form");
-		
-		if (log.isInfoEnabled()) {
-			
-			log.info("response data was wrote: \r\n{}" , mv.toString());
-		}
+		ModelAndView mv = roleService.toMenuFormByType(id,type);
 		
 		return mv;
 	}

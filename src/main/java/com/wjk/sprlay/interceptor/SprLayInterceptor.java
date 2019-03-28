@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 
  * @ClassName:  SprLayInterceptor   
@@ -21,21 +23,23 @@ import org.springframework.web.servlet.ModelAndView;
 @Component
 public class SprLayInterceptor implements HandlerInterceptor{
 	
-    private static Logger logger = LoggerFactory.getLogger(SprLayInterceptor.class); 
+    private static Logger log = LoggerFactory.getLogger(SprLayInterceptor.class); 
 
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-		logger.debug("getRequestURL："+request.getRequestURL());
-		logger.debug("getServerName："+request.getServerName());
-		logger.debug("getServerPort："+request.getServerPort());
-		logger.debug("getContextPath："+request.getContextPath());
-		logger.debug("getServletPath："+request.getServletPath());
-		//page=1&limit=10 get请求显示
-		logger.debug("getQueryString："+request.getQueryString());
-
-		request.setAttribute("startTime", System.currentTimeMillis());
+		
+		if (log.isInfoEnabled()) {
+			log.info("getRequestURL："+request.getRequestURL());
+			log.info("getServerName："+request.getServerName());
+			log.info("getServerPort："+request.getServerPort());
+			log.info("getContextPath："+request.getContextPath());
+			log.info("getServletPath："+request.getServletPath());
+			//page=1&limit=10 get请求显示
+			log.info("getQueryString："+request.getQueryString());
+			request.setAttribute("startTime", System.currentTimeMillis());
+		}
+		
 		return true;
 	}
 
@@ -43,8 +47,14 @@ public class SprLayInterceptor implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
 			throws Exception {
 
-		Long start = (Long) request.getAttribute("startTime");
-		logger.debug("耗时:"+(System.currentTimeMillis() - start));
+		if (log.isInfoEnabled()) {
+			Long start = (Long) request.getAttribute("startTime");
+			log.info("耗时:"+(System.currentTimeMillis() - start));
+			
+			if(modelAndView != null) {
+				log.info("response data was wrote: \r\n{}" ,  JSON.toJSONString(modelAndView.toString(), true));
+			}
+		}
 		
 	}
 
@@ -52,8 +62,11 @@ public class SprLayInterceptor implements HandlerInterceptor{
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception)
 			throws Exception {
 
-		Long start = (Long) request.getAttribute("startTime");
-		logger.debug("耗时:"+(System.currentTimeMillis() - start));
+		if (log.isInfoEnabled()) {
+			Long start = (Long) request.getAttribute("startTime");
+			log.info("耗时:"+(System.currentTimeMillis() - start));
+		}
+	
 
 	}
 }

@@ -13,9 +13,10 @@
     <result column="orderno" jdbcType="INTEGER" property="orderno" />
     <result column="ctime" jdbcType="VARCHAR" property="ctime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="innercode" jdbcType="VARCHAR" property="innercode" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, pid, name, uri, icon, permission, type, status, orderno, ctime, remark
+    id, pid, name, uri, icon, permission, type, status, orderno, ctime, remark,innercode
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,17 +28,17 @@
     delete from menu
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.wjk.sprlay.web.model.Menu">
+  <insert id="insert" parameterType="com.wjk.sprlay.web.model.Menu" useGeneratedKeys="true" keyProperty="id" >
     insert into menu (id, pid, name, 
       uri, icon, permission, 
       type, status, orderno, 
-      ctime, remark)
+      ctime, remark,innercode)
     values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{uri,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR}, 
       #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{orderno,jdbcType=INTEGER}, 
-      #{ctime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+      #{ctime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}),#{innercode,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wjk.sprlay.web.model.Menu">
+  <insert id="insertSelective" parameterType="com.wjk.sprlay.web.model.Menu" useGeneratedKeys="true" keyProperty="id" >
     insert into menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -72,6 +73,9 @@
       </if>
       <if test="remark != null">
         remark,
+      </if>
+      <if test="innercode != null">
+        innercode,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -108,6 +112,9 @@
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="innercode != null">
+        #{innercode,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.wjk.sprlay.web.model.Menu">
@@ -143,6 +150,10 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="innercode != null">
+        innercode = #{innercode,jdbcType=VARCHAR},
+      </if>
+      
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -157,7 +168,8 @@
       status = #{status,jdbcType=INTEGER},
       orderno = #{orderno,jdbcType=INTEGER},
       ctime = #{ctime,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      innercode = #{innercode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -167,5 +179,13 @@
     <include refid="Base_Column_List" />
     from menu
   </select>
-  
+  <!-- 根据层级码 like删除 -->
+   <delete id="deleteByInnercode" parameterType="java.lang.String">
+    delete from menu
+    <where>
+      	<if test="innercode != null">
+      		AND innercode like concat(concat(#{innercode}),"%")
+      	</if>
+     </where>
+  </delete>
 </mapper>

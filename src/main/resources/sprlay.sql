@@ -11,7 +11,7 @@
  Target Server Version : 80014
  File Encoding         : 65001
 
- Date: 28/03/2019 15:21:24
+ Date: 29/03/2019 17:35:23
 */
 
 SET NAMES utf8mb4;
@@ -36,7 +36,7 @@ CREATE TABLE `menu`  (
   `innercode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '层级码 如：-0-1-',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `t_s_o`(`type`, `status`, `orderno`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
@@ -66,7 +66,7 @@ CREATE TABLE `role`  (
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `ctime` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -76,13 +76,23 @@ INSERT INTO `role` VALUES (2, '管理员', 'admin', 1, '高级', '2019-01-25 14:
 INSERT INTO `role` VALUES (3, '系统管理员', 'system', 1, '系统级', '2019-01-25 14:01:42');
 INSERT INTO `role` VALUES (4, '开发者', 'developer', 1, '开发人员', '2019-01-25 14:01:42');
 INSERT INTO `role` VALUES (6, '普通员工', 'normal', 1, '员工', '2019-03-27 11:03:46');
+INSERT INTO `role` VALUES (9, '1', 'qwe1', 1, '1', '2019-03-28 16:34:54');
+INSERT INTO `role` VALUES (10, '2', '2qwe', 1, '21', '2019-03-28 16:35:02');
+INSERT INTO `role` VALUES (11, '3', '3qe', 1, '123', '2019-03-28 16:35:07');
+INSERT INTO `role` VALUES (12, 'qwe', '13qwe', 1, '12', '2019-03-28 16:35:13');
+INSERT INTO `role` VALUES (13, 'qew', '123wqe', 0, '123', '2019-03-28 16:35:19');
+INSERT INTO `role` VALUES (14, '123123', '123wqe', 1, '', '2019-03-28 16:50:03');
+INSERT INTO `role` VALUES (15, 'qwead', '23adeq', 1, 'eqewads', '2019-03-28 16:50:07');
+INSERT INTO `role` VALUES (16, 'qwe', 'ads11', 1, 'qwe', '2019-03-28 16:50:13');
+INSERT INTO `role` VALUES (17, 'ads', '312add', 1, 'ads', '2019-03-28 16:50:18');
+INSERT INTO `role` VALUES (18, 'ad', 'adqe12da', 1, 'qea', '2019-03-28 16:50:23');
 
 -- ----------------------------
 -- Table structure for role_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `role_menu`;
 CREATE TABLE `role_menu`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `roleid` int(11) NOT NULL,
   `menuid` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -104,7 +114,7 @@ CREATE TABLE `user`  (
   `ctime` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建时间',
   `status` int(1) NULL DEFAULT 1 COMMENT '状态（0：锁定，1：正常）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -113,9 +123,9 @@ INSERT INTO `user` VALUES (1, 'admin', '13ed682b7463d8f3b38f185369618fac', '', '
 INSERT INTO `user` VALUES (13, 'wangjkui', '123456', NULL, '超级管理员', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:44', 1);
 INSERT INTO `user` VALUES (25, '25', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:41', 1);
 INSERT INTO `user` VALUES (26, '26', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:42', 1);
-INSERT INTO `user` VALUES (27, '27', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:43', 1);
-INSERT INTO `user` VALUES (28, '28', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:43', 1);
-INSERT INTO `user` VALUES (30, '30', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:44', 1);
+INSERT INTO `user` VALUES (27, '27', '123456', NULL, '1371761114qwe1', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:43', 1);
+INSERT INTO `user` VALUES (28, '28', '123456', NULL, '1371761111q41qw', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:43', 1);
+INSERT INTO `user` VALUES (30, '30', '123456', NULL, 'qew123', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:44', 1);
 INSERT INTO `user` VALUES (31, '31', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:44', 1);
 INSERT INTO `user` VALUES (32, '32', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:44', 1);
 INSERT INTO `user` VALUES (33, '33', '123456', NULL, '13717611141', '453091806@qq.om', '13717611141', '男', '2019-01-25 14:01:44', 1);
@@ -162,11 +172,19 @@ INSERT INTO `user` VALUES (72, '72', '123456', NULL, '13717611141', '453091806@q
 -- ----------------------------
 DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `roleid` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+INSERT INTO `user_role` VALUES (1, 1, 1);
+INSERT INTO `user_role` VALUES (2, 1, 2);
+INSERT INTO `user_role` VALUES (3, 1, 3);
+INSERT INTO `user_role` VALUES (4, 1, 4);
 
 -- ----------------------------
 -- Procedure structure for pr_menu

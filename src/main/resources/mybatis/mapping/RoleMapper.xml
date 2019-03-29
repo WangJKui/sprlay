@@ -111,6 +111,9 @@
         <include refid="Base_Column_List"/>
       FROM role
       <where>
+     	 <if test="status != null">
+      		AND status = #{status,jdbcType=INTEGER}
+      	</if>
       	<if test="name != null">
       		AND name like concat(concat("%",#{name}),"%")
       	</if>

@@ -1,5 +1,7 @@
 package com.wjk.sprlay.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -121,5 +123,23 @@ public class RoleController {
 		roleService.deleteByPrimaryKey(id);
 		
 		return ResultData.ok();
+	}
+	
+	/**
+	 * @Title qureyRoleByStatus   
+	 * @Description 加载角色数据，根据用户id以及状态，分配是否选中   
+	 * @param role
+	 * @param userid
+	 * @return      
+	 * ResultData
+	 */
+	@ResponseBody
+	@PostMapping("/loadall")
+	public ResultData qureyRoleByStatus(Role role,
+			@RequestParam(name = "userid", required = true) Integer userid){
+	
+		List<Role> list = roleService.qureyRoleByStatus(role,userid);
+		
+		return ResultData.ok(list);
 	}
 }

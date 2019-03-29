@@ -1,5 +1,6 @@
 package com.wjk.sprlay.web.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.model.User;
 import com.wjk.sprlay.web.service.UserService;
 import com.wjk.sprlay.web.vo.ResultData;
@@ -173,5 +175,38 @@ public class UserController {
 		PageInfo<User> page = userService.qureyUserByPage(pageNum,pageSize,user);
 		
 		return ResultData.ok(page);
+	}
+	
+	/**
+	 * @Title toUserAssignRoleList   
+	 * @Description 分配角色页面list  
+	 * @param id
+	 * @return      
+	 * ModelAndView
+	 */
+	@RequestMapping("/assign/{id}")
+	public ModelAndView toUserAssignRoleList(@PathVariable(value = "id") Integer id) {
+		ModelAndView mv = userService.toUserAssignRoleList(id);
+
+		return mv;
+	}
+	
+	/**
+	 * @Title saveUserRole   
+	 * @Description 保存用户角色数据
+	 * @param userid
+	 * @param user
+	 * @return      
+	 * ResultData
+	 */
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@PostMapping("/role")
+	public ResultData saveUserRole(@RequestBody Map<String, Object> params){
+		
+		String userid =  (String) params.get("userid");
+		List<Role> list = (List<Role>) params.get("json");
+		
+		return ResultData.ok();
 	}
 }

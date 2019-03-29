@@ -2,6 +2,10 @@ package com.wjk.sprlay.web.model;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 /**
  * @ClassName  Role   
  * @Description 角色实体  
@@ -27,8 +31,22 @@ public class Role implements Serializable{
     private String remark;
 
     private String ctime;
+    
+    /*复选框（true：选中，false：未选中）*/
+    private boolean LAY_CHECKED;
+    
+    //首字母小写
+    @JsonProperty(value = "LAY_CHECKED")
+    @JSONField(name = "LAY_CHECKED") 
+    public boolean isLAY_CHECKED() {
+		return LAY_CHECKED;
+	}
 
-    public Integer getId() {
+	public void setLAY_CHECKED(boolean lAY_CHECKED) {
+		LAY_CHECKED = lAY_CHECKED;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -79,8 +97,9 @@ public class Role implements Serializable{
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", name=" + name + ", code=" + code + ", status=" + status + ", remark=" + remark
-				+ ", ctime=" + ctime + "]";
+				+ ", ctime=" + ctime + ", LAY_CHECKED=" + LAY_CHECKED + "]";
 	}
+
     
     
 }

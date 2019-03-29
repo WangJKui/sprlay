@@ -52,4 +52,13 @@ public interface UserService {
      * ModelAndView
      */
 	ModelAndView toMenuFormByType(Integer id, String type);
+
+	/**
+	 * @Title toUserAssignRoleList   
+	 * @Description 用户分配角色list  
+	 * @param id
+	 * @return      
+	 * ModelAndView
+	 */
+	ModelAndView toUserAssignRoleList(Integer id);
 }

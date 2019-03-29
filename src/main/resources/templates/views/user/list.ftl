@@ -35,9 +35,10 @@
  			 <button class="layui-btn layui-btn-sm" lay-event="add">新增</a>
   		 </div>
 	</script>
-	<!-- 操作列 -->
+	<!-- 操作列 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">查看</a>-->
 	<script type="text/html" id="barUserList">
- 		 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">查看</a>
+		 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="assignrole">角色</a>
+ 		 
  		 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
  		 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
@@ -135,14 +136,23 @@
 	                    });
 	                });
 				} else if (obj.event === 'edit') {
-					layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+					layer.open({
 						id:"userEdit",
 	                    type: 2,
 	                    title: "编辑用户",
 	                    area: ['700px', '300px'],
 	                    content: ctx+'/user/form/update/'+data.id
 	                });	
+				}else if (obj.event === 'assignrole') {
+					layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+						id:"assignRole",
+	                    type: 2,
+	                    title: data.username+":分配角色",
+	                    area: ['700px', '380px'],
+	                    content: ctx+'/user/assign/'+data.id
+	                });	
 				}
+				
 			});
 		   
 		   var active = {

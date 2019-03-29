@@ -11,7 +11,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wjk.sprlay.util.SprUtil;
 import com.wjk.sprlay.web.mapper.RoleMapper;
+import com.wjk.sprlay.web.mapper.UserRoleMapper;
 import com.wjk.sprlay.web.model.Role;
+import com.wjk.sprlay.web.model.UserRole;
 import com.wjk.sprlay.web.service.RoleService;
 
 /**
@@ -26,7 +28,9 @@ public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleMapper roleMapper;
-
+	@Autowired
+	private UserRoleMapper userRoleMapper;
+	
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
 		return roleMapper.deleteByPrimaryKey(id);
@@ -105,6 +109,32 @@ public class RoleServiceImpl implements RoleService {
 		
 		return mv;
 		
+	}
+
+	/**
+	 * 加载角色数据，根据用户id以及状态，分配是否选中   
+	 * <p>Title qureyRoleByStatus</p>   
+	 * <p>Description 根据状态查询</p>   
+	 * @param role
+	 * @return   
+	 * @see com.wjk.sprlay.web.service.RoleService#qureyRoleByStatus(com.wjk.sprlay.web.model.Role)
+	 */
+	@Override
+	public List<Role> qureyRoleByStatus(Role role, Integer userid) {
+		
+		List<Role> roles = roleMapper.selectAllRole(role);
+		
+		List<UserRole> users = userRoleMapper.selectByUserId(userid);
+
+		roles.forEach(r ->{
+			users.forEach(u->{
+				//
+				if (r.getId().equals(u.getId())) {
+					r.setLAY_CHECKED(true);
+				}
+			});
+		});
+		return roles;
 	}
 	
 }

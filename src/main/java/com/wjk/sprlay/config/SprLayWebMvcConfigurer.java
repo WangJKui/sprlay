@@ -25,12 +25,12 @@ public class SprLayWebMvcConfigurer implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 可添加多个
 		registry.addInterceptor(sprLayInterceptor)
-		.addPathPatterns("/**");
-//		.excludePathPatterns("/js/**")
-//		.excludePathPatterns("/css/**")
-//		.excludePathPatterns("/images/**")
-//		.excludePathPatterns("/layui/**")
-//		.excludePathPatterns("/fonts/**");
+		.addPathPatterns("/**")
+		.excludePathPatterns("/js/**")
+		.excludePathPatterns("/css/**")
+		.excludePathPatterns("/images/**")
+		.excludePathPatterns("/layui/**")
+		.excludePathPatterns("/fonts/**");
 
 	}
 
@@ -45,7 +45,7 @@ public class SprLayWebMvcConfigurer implements WebMvcConfigurer{
 
         //需要配置1：----------- 需要告知系统，这是要被当成静态文件的！
         //第一个方法设置访问路径前缀，第二个方法设置资源路径
-//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
     
 }

@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
+//	@Autowired
+//	private UserRoleMapper userRoleMapper;
 	
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
@@ -119,6 +121,27 @@ public class UserServiceImpl implements UserService {
 		
 		return mv;
 		
+	}
+
+	/**
+	 * <p>Title toUserAssignRoleList</p>   
+	 * <p>Description 用户分配角色list</p>   
+	 * @param id
+	 * @return ModelAndView
+	 * @see com.wjk.sprlay.web.service.UserService#toUserAssignRoleList(java.lang.Integer)
+	 */
+	@Override
+	public ModelAndView toUserAssignRoleList(Integer id) {
+		
+//		List<UserRole> list = userRoleMapper.selectByUserId(id);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("views/user/assign_role");
+		
+		mv.addObject("userid",id);
+		
+		return mv;
 	}
 
 }

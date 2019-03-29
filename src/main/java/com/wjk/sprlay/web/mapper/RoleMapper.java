@@ -18,13 +18,11 @@ public interface RoleMapper {
     int updateByPrimaryKey(Role record);
 
     /**
-     * 
-     * @Title: selectAllRole   
-     * @Description: 根据查询条件分页查询数据 
-     * @param: @param role
-     * @param: @return      
-     * @return: List<Role>      
-     * @throws
+     * @Title selectAllRole   
+     * @Description 根据查询条件分页查询数据 
+     * @param role
+     * @return      
+     * List<Role>
      */
 	List<Role> selectAllRole(Role role);
 }

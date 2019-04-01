@@ -67,6 +67,9 @@ layui.use(['navbar','form','element','layer','jquery'], function() {
 	//点击水平菜单 sprlay-nav-right
 	element.on('nav(sprlay-nav-right)', function(elem){
 		var id = $(elem).attr("id");
+		
+		if(id !=null && "sprlay-user-logout" == id)
+			return;
 		//帮助
   	    if("sprlay-help" == id){
   	    	layer.open({

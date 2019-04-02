@@ -17,7 +17,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
-import com.wjk.sprlay.util.SprUtil;
 
 /**
  * 
@@ -75,20 +74,18 @@ public class SprLayInterceptor implements HandlerInterceptor{
 				}*/
 
 				String val = String.join("",request.getParameterValues(param));
-//				if (param.equals("json")) {
-				if (param.startsWith("{")||param.startsWith("[")) {
-					//params.put(param, JSON.parse(val));
-					params.put("json", JSON.parse(param));
+				if (param.equals("json")) {
+					params.put(param, JSON.parse(val));
 				} else {
 					params.put(param, val);
 				}
 			}
 			
 			//页面 contentType: "application/json; charset=utf-8", post请求 以及Controller @RequestBody的使用
-			String body = new SprHttpServletRequestWrapper(request).getBody();
+			/*String body = new SprHttpServletRequestWrapper(request).getBody();
 			if(!SprUtil.isEmpty(body)) {
 				params.put("body", JSON.parse(body));
-			}
+			}*/
 			
 			map.put("params", params);
 

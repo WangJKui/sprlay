@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.model.User;
@@ -199,14 +200,17 @@ public class UserController {
 	 * @return      
 	 * ResultData
 	 */
-	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@PostMapping("/role")
-	public ResultData saveUserRole(@RequestBody Map<String, Object> params){
+	public ResultData saveUserRole(@RequestParam Map<String, Object> params){
 		
 		String userid =  (String) params.get("userid");
-		List<Role> list = (List<Role>) params.get("json");
-		
+//		List<Role> list = (List<Role>) params.get("json");
+		String json = (String) params.get("json");
+		List<Role> list = JSON.parseArray(json,Role.class); 
+		System.out.println(userid);
+		System.out.println(list.toString());
+
 		return ResultData.ok();
 	}
 }

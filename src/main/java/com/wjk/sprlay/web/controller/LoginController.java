@@ -9,12 +9,11 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wjk.sprlay.web.model.User;
 import com.wjk.sprlay.web.vo.ResultData;
 
 /**
@@ -50,12 +49,12 @@ public class LoginController {
 	 * @return: String      
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/login",method = RequestMethod.POST)
-	public Object login(@RequestBody User user) {
+	@PostMapping("/login")
+	public Object login(@RequestParam String username,@RequestParam String password) {
 
 		Subject subject = SecurityUtils.getSubject();
 		// 此处的密码应该是按照后台的加密规则加密过的，不应该传输明文密码
-		UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
+		UsernamePasswordToken token = new UsernamePasswordToken(username,password);
 
 		try {
 			subject.login(token);

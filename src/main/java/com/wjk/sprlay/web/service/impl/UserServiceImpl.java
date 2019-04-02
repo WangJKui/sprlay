@@ -97,15 +97,15 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * <p>Title toMenuFormByType</p>   
 	 * <p>Description form表单页面 根据不同类型，不同的结果</p>   
-	 * @param id
+	 * @param userid
 	 * @param type update,detail,add
 	 * @return   
 	 * @see com.wjk.sprlay.web.service.UserService#toMenuFormByType(java.lang.Integer, java.lang.String)
 	 */
 	@Override
-	public ModelAndView toMenuFormByType(Integer id, String type) {
+	public ModelAndView toMenuFormByType(Integer userid, String type) {
 
-		User user = selectByPrimaryKey(id);
+		User user = selectByPrimaryKey(userid);
 		
 		ModelAndView mv = new ModelAndView();
 		if("add".equals(type)) {

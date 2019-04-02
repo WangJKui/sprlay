@@ -11,8 +11,8 @@ layui.use(['form', 'jquery'], function(){
 			url:ctx+"/login/login",
 			type:'post',//method请求方式，get或者post
 			dataType:'json',//预期服务器返回的数据类型
-			data:JSON.stringify(data.field),//表格数据序列化
-			contentType: "application/json; charset=utf-8",
+			data:data.field,//如果表格数据序列化，则是字符串
+			//contentType: "application/json; charset=utf-8",
 			success:function(res){//res为相应体,function为回调函数
 				if(res.code == 0){
 //					layer.msg("保存信息成功",{icon: 6});

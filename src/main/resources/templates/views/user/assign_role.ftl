@@ -65,22 +65,20 @@
 			table.on('toolbar(sprlay-role-list-filter)', function(obj) {
 				var checkStatus = table.checkStatus(obj.config.id);
 				var data = checkStatus.data;
-				console.info(data);
 				var index = parent.layer.getFrameIndex(window.name);  
 				switch (obj.event) {
 				case 'save':
 					
 					var param = {
 			    		userid : userid,
-			   	   	 	json : data
+			   	   	 	json : JSON.stringify(data)
 			   	 	};
-					console.info(param);
 					$.ajax({
                         url: ctx+'/user/role/',
                         type: "POST",
                         async:false,
-                        contentType: "application/json; charset=utf-8",
-                        data:JSON.stringify(param),//表格数据序列化
+                        //contentType: "application/json; charset=utf-8",
+                        data:param,//表格数据序列化
                         success: function (res) {
                             if (res.code == 0) {
                             	 layer.msg("保存成功", {icon: 6});

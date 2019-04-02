@@ -68,7 +68,7 @@
 							</a>
 						</dd>
 						<dd>
-							<a href="${request.contextPath}/login/logout">
+							<a href="${request.contextPath}/login/logout" id="sprlay-user-logout">
 								<i class="layui-icon layui-icon-close"></i>
 								<cite>注销</cite>
 							</a>

@@ -3,7 +3,6 @@ package com.wjk.sprlay.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -28,7 +27,7 @@ public class IndexController {
 	 * @return: String      
 	 */
 	@RequestMapping("/index")
-	public String index(ModelMap map) {
+	public String index() {
 		return "index";
 	}
 	

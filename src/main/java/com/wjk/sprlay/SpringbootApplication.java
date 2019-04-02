@@ -2,7 +2,6 @@ package com.wjk.sprlay;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 
 
 /**
@@ -15,7 +14,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * @date   2019年3月22日 下午2:46:07   
  */
 @MapperScan("com.wjk.sprlay.web.mapper")
-@ServletComponentScan//注册过滤器注解
 @SpringBootApplication
 public class SpringbootApplication {
 

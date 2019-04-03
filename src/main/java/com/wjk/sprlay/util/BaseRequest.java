@@ -47,7 +47,7 @@ public class BaseRequest {
 	 */
 	public void setJson(String json) {
 		this.json = json;
-		params = JsonUtils.parseJSON2Map(json);
+		params = SprUtil.parseJSON2Map(json);
 	}
 
 	/**

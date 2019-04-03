@@ -2,23 +2,29 @@ package com.wjk.sprlay.util;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.wjk.sprlay.exception.SprException;
 
 /**
@@ -795,7 +801,7 @@ public class SprUtil {
 			T vo = (T) clz.newInstance();			
 			
 			// 
-            VOUtils.setMap2VO(mapParseFrom, vo);
+            setMap2VO(mapParseFrom, vo);
 
 			return vo;
 			
@@ -804,7 +810,109 @@ public class SprUtil {
 		}
 	}
 	
+	/**
+	 * 把JSON格式字符串转换成一个列表。
+	 * <p>
+	 * 每个列表项为一个Map对象，字符串格式如：[{key1:..., key2:...},{...},...]
+	 * 
+	 * @param json
+	 *            JSON格式字符串
+	 * @return 列表
+	 */
+	public static List<Map<String, Object>> parseJSON2List(String json) {
+		JSONArray jsonArr = JSONArray.parseArray(json);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		Iterator<Object> it = jsonArr.iterator();
+		while (it.hasNext()) {
+			Object obj = it.next();
+			list.add(parseJSON2Map(obj.toString()));
+		}
+
+		return list;
+	}
+
+	/**
+	 * 把JSON格式字符串转换成一个Map映射对象。
+	 * <p>
+	 * JSON格式字符串格式如：{key1:..., key2:...}
+	 * 
+	 * @param json
+	 *            JSON格式字符串
+	 * @return Map映射对象
+	 */
+	public static Map<String, Object> parseJSON2Map(String json) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		if (SprUtil.isEmpty(json)) {
+			return map;
+		}
+
+		JSONObject jsonObj = JSONObject.parseObject(json);
+		for (Object key : jsonObj.keySet()) {
+			Object val = jsonObj.get(key);
+
+			if (val instanceof JSONArray) {
+				List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+				Iterator<Object> it = ((JSONArray) val).iterator();
+				while (it.hasNext()) {
+					Object obj = it.next();
+					list.add(parseJSON2Map(obj.toString()));
+				}
+				map.put(key.toString(), list);
+			} else {
+				map.put(key.toString(), val);
+			}
+		}
+
+		return map;
+	}
 	
+	
+	/**
+	 * 将Map中的所有key与VO的属性对应，将value赋值给该属性
+	 * 
+	 * @param map
+	 * @param vo
+	 */
+	public static <T> void setMap2VO(Map<String, Object> map, T vo){
+	    
+	    if (!SprUtil.isEmpty(map) && vo != null){
+
+	        try {
+	            
+	            setMap2NormalVO(map, vo);
+	            
+	        } catch (Exception e) {
+	            throw new SprException(e);
+	        }
+	    }
+	}
+	
+	/**
+	 * 将Map中的所有key与VO的属性对应，将value赋值给该属性
+	 * 
+	 * @param map
+	 * @param vo
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 */
+	private static <T> void setMap2NormalVO(Map<String, Object> map, T vo) 
+			throws IllegalAccessException, InvocationTargetException{
+	    
+    	for (Iterator<Map.Entry<String, Object>> iter = 
+    			 map.entrySet().iterator(); 
+			 iter.hasNext();) {
+            
+            Map.Entry<String, Object> entry = iter.next();
+            
+            String code = entry.getKey();
+
+            Object value = entry.getValue();
+            
+            BeanUtils.setProperty(vo, code, value);
+        }
+	}
 	
 	
 	

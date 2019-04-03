@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import com.wjk.sprlay.util.ListRequest;
 import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.model.User;
 import com.wjk.sprlay.web.service.UserService;
@@ -202,15 +203,19 @@ public class UserController {
 	 */
 	@ResponseBody
 	@PostMapping("/role")
-	public ResultData saveUserRole(@RequestParam Map<String, Object> params){
+	public ResultData saveUserRole(HttpServletRequest request,
+			 					   HttpServletResponse response, 
+			 					   ListRequest lreq){
 		
-		String userid =  (String) params.get("userid");
-//		List<Role> list = (List<Role>) params.get("json");
-		String json = (String) params.get("json");
-		List<Role> list = JSON.parseArray(json,Role.class); 
+		String userid = lreq.getParam("userid");
+		List<Role> news = lreq.getParam("news");
+		lreq.setNews(news);
+		
+		List<Role> list = lreq.getNews();
+		
 		System.out.println(userid);
 		System.out.println(list.toString());
-
+		
 		return ResultData.ok();
 	}
 }

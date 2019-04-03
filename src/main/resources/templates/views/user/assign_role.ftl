@@ -69,16 +69,18 @@
 				switch (obj.event) {
 				case 'save':
 					
-					var param = {
+					var json = {
 			    		userid : userid,
-			   	   	 	json : JSON.stringify(data)
+			    		news : data
 			   	 	};
+					var param = {
+							json : JSON.stringify(json)//转为字符串
+				   	};
 					$.ajax({
                         url: ctx+'/user/role/',
                         type: "POST",
                         async:false,
-                        //contentType: "application/json; charset=utf-8",
-                        data:param,//表格数据序列化
+                        data:param,
                         success: function (res) {
                             if (res.code == 0) {
                             	 layer.msg("保存成功", {icon: 6});

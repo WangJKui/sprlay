@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.wjk.sprlay.exception.SprException;
 
 /**
  * @ClassName  SprUtil   
@@ -780,6 +781,33 @@ public class SprUtil {
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param clz
+	 * @param mapParseFrom
+	 * @return
+	 */
+	public static <T> T parseToPOJO(Class<T> clz, Map<String, Object> mapParseFrom) {
+
+	    try {
+	        
+			T vo = (T) clz.newInstance();			
+			
+			// 
+            VOUtils.setMap2VO(mapParseFrom, vo);
+
+			return vo;
+			
+		} catch (Exception e) {
+			throw new SprException(e);
+		}
+	}
+	
+	
+	
+	
+	
 	//===================================================
 	public static void main(String[] args) {
 		System.out.println(encodePassword("123456", "admin"+"1"));

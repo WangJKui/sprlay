@@ -46,10 +46,10 @@ public interface RoleService {
 	/**
 	 * @Title qureyRoleByStatus   
 	 * @Description 根据状态查询   
-	 * @param role
+	 * @param status
 	 * @param userid 
 	 * @return      
 	 * List<Role>
 	 */
-	List<Role> qureyRoleByStatus(Role role, Integer userid);
+	List<Role> qureyRoleByStatus(int status, Integer userid);
 }

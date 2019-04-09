@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.wjk.sprlay.util.FormRequest;
 import com.wjk.sprlay.util.ListRequest;
 import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.model.User;
@@ -63,10 +64,14 @@ public class UserController {
 	 * @param @return      
 	 * @return ModelAndView
 	 */
-	@RequestMapping("/form/{type}/{id}")
-	public ModelAndView toUserForm(@PathVariable(value = "type") String type,@PathVariable(value = "id") Integer id) {
-		
-		ModelAndView mv = userService.toMenuFormByType(id,type);
+	@RequestMapping("/form")
+	public ModelAndView toUserForm(HttpServletRequest request,
+								   HttpServletResponse response, 
+								   FormRequest freq) {
+		Integer userid = freq.getParam("userid");
+		String type = freq.getParam("type");
+
+		ModelAndView mv = userService.toMenuFormByType(userid,type);
 		
 		return mv;
 	}
@@ -116,10 +121,14 @@ public class UserController {
 	 * @return ResultData
 	 */
 	@ResponseBody
-	@PostMapping("/delete/{id}")
-	public ResultData deleteUser(@PathVariable("id") Integer id) {
-	
-		userService.deleteByPrimaryKey(id);
+	@PostMapping("/delete")
+	public ResultData deleteUser(HttpServletRequest request,
+								 HttpServletResponse response, 
+								 FormRequest freq) {
+		
+		Integer userid = freq.getParam("userid");
+
+		userService.deleteByPrimaryKey(userid);
 		
 		return ResultData.ok();
 	}
@@ -207,7 +216,7 @@ public class UserController {
 			 					   HttpServletResponse response, 
 			 					   ListRequest lreq){
 		
-		String userid = lreq.getParam("userid");
+		Integer userid = lreq.getParam("userid");
 		List<Role> news = lreq.getParam("news");
 		lreq.setNews(news);
 		

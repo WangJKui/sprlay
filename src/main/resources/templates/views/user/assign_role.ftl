@@ -10,6 +10,9 @@
    
     <link rel="stylesheet" href="${request.contextPath}/css/public.css">
     <script type="text/javascript" src="${request.contextPath}/layui/layui.js"></script>
+  
+    <script type="text/javascript" src="${request.contextPath}/js/sprlay.js"></script>
+  
   </head>
 
 <body style="margin-top:-10px;">
@@ -23,10 +26,17 @@
 	</script>
 	<script>
 	
+		var userid = ${userid};
 		var ctx = "${request.contextPath}";
-		var userid = "${userid}";
+
+		
 		
 		layui.use(['table','layer','jquery','form'], function() {
+			
+			var param = spr.buildJson({
+				status : 1,
+				userid : userid
+	   	 	});
 			
 			var table = layui.table,
 				$ = layui.jquery,
@@ -39,7 +49,7 @@
 				elem : '#sprlay-role-list',
 				url : ctx+'/role/loadall',
 				method : "post",
-				where: {status: 1,userid:userid},//正常数据
+				where: param,//正常数据
 				parseData: function(res){ //res 即为原始返回的数据
 				    return {
 				      "code": res.code, //解析接口状态
@@ -69,13 +79,11 @@
 				switch (obj.event) {
 				case 'save':
 					
-					var json = {
+					var param = spr.buildJson({
 			    		userid : userid,
 			    		news : data
-			   	 	};
-					var param = {
-							json : JSON.stringify(json)//转为字符串
-				   	};
+			   	 	});
+					
 					$.ajax({
                         url: ctx+'/user/role/',
                         type: "POST",
@@ -99,6 +107,7 @@
 				}
 			});
 		});
+		
 	</script>
 </body>
 

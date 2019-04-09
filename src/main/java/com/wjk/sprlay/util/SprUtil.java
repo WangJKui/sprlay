@@ -788,29 +788,6 @@ public class SprUtil {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @param clz
-	 * @param mapParseFrom
-	 * @return
-	 */
-	public static <T> T parseToPOJO(Class<T> clz, Map<String, Object> mapParseFrom) {
-
-	    try {
-	        
-			T vo = (T) clz.newInstance();			
-			
-			// 
-            setMap2VO(mapParseFrom, vo);
-
-			return vo;
-			
-		} catch (Exception e) {
-			throw new SprException(e);
-		}
-	}
-	
-	/**
 	 * 把JSON格式字符串转换成一个列表。
 	 * <p>
 	 * 每个列表项为一个Map对象，字符串格式如：[{key1:..., key2:...},{...},...]
@@ -866,6 +843,29 @@ public class SprUtil {
 		}
 
 		return map;
+	}
+	
+	/**
+	 * 
+	 * 将Map中的所有key与Class的属性对应，将value赋值给该属性
+	 * @param clz
+	 * @param mapParseFrom
+	 * @return
+	 */
+	public static <T> T parseToPOJO(Class<T> clz, Map<String, Object> mapParseFrom) {
+
+	    try {
+	        
+			T vo = (T) clz.newInstance();			
+			
+			// 
+            setMap2VO(mapParseFrom, vo);
+
+			return vo;
+			
+		} catch (Exception e) {
+			throw new SprException(e);
+		}
 	}
 	
 	

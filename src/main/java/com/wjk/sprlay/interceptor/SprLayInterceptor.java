@@ -55,7 +55,7 @@ public class SprLayInterceptor implements HandlerInterceptor{
 			Map<String, Object> params = new HashMap<String, Object>();
 			
 			String claz = "";
-			String meth= "";
+			String meth = "";
 			
 			if (handler instanceof HandlerMethod) {
 				Method method = ((HandlerMethod) handler).getMethod();
@@ -69,9 +69,9 @@ public class SprLayInterceptor implements HandlerInterceptor{
 			Enumeration<String> enums = request.getParameterNames();
 			while (enums.hasMoreElements()) {
 				String param = enums.nextElement();
-				/*if (param.equals("_ts")) {
+				if (param.equals("_ts")) {
 					continue;
-				}*/
+				}
 
 				String val = String.join("",request.getParameterValues(param));
 				if (param.equals("json")) {
@@ -80,12 +80,6 @@ public class SprLayInterceptor implements HandlerInterceptor{
 					params.put(param, val);
 				}
 			}
-			
-			//页面 contentType: "application/json; charset=utf-8", post请求 以及Controller @RequestBody的使用
-			/*String body = new SprHttpServletRequestWrapper(request).getBody();
-			if(!SprUtil.isEmpty(body)) {
-				params.put("body", JSON.parse(body));
-			}*/
 			
 			map.put("params", params);
 

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="${request.contextPath}/css/public.css">
     
     <script type="text/javascript" src="${request.contextPath}/layui/layui.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/js/sprlay.js"></script>
     
   </head>
 
@@ -93,13 +94,19 @@
 				var data = checkStatus.data;
 				switch (obj.event) {
 				case 'add':
-						layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-							id:"userAdd", 
-							type: 2,
-		                    title: "新增用户",
-		                    area: ['700px', '300px'],
-		                    content: ctx+'/user/form/add/0'//id=0
-		                });
+					
+					var param = spr.buildStr({
+						type : "add",
+						userid : 0
+			   	 	});
+					
+					layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+						id:"userAdd", 
+						type: 2,
+		                title: "新增用户",
+		                area: ['700px', '300px'],
+		                content: ctx+'/user/form?'+param//id=0
+		             });
 					break;
 				}
 			});
@@ -107,20 +114,32 @@
 			table.on('tool(sprlay-user-list-filter)', function(obj) {
 				var data = obj.data;
 				if (obj.event === 'detail') {
+					
+					var param = spr.buildStr({
+						type : "detail",
+						userid : data.id
+			   	 	});
+					
 					layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
 						id:"userDetail",
 	                    type: 2,
 	                    title: "用户信息",
 	                    area: ['700px', '250px'],
-	                    content: ctx+'/user/form/detail/'+data.id
+	                    content: ctx+'/user/form/?'+param
 	                });
 				}
 				else if (obj.event === 'del') {
+					
+					var param = spr.buildJson({
+						userid : data.id
+			   	 	});
+					
 					layer.confirm('真的删除行么', function (index) {
 	                    $.ajax({
-	                        url: ctx+'/user/delete/'+data.id,
+	                        url: ctx+'/user/delete',
 	                        type: "POST",
-	                        async :false,
+	                        async: false,
+	                        data: param,
 	                        success: function (res) {
 	                            if (res.code == 0) {
 	                            	 layer.msg("删除成功", {icon: 6});
@@ -136,12 +155,18 @@
 	                    });
 	                });
 				} else if (obj.event === 'edit') {
+					
+					var param = spr.buildStr({
+						type : "update",
+						userid : data.id
+			   	 	});
+
 					layer.open({
 						id:"userEdit",
 	                    type: 2,
 	                    title: "编辑用户",
 	                    area: ['700px', '300px'],
-	                    content: ctx+'/user/form/update/'+data.id
+	                    content: ctx+'/user/form/?'+param
 	                });	
 				}else if (obj.event === 'assignrole') {
 					layer.open({//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）

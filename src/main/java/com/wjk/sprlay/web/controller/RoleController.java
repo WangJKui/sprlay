@@ -2,6 +2,9 @@ package com.wjk.sprlay.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.wjk.sprlay.util.ListRequest;
 import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.service.RoleService;
 import com.wjk.sprlay.web.vo.ResultData;
@@ -135,10 +139,13 @@ public class RoleController {
 	 */
 	@ResponseBody
 	@PostMapping("/loadall")
-	public ResultData qureyRoleByStatus(Role role,
-			@RequestParam(name = "userid", required = true) Integer userid){
-	
-		List<Role> list = roleService.qureyRoleByStatus(role,userid);
+	public ResultData qureyRoleByStatus(HttpServletRequest request,
+										HttpServletResponse response, 
+										ListRequest lreq){
+		Integer userid = lreq.getParam("userid");
+		int status = lreq.getParam("status");
+
+		List<Role> list = roleService.qureyRoleByStatus(status,userid);
 		
 		return ResultData.ok(list);
 	}

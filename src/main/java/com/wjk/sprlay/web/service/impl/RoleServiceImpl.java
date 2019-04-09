@@ -112,15 +112,18 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	/**
-	 * 加载角色数据，根据用户id以及状态，分配是否选中   
 	 * <p>Title qureyRoleByStatus</p>   
-	 * <p>Description 根据状态查询</p>   
-	 * @param role
+	 * <p>Description 加载角色数据，根据用户id以及状态，分配是否选中   </p>   
+	 * @param status
+	 * @param userid
 	 * @return   
-	 * @see com.wjk.sprlay.web.service.RoleService#qureyRoleByStatus(com.wjk.sprlay.web.model.Role)
+	 * @see com.wjk.sprlay.web.service.RoleService#qureyRoleByStatus(int, java.lang.Integer)
 	 */
 	@Override
-	public List<Role> qureyRoleByStatus(Role role, Integer userid) {
+	public List<Role> qureyRoleByStatus(int status, Integer userid) {
+		
+		Role role = new Role();
+		role.setStatus(status);
 		
 		List<Role> roles = roleMapper.selectAllRole(role);
 		

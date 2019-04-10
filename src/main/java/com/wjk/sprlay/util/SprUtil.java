@@ -21,11 +21,14 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.wjk.sprlay.exception.SprException;
+import com.wjk.sprlay.web.ListRequest;
+import com.wjk.sprlay.web.vo.BaseVO;
 
 /**
  * @ClassName  SprUtil   
@@ -37,7 +40,7 @@ public class SprUtil {
 	//
 	private SprUtil() {
 	}
-	
+
 	// 日期和时间格式 =========================================================
 	/** 完整日期时间格式 */
 	public static final String FORMAT_DATETIME_EXT = "yyyy-MM-dd HH:mm:ss.SSS";
@@ -64,6 +67,21 @@ public class SprUtil {
 	public static final String JSESSIONID_COOKIE = "JSESSIONID";
 	/** url中的jsessionid名称 */
 	public static final String JSESSIONID_URL = "jsessionid";
+
+
+	// 表单操作类型 ===========================================================
+	/** 新增模式 */
+	public static final String FORMTYPE_NEW = "new";
+	/** 修改模式 */
+	public static final String FORMTYPE_MODIFY = "modify";
+	/** 浏览模式 */
+	public static final String FORMTYPE_BROWSE = "browse";
+	/** 继续模式 */
+	public static final String FORMBRANCH_AGAIN = "again";
+	/** 退出模式 */
+	public static final String FORMBRANCH_EXIT = "exit";
+
+
 
 	private static Logger logger = LoggerFactory.getLogger(SprUtil.class); 
 
@@ -190,7 +208,7 @@ public class SprUtil {
 	public static String getWeek() {
 		return getDateTimeString("EE");
 	}
-	
+
 	/**
 	 * 
 	 * @Title: encodePassword   
@@ -227,7 +245,7 @@ public class SprUtil {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @Title: getUUID32   
@@ -239,7 +257,7 @@ public class SprUtil {
 	public static String getUUID32() {
 		return UUID.randomUUID().toString().replace("-", "");
 	}
-	
+
 	/**
 	 * 判断list参数是否为空
 	 * 
@@ -302,7 +320,7 @@ public class SprUtil {
 	public static <T> boolean isEmpty(T[] array) {		
 		return (array == null || array.length <= 0);
 	}
-	
+
 	/**
 	 * 判断字符串参数是否代表true
 	 * 
@@ -391,7 +409,7 @@ public class SprUtil {
 		return sb.toString();
 	}
 
-	
+
 	/**
 	 * 把字符串解析成一个byte值
 	 * 
@@ -501,7 +519,7 @@ public class SprUtil {
 
 		return temp;
 	}
-	
+
 	/**
 	 * 把字符串解析成一个short值
 	 * 
@@ -627,7 +645,7 @@ public class SprUtil {
 	 * @param rule
 	 *            “-aaa[-bbb-ccc-dddd]-”形式的规则码
 	 * @param dec
-     *         分割符
+	 *         分割符
 	 * @return 分割后的字符串列表
 	 */
 	public static List<String> splitRule(String rule,String dec) {
@@ -639,8 +657,8 @@ public class SprUtil {
 	 * 
 	 * @param rule
 	 *            “-aaa[-bbb-ccc-dddd]-”形式的规则码
-     * @param dec
-     *         分割符
+	 * @param dec
+	 *         分割符
 	 * @param includeLast
 	 *            是否包括最后一个ID
 	 * @return 分割后的字符串列表
@@ -655,7 +673,7 @@ public class SprUtil {
 
 			// 去掉头尾的"-"后，按"-"拆分成数组
 			String[] t = rule.substring(1, rule.length() - 1).split(dec);
-			
+
 			if (includeLast) {
 				// 如果包括自己（最后一个）
 				result = Arrays.asList(t);
@@ -739,7 +757,7 @@ public class SprUtil {
 		return str;
 	}
 
-	
+
 	/**
 	 * 把字符串的首字母变成大写
 	 * 
@@ -756,7 +774,7 @@ public class SprUtil {
 			return src.substring(0, 1).toUpperCase() + src.substring(1);
 		}
 	}
-	
+
 	/**
 	 * 输出JSON格式数据。
 	 * <p>
@@ -769,19 +787,21 @@ public class SprUtil {
 	 *            待输出的数据对象
 	 */
 	public static void writeJson(HttpServletResponse response, Object obj) {
-		
+
 		String json = JSON.toJSONStringWithDateFormat(obj, FORMAT_DATETIME);
-		
+
 		if (logger.isInfoEnabled()) {
 			logger.info("response data was wrote: \r\n{}", JSON.toJSONString(obj, true));
 		}
 
-		response.setContentType("text/html;charset=" + CHARSET_DEFAULT);
+//		response.setContentType("text/html;charset=" + CHARSET_DEFAULT);
+
+		response.setContentType("application/json;charset=" + CHARSET_DEFAULT);
 		
 		try (PrintWriter writer = response.getWriter()) {
 
 			writer.write(json);
-			
+
 		} catch (IOException e) {
 			logger.error(e.getLocalizedMessage(), e);
 		}
@@ -844,7 +864,7 @@ public class SprUtil {
 
 		return map;
 	}
-	
+
 	/**
 	 * 
 	 * 将Map中的所有key与Class的属性对应，将value赋值给该属性
@@ -854,21 +874,21 @@ public class SprUtil {
 	 */
 	public static <T> T parseToPOJO(Class<T> clz, Map<String, Object> mapParseFrom) {
 
-	    try {
-	        
+		try {
+
 			T vo = (T) clz.newInstance();			
-			
+
 			// 
-            setMap2VO(mapParseFrom, vo);
+			setMap2VO(mapParseFrom, vo);
 
 			return vo;
-			
+
 		} catch (Exception e) {
 			throw new SprException(e);
 		}
 	}
-	
-	
+
+
 	/**
 	 * 将Map中的所有key与VO的属性对应，将value赋值给该属性
 	 * 
@@ -876,19 +896,19 @@ public class SprUtil {
 	 * @param vo
 	 */
 	public static <T> void setMap2VO(Map<String, Object> map, T vo){
-	    
-	    if (!SprUtil.isEmpty(map) && vo != null){
 
-	        try {
-	            
-	            setMap2NormalVO(map, vo);
-	            
-	        } catch (Exception e) {
-	            throw new SprException(e);
-	        }
-	    }
+		if (!SprUtil.isEmpty(map) && vo != null){
+
+			try {
+
+				setMap2NormalVO(map, vo);
+
+			} catch (Exception e) {
+				throw new SprException(e);
+			}
+		}
 	}
-	
+
 	/**
 	 * 将Map中的所有key与VO的属性对应，将value赋值给该属性
 	 * 
@@ -899,37 +919,129 @@ public class SprUtil {
 	 */
 	private static <T> void setMap2NormalVO(Map<String, Object> map, T vo) 
 			throws IllegalAccessException, InvocationTargetException{
-	    
-    	for (Iterator<Map.Entry<String, Object>> iter = 
-    			 map.entrySet().iterator(); 
-			 iter.hasNext();) {
-            
-            Map.Entry<String, Object> entry = iter.next();
-            
-            String code = entry.getKey();
 
-            Object value = entry.getValue();
-            
-            BeanUtils.setProperty(vo, code, value);
-        }
+		for (Iterator<Map.Entry<String, Object>> iter = 
+				map.entrySet().iterator(); 
+				iter.hasNext();) {
+
+			Map.Entry<String, Object> entry = iter.next();
+
+			String code = entry.getKey();
+
+			Object value = entry.getValue();
+
+			BeanUtils.setProperty(vo, code, value);
+		}
 	}
-	
-	
-	
+
+	/**
+	 * @param <T>
+	 * @Title setListRequestNews   
+	 * @Description   
+	 * @param lreq
+	 * @param clz      
+	 * void
+	 */
+	public static <T> void setListRequestNews(ListRequest lreq, Class<T> clz) {
+
+		Object news = lreq.getParam("news");
+
+		setListRequestRow(lreq, clz,news);
+
+	}
+	/**
+	 * @param <T>
+	 * @Title setListRequestModifys   
+	 * @Description   
+	 * @param lreq
+	 * @param clz      
+	 * void
+	 */
+	public static <T> void setListRequestModifys(ListRequest lreq, Class<T> clz) {
+
+		Object modifys = lreq.getParam("modifys");
+
+		setListRequestRow(lreq, clz,modifys);
+
+	}
+	/**
+	 * @param <T>
+	 * @Title setListRequestNews   
+	 * @Description   
+	 * @param lreq
+	 * @param clz      
+	 * void
+	 */
+	public static <T> void setListRequestDeletes(ListRequest lreq, Class<T> clz) {
+
+		Object deletes = lreq.getParam("deletes");
+
+		setListRequestRow(lreq, clz,deletes);
+	}
+
+	/**
+	 * @param <T>
+	 * @Title setListRequestRow   
+	 * @Description   
+	 * @param lreq
+	 * @param clz
+	 * @param items        
+	 * void
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> void setListRequestRow(ListRequest lreq, Class<T> clz,Object items) {
+
+		List<BaseVO> vos = new ArrayList<>();
+
+		List<Map<String, Object>> list = (ArrayList<Map<String, Object>>) items;
+
+		for (Map<String, Object> item : list) {
+
+			T vo = parseToPOJO(clz, item);
+
+			vos.add((BaseVO) vo);
+		}
+
+		lreq.setNews(vos);
+
+	}
+
+	/**
+	 * 打印日志
+	 * @Title printModelAndViewLog   
+	 * @Description TODO(这里用一句话描述这个方法的作用)   
+	 * @param mv      
+	 * void
+	 */
+	public static void printModelAndViewLog(ModelAndView mv) {
+
+		if (logger.isInfoEnabled()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+
+			map.put("model", mv.getModel());
+			map.put("view", mv.getViewName());
+
+			logger.info("model and view of form returned: \r\n{}", JSON.toJSONString(map, true));
+		}
+	}
+
+
 	//===================================================
 	public static void main(String[] args) {
 		System.out.println(encodePassword("123456", "admin"+"1"));
-		
+
 		System.out.println(SprUtil.getWeek());
-		
+
 		System.out.println(SprUtil.getDateString());
-		
+
 		System.out.println(SprUtil.getDateTimeString());
-		
+
 		System.out.println(SprUtil.getCurrentTime());
 
 		System.out.println(SprUtil.getUUID32());
-		
+
 		logger.info("response data was wrote: \r\n{}", "wjk");
 	}
+
+
 }

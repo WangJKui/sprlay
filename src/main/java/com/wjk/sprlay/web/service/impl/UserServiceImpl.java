@@ -1,7 +1,10 @@
 package com.wjk.sprlay.web.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,9 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wjk.sprlay.util.SprUtil;
+import com.wjk.sprlay.web.ListRequest;
+import com.wjk.sprlay.web.ListResponse;
 import com.wjk.sprlay.web.mapper.UserMapper;
+import com.wjk.sprlay.web.mapper.UserRoleMapper;
+import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.model.User;
+import com.wjk.sprlay.web.model.UserRole;
 import com.wjk.sprlay.web.service.UserService;
+import com.wjk.sprlay.web.vo.BaseVO;
 
 /**
  * @ClassName  UserServiceImpl   
@@ -24,10 +33,12 @@ import com.wjk.sprlay.web.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
+	private static Logger log = LoggerFactory.getLogger(UserServiceImpl.class); 
+
 	@Autowired
 	private UserMapper userMapper;
-//	@Autowired
-//	private UserRoleMapper userRoleMapper;
+	@Autowired
+	private UserRoleMapper userRoleMapper;
 	
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
@@ -95,15 +106,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * <p>Title toMenuFormByType</p>   
+	 * <p>Title toUserFormByType</p>   
 	 * <p>Description form表单页面 根据不同类型，不同的结果</p>   
 	 * @param userid
 	 * @param type update,detail,add
 	 * @return   
-	 * @see com.wjk.sprlay.web.service.UserService#toMenuFormByType(java.lang.Integer, java.lang.String)
+	 * @see com.wjk.sprlay.web.service.UserService#toUserFormByType(java.lang.Integer, java.lang.String)
 	 */
 	@Override
-	public ModelAndView toMenuFormByType(Integer userid, String type) {
+	public ModelAndView toUserFormByType(Integer userid, String type) {
 
 		User user = selectByPrimaryKey(userid);
 		
@@ -133,8 +144,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ModelAndView toUserAssignRoleList(Integer id) {
 		
-//		List<UserRole> list = userRoleMapper.selectByUserId(id);
-		
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName("views/user/assign_role");
@@ -142,6 +151,48 @@ public class UserServiceImpl implements UserService {
 		mv.addObject("userid",id);
 		
 		return mv;
+	}
+
+	/**
+	 * <p>Title saveUserRoleList</p>   
+	 * <p>Description 保存用户角色数据   </p>   
+	 * @param lreq
+	 * @param lres   
+	 * @see com.wjk.sprlay.web.service.UserService#saveUserRoleList(com.wjk.sprlay.web.ListRequest, com.wjk.sprlay.web.ListResponse)
+	 */
+	@Override
+	public void saveUserRoleList(ListRequest lreq, ListResponse lres) {
+		
+		Integer userid = lreq.getParam("userid");
+		
+		/**
+		 * 解析请求参数
+		 */
+		SprUtil.setListRequestNews(lreq,Role.class);
+		
+		List<BaseVO> news = lreq.getNews();
+		
+		List<UserRole> list = new ArrayList<>();
+		
+		news.forEach(n->{
+			
+			UserRole userRole = new UserRole();
+			
+			Role role = (Role) n;
+			
+			userRole.setUserid(userid);
+			userRole.setRoleid(role.getId());
+			
+			list.add(userRole);
+			
+		});
+		//先清空数据根据userid
+		userRoleMapper.deleteByUserId(userid);
+		//保存数据
+		userRoleMapper.insertBatch(list);
+		
+		lres.setSuccess(true);
+		
 	}
 
 }

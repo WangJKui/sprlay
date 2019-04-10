@@ -35,7 +35,7 @@ public class SprLayInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
-		if (log.isInfoEnabled()) {
+		/*if (log.isInfoEnabled()) {
 			log.info("getRequestURL："+request.getRequestURL());
 			log.info("getServerName："+request.getServerName());
 			log.info("getServerPort："+request.getServerPort());
@@ -44,7 +44,7 @@ public class SprLayInterceptor implements HandlerInterceptor{
 			//page=1&limit=10 get请求显示
 			log.info("getQueryString："+request.getQueryString());
 			
-		}
+		}*/
 		
 		
 		if (log.isInfoEnabled()) {
@@ -96,7 +96,7 @@ public class SprLayInterceptor implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
 			throws Exception {
 
-		if (log.isInfoEnabled()) {
+		/*if (log.isInfoEnabled()) {
 			
 			if(modelAndView != null) {
 				Map<String, Object> map = new HashMap<String, Object>();
@@ -104,12 +104,10 @@ public class SprLayInterceptor implements HandlerInterceptor{
 				map.put("model", modelAndView.getModel()==null?"":modelAndView.getModel().toString());
 				map.put("view", modelAndView.getViewName());
 				
-				log.info("response data was wrote: \r\n{}" ,  JSON.toJSONString(map, true));
-
+				log.info("model and view of form returned: \r\n{}", JSON.toJSONString(map, true));
 			}
-			
 		}
-		
+		*/
 	}
 
 	@Override

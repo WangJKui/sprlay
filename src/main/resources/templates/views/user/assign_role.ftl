@@ -90,8 +90,10 @@
                         async:false,
                         data:param,
                         success: function (res) {
-                            if (res.code == 0) {
+                            if (res.success) {
                             	 layer.msg("保存成功", {icon: 6});
+                            	 
+                            	 table.reload('roleTableID');
                             } else {
                             	 layer.msg(res.msg, {icon: 5});
                             }

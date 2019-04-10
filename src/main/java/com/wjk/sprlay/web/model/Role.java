@@ -1,9 +1,8 @@
 package com.wjk.sprlay.web.model;
 
-import java.io.Serializable;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.wjk.sprlay.web.vo.BaseVO;
 
 
 /**
@@ -12,12 +11,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author WangJKui
  * @date   2019年3月22日 下午2:44:39   
  */
-public class Role implements Serializable{
+public class Role extends BaseVO{
     /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 * @Fields serialVersionUID TODO(用一句话描述这个变量表示什么)   
 	 */
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = -3031722071784934468L;
+	
 	private Integer id;
 
     private String name;

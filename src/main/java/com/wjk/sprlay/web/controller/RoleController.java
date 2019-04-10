@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
-import com.wjk.sprlay.util.ListRequest;
+import com.wjk.sprlay.web.ListRequest;
 import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.service.RoleService;
 import com.wjk.sprlay.web.vo.ResultData;

@@ -1,7 +1,8 @@
 package com.wjk.sprlay.web.model;
 
-import java.io.Serializable;
 import java.util.List;
+
+import com.wjk.sprlay.web.vo.BaseVO;
 
 /**
  * @ClassName  Menu   
@@ -9,12 +10,13 @@ import java.util.List;
  * @author WangJKui
  * @date   2019年3月22日 下午2:44:29   
  */
-public class Menu implements Serializable{
-    /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */
-	private static final long serialVersionUID = 1L;
+public class Menu extends BaseVO{
 
+	/**   
+	 * @Fields serialVersionUID TODO(用一句话描述这个变量表示什么)   
+	 */
+	private static final long serialVersionUID = 6819784780338872902L;
+	
 	private Integer id;
 
     private Integer pid;
@@ -153,6 +155,5 @@ public class Menu implements Serializable{
 				+ ", permission=" + permission + ", type=" + type + ", status=" + status + ", orderno=" + orderno
 				+ ", ctime=" + ctime + ", remark=" + remark + ", innercode=" + innercode + ", child=" + child + "]";
 	}
-
     
 }

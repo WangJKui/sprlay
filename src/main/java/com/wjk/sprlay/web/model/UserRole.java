@@ -1,6 +1,6 @@
 package com.wjk.sprlay.web.model;
 
-import java.io.Serializable;
+import com.wjk.sprlay.web.vo.BaseVO;
 
 /**
  * @ClassName  UserRole
@@ -8,11 +8,12 @@ import java.io.Serializable;
  * @author WangJKui
  * @date   2019年3月28日 下午3:38:08
  */
-public class UserRole implements Serializable{
-    /**   
+public class UserRole extends BaseVO{
+
+	/**   
 	 * @Fields serialVersionUID TODO(用一句话描述这个变量表示什么)   
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4932157102043784307L;
 
 	private Integer id;
 

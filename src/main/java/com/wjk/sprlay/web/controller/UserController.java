@@ -1,6 +1,5 @@
 package com.wjk.sprlay.web.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
-import com.wjk.sprlay.util.FormRequest;
-import com.wjk.sprlay.util.ListRequest;
-import com.wjk.sprlay.web.model.Role;
+import com.wjk.sprlay.util.SprUtil;
+import com.wjk.sprlay.web.FormRequest;
+import com.wjk.sprlay.web.ListRequest;
+import com.wjk.sprlay.web.ListResponse;
 import com.wjk.sprlay.web.model.User;
 import com.wjk.sprlay.web.service.UserService;
 import com.wjk.sprlay.web.vo.ResultData;
+
 
 /**
  * 
@@ -36,7 +37,7 @@ import com.wjk.sprlay.web.vo.ResultData;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
 
 	private static Logger logger = LoggerFactory.getLogger(UserController.class); 
 
@@ -71,9 +72,12 @@ public class UserController {
 		Integer userid = freq.getParam("userid");
 		String type = freq.getParam("type");
 
-		ModelAndView mv = userService.toMenuFormByType(userid,type);
+		ModelAndView mav = userService.toUserFormByType(userid,type);
 		
-		return mv;
+		//打印
+		printModelAndView(mav);
+		
+		return mav;
 	}
 	
 	/**
@@ -197,9 +201,13 @@ public class UserController {
 	 */
 	@RequestMapping("/assign/{id}")
 	public ModelAndView toUserAssignRoleList(@PathVariable(value = "id") Integer id) {
-		ModelAndView mv = userService.toUserAssignRoleList(id);
+		
+		ModelAndView mav = userService.toUserAssignRoleList(id);
 
-		return mv;
+		//打印
+		printModelAndView(mav);
+		
+		return mav;
 	}
 	
 	/**
@@ -210,21 +218,18 @@ public class UserController {
 	 * @return      
 	 * ResultData
 	 */
-	@ResponseBody
 	@PostMapping("/role")
-	public ResultData saveUserRole(HttpServletRequest request,
+	public void saveUserRoleList(HttpServletRequest request,
 			 					   HttpServletResponse response, 
 			 					   ListRequest lreq){
 		
-		Integer userid = lreq.getParam("userid");
-		List<Role> news = lreq.getParam("news");
-		lreq.setNews(news);
+		// 创建列表响应数据对象
+		ListResponse lres = new ListResponse();
 		
-		List<Role> list = lreq.getNews();
+		userService.saveUserRoleList(lreq,lres);
 		
-		System.out.println(userid);
-		System.out.println(list.toString());
+		//输出
+		writeJsonList(response, lres);
 		
-		return ResultData.ok();
 	}
 }

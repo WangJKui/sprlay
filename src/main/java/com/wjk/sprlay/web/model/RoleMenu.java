@@ -1,6 +1,6 @@
 package com.wjk.sprlay.web.model;
 
-import java.io.Serializable;
+import com.wjk.sprlay.web.vo.BaseVO;
 
 /**
  * @ClassName  RoleMenu
@@ -8,11 +8,12 @@ import java.io.Serializable;
  * @author WangJKui
  * @date   2019年3月28日 下午3:37:32
  */
-public class RoleMenu implements Serializable{
-    /**   
+public class RoleMenu extends BaseVO{
+
+	/**   
 	 * @Fields serialVersionUID TODO(用一句话描述这个变量表示什么)   
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5560598597668926315L;
 
 	private Integer id;
 

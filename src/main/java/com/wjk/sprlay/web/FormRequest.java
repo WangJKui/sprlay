@@ -1,9 +1,9 @@
-package com.wjk.sprlay.util;
+package com.wjk.sprlay.web;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.wjk.sprlay.web.model.User;
+import com.wjk.sprlay.web.vo.BaseVO;
 
 /**
  * 表单请求数据对象，用于接收视图层的表单请求参数。
@@ -37,7 +37,7 @@ public class FormRequest extends BaseRequest {
 	/**
 	 * 表单数据记录。
 	 */
-	private User row = null;
+	private BaseVO row = null;
 
 	/**
 	 * 新增的VO对象表单中对应的动态实体项值。
@@ -102,7 +102,7 @@ public class FormRequest extends BaseRequest {
 	 * 
 	 * @return 表单数据记录
 	 */
-	public User getRow() {
+	public BaseVO getRow() {
 		return row;
 	}
 
@@ -112,7 +112,7 @@ public class FormRequest extends BaseRequest {
 	 * @param row
 	 *            表单数据记录
 	 */
-	public void setRow(User row) {
+	public void setRow(BaseVO row) {
 		this.row = row;
 	}
 

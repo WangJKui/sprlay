@@ -132,7 +132,7 @@ public class RoleServiceImpl implements RoleService {
 		roles.forEach(r ->{
 			users.forEach(u->{
 				//
-				if (r.getId().equals(u.getId())) {
+				if (r.getId().equals(u.getRoleid())) {
 					r.setLAY_CHECKED(true);
 				}
 			});

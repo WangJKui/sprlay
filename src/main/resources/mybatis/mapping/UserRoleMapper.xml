@@ -75,4 +75,22 @@
    	 from user_role
    	 where userid = #{userid,jdbcType=INTEGER}
    </select>
+
+	<!-- 批量插入 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into user_role
+		(userid, roleid)
+		values
+		<foreach collection="list" item="userRole" index="index" separator=",">
+			(
+			#{userRole.userid}, 
+			#{userRole.roleid}
+			)
+		</foreach>
+	</insert>
+	
+   <delete id="deleteByUserId" parameterType="java.lang.Integer">
+   	 delete from user_role
+   	 where userid = #{userid,jdbcType=INTEGER}
+   </delete>
 </mapper>

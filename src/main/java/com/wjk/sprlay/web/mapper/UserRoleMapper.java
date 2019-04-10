@@ -25,4 +25,22 @@ public interface UserRoleMapper {
      * List<UserRole>
      */
 	List<UserRole> selectByUserId(Integer id);
+	
+	/**
+	 * @Title insertBatch   
+	 * @Description  批量插入  
+	 * @param list
+	 * @return      
+	 * int
+	 */
+	int insertBatch(List<UserRole > list);
+
+	/**
+	 * @Title deleteByUserId   
+	 * @Description 根据用户id删除数据 
+	 * @param userid
+	 * @return      
+	 * int
+	 */
+	int deleteByUserId(Integer userid);
 }

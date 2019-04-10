@@ -1,10 +1,10 @@
-package com.wjk.sprlay.util;
+package com.wjk.sprlay.web;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.wjk.sprlay.web.model.Role;
+import com.wjk.sprlay.web.vo.BaseVO;
 
 /**
  * 列表请求数据对象，用于接收视图层的列表请求参数
@@ -58,21 +58,21 @@ public class ListRequest extends BaseRequest {
 	 * <p>
 	 * 由{@link WAFService#parseForDelete(ListRequest, ListCache)}解析而成
 	 */
-	private List<Role> deletes = null;
+	private List<BaseVO> deletes = null;
 
 	/**
 	 * 被修改了的VO对象列
 	 * <p>
 	 * 由{@link WAFService#parseForSave(ListRequest, ListCache)}解析而成
 	 */
-	private List<Role> modifys = null;
+	private List<BaseVO> modifys = null;
 
 	/**
 	 * 新增的VO对象列表。
 	 * <p>
 	 * 由{@link WAFService#parseForSave(ListRequest, ListCache)}解析而成
 	 */
-	private List<Role> news = null;
+	private List<BaseVO> news = null;
 	
 	/**
 	 * 新增的VO对象列表中对应的动态实体项值。
@@ -210,7 +210,7 @@ public class ListRequest extends BaseRequest {
 	 * 
 	 * @return 待删除的VO对象列表
 	 */
-	public List<Role> getDeletes() {
+	public List<BaseVO> getDeletes() {
 		return deletes;
 	}
 
@@ -220,7 +220,7 @@ public class ListRequest extends BaseRequest {
 	 * @param deletes
 	 *            待删除的VO对象列表
 	 */
-	public void setDeletes(List<Role> deletes) {
+	public void setDeletes(List<BaseVO> deletes) {
 		this.deletes = deletes;
 	}
 
@@ -229,7 +229,7 @@ public class ListRequest extends BaseRequest {
 	 * 
 	 * @return 被修改了的VO对象列
 	 */
-	public List<Role> getModifys() {
+	public List<BaseVO> getModifys() {
 		return modifys;
 	}
 
@@ -239,7 +239,7 @@ public class ListRequest extends BaseRequest {
 	 * @param modifys
 	 *            被修改了的VO对象列
 	 */
-	public void setModifys(List<Role> modifys) {
+	public void setModifys(List<BaseVO> modifys) {
 		this.modifys = modifys;
 	}
 
@@ -248,7 +248,7 @@ public class ListRequest extends BaseRequest {
 	 * 
 	 * @return 新增的VO对象列表
 	 */
-	public List<Role> getNews() {
+	public List<BaseVO> getNews() {
 		return news;
 	}
 
@@ -258,7 +258,7 @@ public class ListRequest extends BaseRequest {
 	 * @param news
 	 *            新增的VO对象列表
 	 */
-	public void setNews(List<Role> news) {
+	public void setNews(List<BaseVO> news) {
 		this.news = news;
 	}
 

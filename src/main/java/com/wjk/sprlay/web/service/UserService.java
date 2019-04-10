@@ -3,6 +3,8 @@ package com.wjk.sprlay.web.service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.wjk.sprlay.web.ListRequest;
+import com.wjk.sprlay.web.ListResponse;
 import com.wjk.sprlay.web.model.User;
 
 public interface UserService {
@@ -44,14 +46,14 @@ public interface UserService {
     User selectByUserName(String username);
 
     /**
-     * @Title toMenuFormByType   
+     * @Title toUserFormByType   
      * @Description form表单页面 根据不同类型，不同的结果 
      * @param id
      * @param type update,detail,add
      * @return      
      * ModelAndView
      */
-	ModelAndView toMenuFormByType(Integer id, String type);
+	ModelAndView toUserFormByType(Integer id, String type);
 
 	/**
 	 * @Title toUserAssignRoleList   
@@ -61,4 +63,13 @@ public interface UserService {
 	 * ModelAndView
 	 */
 	ModelAndView toUserAssignRoleList(Integer id);
+
+	/**
+	 * @Title saveUserRoleList   
+	 * @Description 保存用户角色数据   
+	 * @param lreq
+	 * @param lres      
+	 * void
+	 */
+	void saveUserRoleList(ListRequest lreq, ListResponse lres);
 }

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
-import com.wjk.sprlay.util.SprUtil;
 import com.wjk.sprlay.web.FormRequest;
 import com.wjk.sprlay.web.ListRequest;
 import com.wjk.sprlay.web.ListResponse;
@@ -219,14 +218,14 @@ public class UserController extends BaseController{
 	 * ResultData
 	 */
 	@PostMapping("/role")
-	public void saveUserRoleList(HttpServletRequest request,
+	public void insertUserRole(HttpServletRequest request,
 			 					   HttpServletResponse response, 
 			 					   ListRequest lreq){
 		
 		// 创建列表响应数据对象
 		ListResponse lres = new ListResponse();
 		
-		userService.saveUserRoleList(lreq,lres);
+		userService.insertUserRole(lreq,lres);
 		
 		//输出
 		writeJsonList(response, lres);

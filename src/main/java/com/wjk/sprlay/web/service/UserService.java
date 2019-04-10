@@ -65,11 +65,11 @@ public interface UserService {
 	ModelAndView toUserAssignRoleList(Integer id);
 
 	/**
-	 * @Title saveUserRoleList   
+	 * @Title insertUserRole   
 	 * @Description 保存用户角色数据   
 	 * @param lreq
 	 * @param lres      
 	 * void
 	 */
-	void saveUserRoleList(ListRequest lreq, ListResponse lres);
+	void insertUserRole(ListRequest lreq, ListResponse lres);
 }

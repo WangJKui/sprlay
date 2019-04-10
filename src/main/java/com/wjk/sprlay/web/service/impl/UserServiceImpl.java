@@ -3,8 +3,6 @@ package com.wjk.sprlay.web.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +30,6 @@ import com.wjk.sprlay.web.vo.BaseVO;
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {
-
-	private static Logger log = LoggerFactory.getLogger(UserServiceImpl.class); 
 
 	@Autowired
 	private UserMapper userMapper;
@@ -154,14 +150,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * <p>Title saveUserRoleList</p>   
+	 * <p>Title insertUserRole</p>   
 	 * <p>Description 保存用户角色数据   </p>   
 	 * @param lreq
 	 * @param lres   
-	 * @see com.wjk.sprlay.web.service.UserService#saveUserRoleList(com.wjk.sprlay.web.ListRequest, com.wjk.sprlay.web.ListResponse)
+	 * @see com.wjk.sprlay.web.service.UserService#insertUserRole(com.wjk.sprlay.web.ListRequest, com.wjk.sprlay.web.ListResponse)
 	 */
 	@Override
-	public void saveUserRoleList(ListRequest lreq, ListResponse lres) {
+	public void insertUserRole(ListRequest lreq, ListResponse lres) {
 		
 		Integer userid = lreq.getParam("userid");
 		
@@ -176,9 +172,9 @@ public class UserServiceImpl implements UserService {
 		
 		news.forEach(n->{
 			
-			UserRole userRole = new UserRole();
-			
 			Role role = (Role) n;
+			
+			UserRole userRole = new UserRole();
 			
 			userRole.setUserid(userid);
 			userRole.setRoleid(role.getId());

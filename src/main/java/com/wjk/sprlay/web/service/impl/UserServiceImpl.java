@@ -3,6 +3,8 @@ package com.wjk.sprlay.web.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,23 +70,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int updateByPrimaryKey(User user) {
 		return userMapper.updateByPrimaryKey(user);
-	}
-
-	/**
-	 * 
-	 * <p>Title: qureyUserByPage</p>   
-	 * <p>Description: 分页列表显示用户信息(模糊查询)</p>   
-	 * @param pageNum
-	 * @param pageSize
-	 * @return   
-	 * @see com.wjk.sprlay.web.service.UserService#qureyUserByPage(int, int)
-	 */
-	@Override
-	public PageInfo<User> qureyUserByPage(int pageNum, int pageSize, User user) {
-		PageHelper.startPage(pageNum, pageSize);
-		List<User> list = userMapper.selectAllUser(user);
-		PageInfo<User> result = new PageInfo<User>(list);
-		return result;
 	}
 
 	/**
@@ -189,6 +174,42 @@ public class UserServiceImpl implements UserService {
 		
 		lres.setSuccess(true);
 		
+	}
+
+
+	/**
+	 * <p>Title qureyUserByPage</p>   
+	 * <p>Description 分页列表显示用户信息(模糊查询) </p>   
+	 * @param request
+	 * @param lreq
+	 * @param lres   
+	 * @see com.wjk.sprlay.web.service.UserService#qureyUserByPage(javax.servlet.http.HttpServletRequest, com.wjk.sprlay.web.ListRequest, com.wjk.sprlay.web.ListResponse)
+	 */
+	@Override
+	public void qureyUserByPage(HttpServletRequest request,ListRequest lreq, ListResponse lres) {
+		
+		String pageSize = request.getParameter("pageSize");
+		String pageNum = request.getParameter("pageNum");
+		
+		String username = lreq.getParam("username");
+		String nickname = lreq.getParam("nickname");
+		
+		User user = new User();
+		user.setNickname(nickname);
+		user.setUsername(username);
+		
+		//
+		PageHelper.startPage(Integer.valueOf(pageNum), Integer.valueOf(pageSize));
+		
+		List<User> list = userMapper.selectAllUser(user);
+		
+		PageInfo<User> result = new PageInfo<User>(list);
+		//
+		
+		lres.setData(result);
+		lres.setSuccess(true);
+		lres.setMessageCode("0");
+		lres.setMessage("成功");
 	}
 
 }

@@ -58,15 +58,20 @@
 				$ = layui.jquery,
 				layer = layui.layer,
 				form = layui.form;
+			
 			table.render({
 				id: 'userTableID',
 				elem : '#sprlay-user-list',
 				url : ctx+'/user/load',
 				method : "post",
+				request: {
+				    pageName: 'pageNum' ,//页码的参数名称，默认：page pageSize
+				    limitName: 'pageSize' //每页数据量的参数名，默认：limit 
+				},
 				parseData: function(res){ //res 即为原始返回的数据
 				    return {
-				      "code": res.code, //解析接口状态
-				      "msg": res.msg, //解析提示文本
+				      "code": res.messageCode, //解析接口状态
+				      "msg": res.message, //解析提示文本
 				      "count": res.data.total, //解析数据长度
 				      "data": res.data.list //解析数据列表
 				    };
@@ -185,12 +190,17 @@
 				       var username = $('#s_username_id');
 				       var nickname = $('#s_nickname_id');
 				       
+				       var param = spr.buildJson({
+				    	   username : username.val(),
+				    	   nickname : nickname.val()
+				   	 	});
+				       
 				      //执行重载
 				       table.reload('userTableID', {
 				            page: {
 				           		curr: 1 //重新从第 1 页开始
 				            },
-				      		where: {username: username.val(),nickname: nickname.val()}
+				      		where: param
 				      });
 				    }
 				  };

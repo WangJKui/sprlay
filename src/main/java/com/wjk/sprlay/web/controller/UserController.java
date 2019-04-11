@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.pagehelper.PageInfo;
 import com.wjk.sprlay.web.FormRequest;
 import com.wjk.sprlay.web.ListRequest;
 import com.wjk.sprlay.web.ListResponse;
@@ -178,17 +176,18 @@ public class UserController extends BaseController{
 	 * @param @return      
 	 * @return ResultData
 	 */
-	@ResponseBody
 	@PostMapping("/load")
-	public ResultData qureyUserByPage(
-			@RequestParam(name = "page", required = false, defaultValue = "1")
-			int pageNum,
-			@RequestParam(name = "limit", required = false, defaultValue = "10")
-			int pageSize,User user){
+	public void qureyUserByPage(HttpServletRequest request,
+								HttpServletResponse response, 
+								ListRequest lreq){
+		// 创建列表响应数据对象
+		ListResponse lres = new ListResponse();
 		
-		PageInfo<User> page = userService.qureyUserByPage(pageNum,pageSize,user);
+		userService.qureyUserByPage(request,lreq,lres);
 		
-		return ResultData.ok(page);
+		//输出
+		writeJsonList(response, lres);
+		
 	}
 	
 	/**
@@ -219,8 +218,8 @@ public class UserController extends BaseController{
 	 */
 	@PostMapping("/role")
 	public void insertUserRole(HttpServletRequest request,
-			 					   HttpServletResponse response, 
-			 					   ListRequest lreq){
+			 				   HttpServletResponse response, 
+			 				   ListRequest lreq){
 		
 		// 创建列表响应数据对象
 		ListResponse lres = new ListResponse();

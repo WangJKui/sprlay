@@ -1,8 +1,9 @@
 package com.wjk.sprlay.web.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.pagehelper.PageInfo;
 import com.wjk.sprlay.web.ListRequest;
 import com.wjk.sprlay.web.ListResponse;
 import com.wjk.sprlay.web.model.User;
@@ -21,19 +22,6 @@ public interface UserService {
 
     int updateByPrimaryKey(User user);
     
-    /**
-     * 
-     * @Title: qureyUserByPage   
-     * @Description: 分页列表显示用户信息(模糊查询)  
-     * @param: @param pageNum
-     * @param: @param pageSize
-     * @param: @param user
-     * @param: @return      
-     * @return: PageInfo<User>      
-     * @throws
-     */
-    PageInfo<User> qureyUserByPage(int pageNum, int pageSize, User user);
-
     /**
      * 
      * @Title: selectByUserName   
@@ -68,8 +56,18 @@ public interface UserService {
 	 * @Title insertUserRole   
 	 * @Description 保存用户角色数据   
 	 * @param lreq
-	 * @param lres      
+	 * @param lres
 	 * void
 	 */
 	void insertUserRole(ListRequest lreq, ListResponse lres);
+
+	/**
+	 * @Title qureyUserByPage   
+	 * @Description 分页列表显示用户信息(模糊查询)   
+	 * @param request
+	 * @param lreq
+	 * @param lres
+	 * void
+	 */
+	void qureyUserByPage(HttpServletRequest request,ListRequest lreq, ListResponse lres);
 }

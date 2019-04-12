@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wjk.sprlay.util.SprUtil;
+import com.wjk.sprlay.web.ListRequest;
 import com.wjk.sprlay.web.ListResponse;
 
 /**
@@ -36,6 +37,16 @@ public abstract class BaseController {
 		SprUtil.printModelAndViewLog(mav);
 	}
 
-	
+	/**
+	 * @param <T>
+	 * @Title setListRequestNews   
+	 * @Description 解析请求参数 
+	 * @param lreq
+	 * @param clz      
+	 * void
+	 */
+	public <T> void setListRequestNews(ListRequest lreq, Class<T> clz) {
+		SprUtil.setListRequestNews(lreq,clz);
+	}
 	
 }

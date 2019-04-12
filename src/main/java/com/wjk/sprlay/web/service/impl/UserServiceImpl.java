@@ -146,11 +146,6 @@ public class UserServiceImpl implements UserService {
 		
 		Integer userid = lreq.getParam("userid");
 		
-		/**
-		 * 解析请求参数
-		 */
-		SprUtil.setListRequestNews(lreq,Role.class);
-		
 		List<BaseVO> news = lreq.getNews();
 		
 		List<UserRole> list = new ArrayList<>();

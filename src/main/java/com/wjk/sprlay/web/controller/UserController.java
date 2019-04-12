@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wjk.sprlay.web.FormRequest;
 import com.wjk.sprlay.web.ListRequest;
 import com.wjk.sprlay.web.ListResponse;
+import com.wjk.sprlay.web.model.Role;
 import com.wjk.sprlay.web.model.User;
 import com.wjk.sprlay.web.service.UserService;
 import com.wjk.sprlay.web.vo.ResultData;
@@ -224,10 +225,13 @@ public class UserController extends BaseController{
 		// 创建列表响应数据对象
 		ListResponse lres = new ListResponse();
 		
+		setListRequestNews(lreq,Role.class);
+		
 		userService.insertUserRole(lreq,lres);
 		
 		//输出
 		writeJsonList(response, lres);
 		
 	}
+	
 }
